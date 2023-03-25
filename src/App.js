@@ -6,6 +6,8 @@ import User from "./User";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Career from "./Career";
+import Products from "./Products";
+import Brand from "./Brand";
 
 function App() {
   return (
@@ -17,6 +19,9 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/about/:user" element={<User />} />
           <Route path="/about/:user/career" element={<Career />} />
+
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:brand" element={<Brand />} />
         </Routes>
       </BrowserRouter>
     </>
