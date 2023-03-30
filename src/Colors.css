@@ -1,0 +1,41 @@
+/* light theme variables */
+:root.dark-theme {
+    --themain-background: #161d31;
+    --logo-color: beige;
+    --p-color: white;
+    --a-color: white;
+    --primary-background: #283046;
+
+}
+
+/* dark theme */
+:root.light-theme {
+    --themain-background: #f8f8f8;
+    --logo-color: blue;
+    --p-color: black;
+    --a-color: black;
+    --primary-background: white;
+}
+
+
+html {
+    background-color: var(--themain-background);
+}
+
+p {
+    color: var(--p-color);
+}
+
+a {
+    color: var(--a-color);
+}
+
+.logo {
+    color: var(--logo-color);
+}
+
+.navbar,
+.navbar_inner.opening,
+.thebox {
+    background-color: var(--primary-background);
+}
