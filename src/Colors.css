@@ -52,6 +52,9 @@ a {
     background-color: var(--primary-background);
 }
 
-.navbar_inner.opening {
-    box-shadow: 20px 0px 20000px 60px var(--navbar-shadow);
+
+@media (max-width:600px) {
+    .navbar_inner.opening {
+        box-shadow: 20px 0px 20000px 60px var(--navbar-shadow);
+    }
 }
