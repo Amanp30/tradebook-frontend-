@@ -29,9 +29,17 @@ const Theme = () => {
   return (
     <>
       {theme ? (
-        <Sun theclass="themebtn" clickfunc={(e) => setTheme(!theme)} />
+        <img
+          src="/sun.svg"
+          className="themebtn"
+          onClick={(e) => setTheme(!theme)}
+        />
       ) : (
-        <Moon theclass="themebtn" clickfunc={(e) => setTheme(!theme)} />
+        <img
+          src="/moon.svg"
+          className="themebtn"
+          onClick={(e) => setTheme(!theme)}
+        />
       )}
     </>
   );
