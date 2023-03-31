@@ -1,7 +1,7 @@
 /* light theme variables */
 :root.dark-theme {
     --themain-background: #161d31;
-    --menubtn-filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(1deg) brightness(104%) contrast(104%);
+    --image-filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(1deg) brightness(104%) contrast(104%);
     --logo-color: beige;
     --p-color: white;
     --a-color: white;
@@ -12,7 +12,7 @@
 /* dark theme */
 :root.light-theme {
     --themain-background: #f8f8f8;
-    --menubtn-filter: unset;
+    --image-filter: unset;
     --logo-color: blue;
     --p-color: black;
     --a-color: black;
@@ -24,7 +24,9 @@ html {
     background-color: var(--themain-background);
 }
 
-p {
+p,
+.menudropdown,
+.droplinks li::marker {
     color: var(--p-color);
 }
 
@@ -36,8 +38,9 @@ a {
     color: var(--logo-color);
 }
 
-.openmenubtn {
-    filter: var(--menubtn-filter);
+.openmenubtn,
+.menudropdown img {
+    filter: var(--image-filter);
 }
 
 .navbar,

@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "./components/Layout";
 
-function Home() {
+function Dashboard() {
   return (
     <>
       <Layout>
@@ -73,4 +73,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Dashboard;

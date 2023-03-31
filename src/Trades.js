@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "./components/Layout";
 
-function Contact() {
+function Trades() {
   return (
     <div>
       <Layout>
@@ -11,4 +11,4 @@ function Contact() {
   );
 }
 
-export default Contact;
+export default Trades;

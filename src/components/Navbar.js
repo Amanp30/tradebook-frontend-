@@ -1,10 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom"; // import the NavLink component from react-router-dom
-import { Menu } from "./Svgs";
 import Theme from "./Theme";
+
+function Dropdown({ data, heading }) {
+  const [isDropdownOpen, setisDropdownOpen] = useState(false);
+  console.log(data);
+  return (
+    <>
+      <div
+        className={"menudropdown  " + heading.toLowerCase()}
+        onClick={(e) => setisDropdownOpen(!isDropdownOpen)}
+      >
+        {heading} <img src="/droparrow.svg" />
+      </div>
+
+      {isDropdownOpen && (
+        <ul className="droplinks">
+          {data[0].links.map((item, index) => (
+            <li key={index}>
+              <NavLink to={item.link} activeClassName="active-link">
+                {item.text}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+}
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState("default");
+
+  var Reportsdata = [
+    {
+      links: [
+        {
+          text: "Overview",
+          link: "/overview",
+        },
+        {
+          text: "Hourly",
+          link: "/hourly",
+        },
+        {
+          text: "Weekday",
+          link: "/weekday",
+        },
+      ],
+    },
+  ];
 
   useEffect(() => {
     function checkingTarget(event) {
@@ -45,7 +90,6 @@ function Navbar() {
           style={{ width: "16px" }}
         />
         <p className="logo">TradeBook</p>
-        <Theme />
       </div>
       <div
         className={
@@ -61,67 +105,13 @@ function Navbar() {
           <Theme />
         </div>
         <div className="links_container">
-          <NavLink exact to="/" activeClassName="active-link">
-            Home
+          <NavLink to="/" activeclassname="active-link">
+            Dashboard
           </NavLink>
-          <NavLink to="/contact" activeClassName="active-link">
-            contact
+          <NavLink to="/trades" activeclassname="active-link">
+            Trades
           </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-          <NavLink to="/Products" activeClassName="active-link">
-            Products
-          </NavLink>
-
-          <NavLink to="/Products" activeClassName="active-link">
-            atharv
-          </NavLink>
+          <Dropdown heading="Reports" data={Reportsdata} />
         </div>
       </div>
     </>
