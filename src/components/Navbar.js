@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom"; // import the NavLink component from react-router-dom
+import { Menu } from "./Svgs";
 import Theme from "./Theme";
 
 function Navbar() {
@@ -38,12 +39,18 @@ function Navbar() {
   return (
     <>
       <div className="onlymobile">
-        <button className="openmenubtn">Open Menu</button>
+        <img
+          src="/menubtn.svg"
+          className="openmenubtn"
+          style={{ width: "16px" }}
+        />
+        <p className="logo">TradeBook</p>
+        <Theme />
       </div>
       <div
         className={
           isOpen === "default"
-            ? "menuclosed "
+            ? "menuclosed navbar_inner"
             : isOpen === "openit"
             ? "navbar_inner opening"
             : "navbar_inner closing"

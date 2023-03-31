@@ -74,18 +74,55 @@ a {
 
 @media (max-width: 600px) {
     .onlymobile {
-        display: block;
+        display: flex;
+        min-height: 3em;
+        align-items: center;
+        gap: 5%;
+        padding: 0 1em;
     }
 
     .menuclosed {
         display: none;
     }
 
-    .navbar_inner.closing {
-        display: none;
+    .navbar {
+        position: sticky !important;
+        top: 0;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(-100%);
+        }
+
+        to {
+            transform: translateX(0);
+        }
     }
 
     .navbar_inner.opening {
+        animation-name: slideIn;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-out;
+    }
+
+    @keyframes slide-out {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+    .navbar_inner.closing {
+        animation: slide-out 0.5s forwards;
+    }
+
+
+    .navbar_inner.opening,
+    .navbar_inner.closing {
         width: 70%;
         position: absolute;
         z-index: 1;
@@ -93,6 +130,7 @@ a {
         bottom: 0;
         left: 0;
         right: 0;
+        height: max-content;
     }
 }
 
@@ -107,6 +145,10 @@ a {
 
 
 @media (max-width:600px) {
+
+    .content {
+        padding: 1em;
+    }
 
     .navbar,
     .content {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Moon, Sun } from "./svgs";
+import { Moon, Sun } from "./Svgs";
 
 const Theme = () => {
   const getCookie = (name) => {

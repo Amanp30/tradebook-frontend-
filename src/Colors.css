@@ -1,6 +1,7 @@
 /* light theme variables */
 :root.dark-theme {
     --themain-background: #161d31;
+    --menubtn-filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(1deg) brightness(104%) contrast(104%);
     --logo-color: beige;
     --p-color: white;
     --a-color: white;
@@ -11,6 +12,7 @@
 /* dark theme */
 :root.light-theme {
     --themain-background: #f8f8f8;
+    --menubtn-filter: unset;
     --logo-color: blue;
     --p-color: black;
     --a-color: black;
@@ -34,8 +36,13 @@ a {
     color: var(--logo-color);
 }
 
+.openmenubtn {
+    filter: var(--menubtn-filter);
+}
+
 .navbar,
 .navbar_inner.opening,
+.navbar_inner.closing,
 .thebox {
     background-color: var(--primary-background);
 }
