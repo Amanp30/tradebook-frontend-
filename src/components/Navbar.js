@@ -3,28 +3,41 @@ import { NavLink } from "react-router-dom"; // import the NavLink component from
 import Theme from "./Theme";
 
 function Dropdown({ data, heading }) {
-  const [isDropdownOpen, setisDropdownOpen] = useState(false);
-  console.log(data);
+  const [isDropdownOpen, setisDropdownOpen] = useState("default");
+
+  const handleDrop = (e) => {
+    if (isDropdownOpen === "default" || isDropdownOpen === "close") {
+      setisDropdownOpen("open");
+    } else {
+      setisDropdownOpen("close");
+    }
+  };
+
   return (
     <>
       <div
         className={"menudropdown  " + heading.toLowerCase()}
-        onClick={(e) => setisDropdownOpen(!isDropdownOpen)}
+        onClick={handleDrop}
       >
         {heading} <img src="/droparrow.svg" />
       </div>
-
-      {isDropdownOpen && (
-        <ul className="droplinks">
-          {data[0].links.map((item, index) => (
-            <li key={index}>
-              <NavLink to={item.link} activeClassName="active-link">
-                {item.text}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul
+        className={
+          isDropdownOpen === "default"
+            ? "noneDrop"
+            : isDropdownOpen === "open"
+            ? "droplinks openDrop"
+            : "droplinks close"
+        }
+      >
+        {data[0].links.map((item, index) => (
+          <li key={index}>
+            <NavLink to={item.link} activeclassname="active-link">
+              {item.text}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

@@ -2,6 +2,7 @@
 :root.dark-theme {
     --themain-background: #161d31;
     --image-filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(1deg) brightness(104%) contrast(104%);
+    --navbar-shadow: #d3d3d366;
     --logo-color: beige;
     --p-color: white;
     --a-color: white;
@@ -13,6 +14,7 @@
 :root.light-theme {
     --themain-background: #f8f8f8;
     --image-filter: unset;
+    --navbar-shadow: #2304d066;
     --logo-color: blue;
     --p-color: black;
     --a-color: black;
@@ -48,4 +50,8 @@ a {
 .navbar_inner.closing,
 .thebox {
     background-color: var(--primary-background);
+}
+
+.navbar_inner.opening {
+    box-shadow: 20px 0px 20000px 60px var(--navbar-shadow);
 }
