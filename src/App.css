@@ -31,8 +31,17 @@ a {
 .navbar {
     position: fixed;
     height: -webkit-fill-available;
-    width: 220px;
+    width: 250px;
 }
+
+.content {
+    position: absolute;
+    right: 0;
+    /* width: calc(100% - 4em - 260px); */
+    width: calc(100% - 8em - 250px);
+    margin-right: 4em;
+}
+
 
 .navbar_inner {
     display: flex;
@@ -165,13 +174,6 @@ ul.droplinks li::marker {
 }
 
 
-.content {
-    position: absolute;
-    right: 0;
-    /* width: calc(100% - 4em - 260px); */
-    width: calc(100% - 8em - 220px);
-    margin-right: 4em;
-}
 
 
 @media (max-width:600px) {

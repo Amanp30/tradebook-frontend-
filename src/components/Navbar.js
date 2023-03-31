@@ -47,6 +47,33 @@ function Navbar() {
           text: "Weekday",
           link: "/weekday",
         },
+        {
+          text: "Monthly",
+          link: "/monthly",
+        },
+        {
+          text: "Yearly",
+          link: "/Yearly",
+        },
+      ],
+    },
+  ];
+
+  var Settingsdata = [
+    {
+      links: [
+        {
+          text: "General",
+          link: "/general",
+        },
+        {
+          text: "Change Password",
+          link: "/change-password",
+        },
+        {
+          text: "Import Trades",
+          link: "/import-trades",
+        },
       ],
     },
   ];
@@ -112,6 +139,7 @@ function Navbar() {
             Trades
           </NavLink>
           <Dropdown heading="Reports" data={Reportsdata} />
+          <Dropdown heading="Settings" data={Settingsdata} />
         </div>
       </div>
     </>
