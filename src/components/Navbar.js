@@ -127,7 +127,7 @@ function Navbar() {
         <img
           src="/menubtn.svg"
           className="openmenubtn"
-          style={{ width: "16px" }}
+          style={{ width: "20px" }}
         />
         <p className="logo">TradeBook</p>
       </div>

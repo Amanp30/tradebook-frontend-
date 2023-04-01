@@ -32,14 +32,14 @@ a {
 .navbar {
     position: fixed;
     height: -webkit-fill-available;
-    width: 250px;
+    width: 260px;
 }
 
 .content {
     position: absolute;
     right: 0;
     /* width: calc(100% - 4em - 260px); */
-    width: calc(100% - 8em - 250px);
+    width: calc(100% - 8em - 260px);
     margin-right: 4em;
 }
 
