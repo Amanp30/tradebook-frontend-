@@ -9,8 +9,11 @@ function Theinput({
   setstate,
   placeholder,
   className,
+  children,
 }) {
   const inputRef = useRef(null);
+
+  var thehtmlfor = label.replace(/\s+/g, "").toLowerCase();
 
   useEffect(() => {
     const divElement = inputRef.current.parentElement;
@@ -27,22 +30,38 @@ function Theinput({
     };
   }, []);
 
-  return (
-    <div className="mksfg">
-      <label
-        className="thelabel"
-        htmlFor={label.replace(/\s+/g, "").toLowerCase()}
-      >
+  function Showlabel() {
+    return children ? (
+      <>
+        <div style={{ display: "flex" }}>
+          <label
+            className="thelabel"
+            htmlFor={thehtmlfor}
+            style={{ marginRight: "1em" }}
+          >
+            {label}
+          </label>{" "}
+          {children}
+        </div>
+      </>
+    ) : (
+      <label className="thelabel" htmlFor={thehtmlfor}>
         {label}
       </label>
+    );
+  }
+
+  return (
+    <div className={className ? className : ""}>
+      <Showlabel />
       <div className="custominputbox">
         <input
           type={type}
           value={state}
-          id={label.replace(/\s+/g, "").toLowerCase()}
+          id={thehtmlfor}
           onChange={(e) => setstate(e.target.value)}
           placeholder={placeholder}
-          className={`text-input theinput ${className || ""}`}
+          className={`text-input theinput`}
           ref={inputRef}
           disabled={disabled ? true : false}
         />

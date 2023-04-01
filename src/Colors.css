@@ -51,7 +51,10 @@ a {
 }
 
 .openmenubtn,
-.menudropdown img {
+.menudropdown img,
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="week"]::-webkit-calendar-picker-indicator {
     filter: var(--image-filter);
 }
 
