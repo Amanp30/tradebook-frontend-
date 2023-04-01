@@ -1,0 +1,20 @@
+.custominputbox {
+    padding: .2em .5em .3em .5em;
+    width: fit-content;
+    margin: 1em;
+    border-radius: 5px;
+}
+
+.text-input {
+    cursor: text;
+}
+
+input[type="text"] {
+    background: transparent;
+    border: none;
+}
+
+/* .custominputbox:hover {
+    background-color: red;
+    border: 2em solid blue;
+} */

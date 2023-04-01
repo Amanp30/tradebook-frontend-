@@ -7,7 +7,11 @@
     --p-color: white;
     --a-color: white;
     --primary-background: #283046;
-
+    --input-border: white;
+    --input-background: var(--primary-background);
+    --input-shadow: rgba(242, 242, 242, 0.568);
+    --input-text-color: white;
+    --input-placeholder: white;
 }
 
 /* dark theme */
@@ -19,6 +23,11 @@
     --p-color: black;
     --a-color: black;
     --primary-background: white;
+    --input-border: black;
+    --input-background: white;
+    --input-shadow: rgba(3, 102, 214, 0.3);
+    --input-text-color: black;
+    --input-placeholder: white;
 }
 
 
@@ -53,8 +62,30 @@ a {
 }
 
 
-@media (max-width:600px) {
+@media (max-width:950px) {
     .navbar_inner.opening {
         box-shadow: 20px 0px 20000px 60px var(--navbar-shadow);
     }
+}
+
+
+/* colors for input boxes */
+
+.custominputbox {
+    border: 1px solid var(--input-border);
+    background-color: var(--input-background);
+}
+
+.theinput {
+    color: var(--input-text-color);
+}
+
+.thebox::placeholder {
+    color: var(--input-placeholder, orange);
+    /* color: red; */
+}
+
+.custominputbox:focus-within {
+    /* set styles for when the container or input is in focus */
+    box-shadow: var(--input-shadow) 0px 0px 0px 3px;
 }
