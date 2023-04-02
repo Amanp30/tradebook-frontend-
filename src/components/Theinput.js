@@ -3,6 +3,7 @@ import "./inputs.css";
 
 function Theinput({
   type,
+  name,
   disabled,
   label,
   state,
@@ -59,6 +60,7 @@ function Theinput({
           type={type}
           value={state}
           id={thehtmlfor}
+          name={name}
           onChange={(e) => setstate(e.target.value)}
           placeholder={placeholder}
           className={`text-input theinput`}

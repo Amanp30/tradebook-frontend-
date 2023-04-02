@@ -25,6 +25,22 @@ a {
     margin-right: 2em;
 }
 
+
+/* fee recommendation start */
+.feerecommend {
+    padding: 0.4em .8em;
+    font-size: .8em;
+    height: 2.2em;
+    border-radius: 5px;
+}
+
+.feerecommend span {
+    font-weight: 800;
+}
+
+/* fee recommendation end  */
+
+
 :focus {
     outline: none;
 }
@@ -67,7 +83,7 @@ a {
     /* height: calc(100vh - 6em); */
     height: calc(100vh - 4em);
     overflow: overlay;
-    gap: 2%;
+    gap: 1.5em;
 }
 
 .links_container::-webkit-scrollbar {
@@ -191,8 +207,8 @@ ul.droplinks li::marker {
     .navbar_inner.closing {
         width: 70%;
         position: absolute;
-        max-width: 350px;
-        z-index: 1;
+        max-width: 300px;
+        z-index: 99999;
         top: 0;
         bottom: 0;
         left: 0;

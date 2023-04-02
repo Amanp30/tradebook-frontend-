@@ -99,3 +99,19 @@ input[type="week"]::-webkit-calendar-picker-indicator {
     color: var(--input-placeholder, #ccc);
     /* set the default color and fallback value */
 }
+
+
+.upstox {
+    background: #41246e;
+    color: white;
+}
+
+.zerodha {
+    background: #387ed1;
+    color: white;
+}
+
+.angelone {
+    background: #2e51ff;
+    color: white;
+}

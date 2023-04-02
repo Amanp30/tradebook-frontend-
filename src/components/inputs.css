@@ -21,6 +21,14 @@ input {
     width: 100%;
 }
 
+input[type="submit"] {
+    background: #f30101;
+    padding: 0.8em;
+    color: white;
+    border-radius: 10px;
+}
+
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -38,8 +46,10 @@ input[type="week"]::-webkit-calendar-picker-indicator {
     background-position: center;
     width: 20px;
     height: 20px;
+    display: block;
     opacity: 1;
     cursor: pointer;
+    /* z-index: 1; */
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
