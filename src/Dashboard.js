@@ -2,19 +2,48 @@ import React, { useState } from "react";
 import Brokerage from "./components/AnotherBrokerage";
 import Layout from "./components/Layout";
 import Theinput from "./components/Theinput";
+import { brokerdata } from "./helpers/brokerdata";
+import Stock from "./components/Forbrokerages";
 
 function Dashboard() {
   const [instrument, setinstrument] = useState("");
   const [quantity, setquantity] = useState(0);
-  const [buyprice, setbuyprice] = useState(0);
-  const [sellprice, setsellprice] = useState(0);
+  const [entryprice, setentryprice] = useState(0);
+  const [exitprice, setexitprice] = useState(0);
   const [fees, setfees] = useState(0);
 
   const [broker, setBroker] = useState("upstox");
+  const [action, setaction] = useState("Sell");
 
   const handleBrokerChange = (event) => {
     setBroker(event.target.value);
   };
+  const handleAction = (event) => {
+    setaction(event.target.value);
+  };
+
+  const brokerInfo = brokerdata[broker.toLowerCase()]; // Get the brokerage and stt based on the broker name
+
+  // var thetrio = quantity && entryprice && exitprice;
+  // if (!thetrio) {
+  //   setfees(0);
+  // }
+
+  const mystock = new Stock({
+    action: action,
+    quantity: quantity,
+    entry: entryprice,
+    exit: exitprice,
+    brokerage: brokerInfo.brokerage,
+    transactioncharges: brokerInfo.transactioncharges,
+  });
+
+  console.log("Profit " + mystock.profit);
+  console.log("gain percent " + mystock.gainpercent);
+  console.log("pnl per share " + mystock.pnlpershare);
+  console.log("Charges " + mystock.totaltaxes);
+  console.log("net pnl " + mystock.netpnl);
+  console.log("breakeven " + mystock.breakeven);
 
   const handleform = (e) => {
     e.preventDefault();
@@ -23,10 +52,11 @@ function Dashboard() {
     var data = new FormData(form);
 
     data.append("quantity", quantity);
-    data.append("buyprice", buyprice);
-    data.append("sellprice", sellprice);
+    data.append("entryprice", entryprice);
+    data.append("exitprice", exitprice);
     data.append("fees", fees);
     data.append("symbol", instrument);
+    data.append("brokerage", mystock.brokerage);
     var formDataObj = {};
 
     for (const [key, value] of data.entries()) {
@@ -50,6 +80,16 @@ function Dashboard() {
           <option value="zerodha">Zerodha</option>
           <option value="angelone">Angel One</option>
         </select>
+        <label htmlFor="action">Action:</label>
+        <select
+          id="action"
+          defaultValue={action}
+          value={action}
+          onChange={handleAction}
+        >
+          <option value="Buy">Buy</option>
+          <option value="Sell">Sell </option>
+        </select>
         <p>{fees}</p>
         <form onSubmit={handleform} id="theform">
           <div className="dashboardclass thebox">
@@ -62,17 +102,17 @@ function Dashboard() {
             />
             <Theinput
               type="number"
-              label="Buy Price"
+              label="Entry Price"
+              placeholder="Entry price"
+              state={entryprice}
+              setstate={setentryprice}
+            />
+            <Theinput
+              type="number"
+              label="Exit  Price"
               placeholder=""
-              state={buyprice}
-              setstate={setbuyprice}
-            />
-            <Theinput
-              type="number"
-              label="Sell Price"
-              placeholder=""
-              state={sellprice}
-              setstate={setsellprice}
+              state={exitprice}
+              setstate={setexitprice}
             />
 
             <Theinput
@@ -94,159 +134,7 @@ function Dashboard() {
             >
               <Brokerage
                 broker={broker}
-                buyprice={buyprice}
-                sellprice={sellprice}
-                quantity={quantity}
-                setstate={setfees}
-              />
-            </Theinput>
-            <Theinput
-              type="text"
-              label="Symbol   or instrument"
-              placeholder="Instrument"
-              state={instrument}
-              setstate={setinstrument}
-              className="hasicon"
-            />
-
-            <Theinput
-              type="number"
-              label="Fees"
-              placeholder="Instrument"
-              state={fees}
-              setstate={setfees}
-              className="hasfee"
-            >
-              <Brokerage
-                broker={broker}
-                buyprice={buyprice}
-                sellprice={sellprice}
-                quantity={quantity}
-                setstate={setfees}
-              />
-            </Theinput>
-            <Theinput
-              type="text"
-              label="Symbol   or instrument"
-              placeholder="Instrument"
-              state={instrument}
-              setstate={setinstrument}
-              className="hasicon"
-            />
-
-            <Theinput
-              type="number"
-              label="Fees"
-              placeholder="Instrument"
-              state={fees}
-              setstate={setfees}
-              className="hasfee"
-            >
-              <Brokerage
-                broker={broker}
-                buyprice={buyprice}
-                sellprice={sellprice}
-                quantity={quantity}
-                setstate={setfees}
-              />
-            </Theinput>
-            <Theinput
-              type="text"
-              label="Symbol   or instrument"
-              placeholder="Instrument"
-              state={instrument}
-              setstate={setinstrument}
-              className="hasicon"
-            />
-
-            <Theinput
-              type="number"
-              label="Fees"
-              placeholder="Instrument"
-              state={fees}
-              setstate={setfees}
-              className="hasfee"
-            >
-              <Brokerage
-                broker={broker}
-                buyprice={buyprice}
-                sellprice={sellprice}
-                quantity={quantity}
-                setstate={setfees}
-              />
-            </Theinput>
-            <Theinput
-              type="text"
-              label="Symbol   or instrument"
-              placeholder="Instrument"
-              state={instrument}
-              setstate={setinstrument}
-              className="hasicon"
-            />
-
-            <Theinput
-              type="number"
-              label="Fees"
-              placeholder="Instrument"
-              state={fees}
-              setstate={setfees}
-              className="hasfee"
-            >
-              <Brokerage
-                broker={broker}
-                buyprice={buyprice}
-                sellprice={sellprice}
-                quantity={quantity}
-                setstate={setfees}
-              />
-            </Theinput>
-            <Theinput
-              type="text"
-              label="Symbol   or instrument"
-              placeholder="Instrument"
-              state={instrument}
-              setstate={setinstrument}
-              className="hasicon"
-            />
-
-            <Theinput
-              type="number"
-              label="Fees"
-              placeholder="Instrument"
-              state={fees}
-              setstate={setfees}
-              className="hasfee"
-            >
-              <Brokerage
-                broker={broker}
-                buyprice={buyprice}
-                sellprice={sellprice}
-                quantity={quantity}
-                setstate={setfees}
-              />
-            </Theinput>
-            <Theinput
-              type="text"
-              label="Symbol   or instrument"
-              placeholder="Instrument"
-              state={instrument}
-              setstate={setinstrument}
-              className="hasicon"
-            />
-
-            <Theinput
-              type="number"
-              label="Fees"
-              placeholder="Instrument"
-              state={fees}
-              setstate={setfees}
-              className="hasfee"
-            >
-              <Brokerage
-                broker={broker}
-                buyprice={buyprice}
-                sellprice={sellprice}
-                quantity={quantity}
+                taxes={mystock.totaltaxes}
                 setstate={setfees}
               />
             </Theinput>

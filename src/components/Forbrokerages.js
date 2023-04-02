@@ -1,13 +1,20 @@
 class Stock {
   //   #another;                 // This is a private field  declared with #
-  constructor({ quantity, buy, sell, brokerage, transactioncharges }) {
+  constructor({
+    action,
+    quantity,
+    entry,
+    exit,
+    brokerage,
+    transactioncharges,
+  }) {
     if (!new.target) {
       throw new Error("Please initialize first with new keyword");
     }
-
+    this.action = action;
     this._quantity = quantity;
-    this.buy = buy;
-    this.sell = sell;
+    this.entry = entry;
+    this.exit = exit;
     this.thebrokerage = brokerage;
     this.thetransactioncharges = transactioncharges;
     // this.#another = 5; // setting private field value
@@ -23,11 +30,11 @@ class Stock {
   }
 
   get buyamount() {
-    return this.buy * this._quantity;
+    return this.entry * this._quantity;
   }
 
   get sellamount() {
-    return this.sell * this._quantity;
+    return this.exit * this._quantity;
   }
 
   get stt() {
@@ -118,7 +125,12 @@ class Stock {
   }
 
   get profit() {
-    const profit = this.sellamount - this.buyamount;
+    var profit;
+    if (this.action === "Buy") {
+      profit = this.sellamount - this.buyamount;
+    } else if (this.action === "Sell") {
+      profit = this.buyamount - this.sellamount;
+    }
     return profit.toFixed(2);
   }
 
@@ -130,6 +142,16 @@ class Stock {
   get gainpercent() {
     const gainPercent = (this.profit / this.buyamount) * 100;
     return gainPercent.toFixed(2);
+  }
+
+  get pnlpershare() {
+    var pnlPerShare;
+    if (this.action === "Buy") {
+      pnlPerShare = this.exit - this.entry;
+    } else if (this.action === "Sell") {
+      pnlPerShare = this.entry - this.exit;
+    }
+    return pnlPerShare.toFixed(2);
   }
 }
 
