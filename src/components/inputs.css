@@ -88,7 +88,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .dashboardclass.thebox {
     display: grid;
     padding: 1em;
-    grid-template: auto / 2fr 2fr 2fr;
+    grid-template: auto / 2fr 2fr;
     gap: 2em;
     row-gap: 1em;
 }

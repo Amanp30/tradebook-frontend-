@@ -100,6 +100,156 @@ function Dashboard() {
                 setstate={setfees}
               />
             </Theinput>
+            <Theinput
+              type="text"
+              label="Symbol   or instrument"
+              placeholder="Instrument"
+              state={instrument}
+              setstate={setinstrument}
+              className="hasicon"
+            />
+
+            <Theinput
+              type="number"
+              label="Fees"
+              placeholder="Instrument"
+              state={fees}
+              setstate={setfees}
+              className="hasfee"
+            >
+              <Brokerage
+                broker={broker}
+                buyprice={buyprice}
+                sellprice={sellprice}
+                quantity={quantity}
+                setstate={setfees}
+              />
+            </Theinput>
+            <Theinput
+              type="text"
+              label="Symbol   or instrument"
+              placeholder="Instrument"
+              state={instrument}
+              setstate={setinstrument}
+              className="hasicon"
+            />
+
+            <Theinput
+              type="number"
+              label="Fees"
+              placeholder="Instrument"
+              state={fees}
+              setstate={setfees}
+              className="hasfee"
+            >
+              <Brokerage
+                broker={broker}
+                buyprice={buyprice}
+                sellprice={sellprice}
+                quantity={quantity}
+                setstate={setfees}
+              />
+            </Theinput>
+            <Theinput
+              type="text"
+              label="Symbol   or instrument"
+              placeholder="Instrument"
+              state={instrument}
+              setstate={setinstrument}
+              className="hasicon"
+            />
+
+            <Theinput
+              type="number"
+              label="Fees"
+              placeholder="Instrument"
+              state={fees}
+              setstate={setfees}
+              className="hasfee"
+            >
+              <Brokerage
+                broker={broker}
+                buyprice={buyprice}
+                sellprice={sellprice}
+                quantity={quantity}
+                setstate={setfees}
+              />
+            </Theinput>
+            <Theinput
+              type="text"
+              label="Symbol   or instrument"
+              placeholder="Instrument"
+              state={instrument}
+              setstate={setinstrument}
+              className="hasicon"
+            />
+
+            <Theinput
+              type="number"
+              label="Fees"
+              placeholder="Instrument"
+              state={fees}
+              setstate={setfees}
+              className="hasfee"
+            >
+              <Brokerage
+                broker={broker}
+                buyprice={buyprice}
+                sellprice={sellprice}
+                quantity={quantity}
+                setstate={setfees}
+              />
+            </Theinput>
+            <Theinput
+              type="text"
+              label="Symbol   or instrument"
+              placeholder="Instrument"
+              state={instrument}
+              setstate={setinstrument}
+              className="hasicon"
+            />
+
+            <Theinput
+              type="number"
+              label="Fees"
+              placeholder="Instrument"
+              state={fees}
+              setstate={setfees}
+              className="hasfee"
+            >
+              <Brokerage
+                broker={broker}
+                buyprice={buyprice}
+                sellprice={sellprice}
+                quantity={quantity}
+                setstate={setfees}
+              />
+            </Theinput>
+            <Theinput
+              type="text"
+              label="Symbol   or instrument"
+              placeholder="Instrument"
+              state={instrument}
+              setstate={setinstrument}
+              className="hasicon"
+            />
+
+            <Theinput
+              type="number"
+              label="Fees"
+              placeholder="Instrument"
+              state={fees}
+              setstate={setfees}
+              className="hasfee"
+            >
+              <Brokerage
+                broker={broker}
+                buyprice={buyprice}
+                sellprice={sellprice}
+                quantity={quantity}
+                setstate={setfees}
+              />
+            </Theinput>
           </div>
           <input type="submit" />
         </form>
