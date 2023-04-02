@@ -152,7 +152,9 @@ function Navbar() {
             Trades
           </NavLink>
           <Dropdown heading="Reports" data={Reportsdata} />
+          <Dropdown heading="More" data={Reportsdata} />
           <Dropdown heading="Settings" data={Settingsdata} />
+          <Dropdown heading="Account" data={Settingsdata} />
         </div>
       </div>
     </>
