@@ -1,0 +1,21 @@
+.newtradeform {
+    display: grid;
+    padding: 1em;
+    grid-template: auto / 1fr 1fr 1fr;
+    gap: 2em;
+    row-gap: 1em;
+}
+
+@media (max-width:600px) {
+    .newtradeform {
+        grid-template: auto / 1fr;
+        row-gap: 2em;
+    }
+}
+
+@media (min-width:600px) and (max-width:930px) {
+    .newtradeform {
+        grid-template: auto / 1fr 1fr;
+        row-gap: 2em;
+    }
+}

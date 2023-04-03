@@ -1,3 +1,28 @@
+/* symbol input */
+.showdropdown {
+    position: absolute;
+    /* top: 4em; */
+    left: 0;
+    right: 0;
+    height: max-content;
+    line-break: anywhere;
+    background: beige !important;
+    z-index: 1;
+}
+
+.theitems {
+    padding: .2em .5em;
+    background-color: beige;
+    cursor: default;
+}
+
+.theitems:hover {
+    background-color: rgb(193, 193, 193);
+    /* font-weight: 100; */
+}
+
+/* symbol input end */
+
 .custominputbox {
     padding: .2em .5em .3em .5em;
     width: fit-content;
@@ -7,7 +32,7 @@
 
 
 select {
-    padding: .2em .5em .3em .5em;
+    padding: .4em .5em .4em .5em;
     outline: none;
     border-radius: 1em;
 }
@@ -49,7 +74,8 @@ input[type=number] {
 
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-calendar-picker-indicator,
-input[type="week"]::-webkit-calendar-picker-indicator {
+input[type="week"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -74,6 +100,10 @@ input[type="week"]::-webkit-calendar-picker-indicator {
 
 }
 
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    background-image: url('/public/datetime.png');
+}
+
 input[type=search]::-ms-clear {
     display: none;
     width: 0;
@@ -92,12 +122,4 @@ input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
     display: none;
-}
-
-.dashboardclass.thebox {
-    display: grid;
-    padding: 1em;
-    grid-template: auto / 2fr 2fr;
-    gap: 2em;
-    row-gap: 1em;
 }
