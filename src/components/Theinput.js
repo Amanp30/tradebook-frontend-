@@ -4,6 +4,7 @@ import "./inputs.css";
 function Theinput({
   type,
   name,
+  uppercase,
   disabled,
   label,
   state,
@@ -30,6 +31,17 @@ function Theinput({
       divElement.removeEventListener("click", handleClick);
     };
   }, []);
+
+  // Modify the state value to be uppercase if the 'uppercase' prop is true
+  const modifiedState = uppercase ? state.toUpperCase() : state;
+
+  function handleOnChange(e) {
+    let value = e.target.value;
+    if (uppercase) {
+      value = value.toUpperCase();
+    }
+    setstate(value);
+  }
 
   function Showlabel() {
     return children ? (
@@ -58,10 +70,10 @@ function Theinput({
       <div className="custominputbox">
         <input
           type={type}
-          value={state}
+          value={modifiedState}
           id={thehtmlfor}
           name={name}
-          onChange={(e) => setstate(e.target.value)}
+          onChange={handleOnChange}
           placeholder={placeholder}
           className={`text-input theinput`}
           ref={inputRef}

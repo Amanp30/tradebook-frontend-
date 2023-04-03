@@ -5,17 +5,26 @@
     width: -webkit-fill-available;
 }
 
+
+select {
+    padding: .2em .5em .3em .5em;
+    outline: none;
+    border-radius: 1em;
+}
+
+
 .thelabel {
     display: block;
     margin-bottom: .5em;
 }
 
-.custominputbox:has(input[type="color"]) {
+.custominputbox:has(input[type="color"], select) {
     padding: 0;
 }
 
 
-input {
+input,
+select {
     background: transparent;
     border: none;
     width: 100%;

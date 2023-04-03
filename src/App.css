@@ -14,6 +14,26 @@
     margin-right: 1em;
 }
 
+.logout {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    left: 0;
+    width: 70%;
+    max-width: calc(100% - 2em);
+    padding: 1em 0;
+    right: 0;
+}
+
+@media (min-width:900px) {
+    .logout {
+        width: 260px;
+    }
+}
+
 a {
     text-decoration: none;
 }
@@ -32,6 +52,7 @@ a {
     font-size: .8em;
     height: 2.2em;
     border-radius: 5px;
+    max-height: max-content;
 }
 
 .feerecommend span {
@@ -57,6 +78,9 @@ a {
     /* width: calc(100% - 4em - 260px); */
     width: calc(100% - 8em - 260px);
     margin-right: 4em;
+    margin-top: 1em;
+    /* border-top: 2em solid;
+    border-top-color: limegreen; */
 }
 
 
@@ -82,8 +106,12 @@ a {
     flex-direction: column;
     /* height: calc(100vh - 6em); */
     height: calc(100vh - 4em);
-    overflow: overlay;
+    overflow: hidden;
     gap: 1.5em;
+}
+
+.links_container:hover {
+    overflow: overlay;
 }
 
 .links_container::-webkit-scrollbar {
@@ -115,6 +143,8 @@ a {
 .droplinks li {
     line-height: 2;
 }
+
+
 
 /* Hide the droplinks menu initially */
 .noneDrop,
@@ -224,6 +254,7 @@ ul.droplinks li::marker {
 
     .content {
         padding: 1em;
+        margin-top: .5em !important;
     }
 
     .navbar,
@@ -231,4 +262,20 @@ ul.droplinks li::marker {
         position: unset;
         width: 100%;
     }
+
+}
+
+
+/* .content section  */
+
+.heading_comp {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+}
+
+h1.heading {
+    font-size: 1.6em;
 }

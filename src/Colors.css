@@ -38,7 +38,8 @@ html {
 p,
 label,
 .menudropdown,
-.droplinks li::marker {
+.droplinks li::marker,
+.heading {
     color: var(--p-color);
 }
 
@@ -81,8 +82,15 @@ input[type="week"]::-webkit-calendar-picker-indicator {
     cursor: text;
 }
 
-.theinput {
+.theinput,
+.Select {
     color: var(--input-text-color);
+}
+
+option {
+    color: black;
+    background-color: orange;
+    font-size: 1.2em;
 }
 
 .thebox::placeholder {
@@ -101,17 +109,17 @@ input[type="week"]::-webkit-calendar-picker-indicator {
 }
 
 
-.upstox {
+.Upstox {
     background: #41246e;
     color: white;
 }
 
-.zerodha {
+.Zerodha {
     background: #387ed1;
     color: white;
 }
 
-.angelone {
+.Angelone {
     background: #2e51ff;
     color: white;
 }

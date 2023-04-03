@@ -3,7 +3,9 @@ import React from "react";
 function Footer() {
   return (
     <>
-      <div className="Footer">Copyright </div>
+      <div className="Footer">
+        <p>Copyright </p>{" "}
+      </div>
     </>
   );
 }

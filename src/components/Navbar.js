@@ -129,7 +129,11 @@ function Navbar() {
           className="openmenubtn"
           style={{ width: "20px" }}
         />
-        <p className="logo">TradeBook</p>
+        <p className="logo">TradeBook</p>{" "}
+        <img
+          src="/shutdown.png"
+          style={{ width: "25px", position: "absolute", right: "1em" }}
+        />
       </div>
       <div
         className={
@@ -155,6 +159,9 @@ function Navbar() {
           <Dropdown heading="More" data={Reportsdata} />
           <Dropdown heading="Settings" data={Settingsdata} />
           <Dropdown heading="Account" data={Settingsdata} />
+          <div className="logout thebox">
+            <img src="/shutdown.png" style={{ width: "25px" }} /> <p>Logout</p>
+          </div>
         </div>
       </div>
     </>
