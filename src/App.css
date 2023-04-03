@@ -8,6 +8,11 @@
         sans-serif !important;
 }
 
+html,
+body {
+    height: -webkit-fill-available;
+}
+
 .addnew {
     padding: 0.4em .8em;
     background: #050096;
