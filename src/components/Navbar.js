@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom"; // import the NavLink component from react-router-dom
 import Theme from "./Theme";
+import "./navbar.css";
 
 function Dropdown({ data, heading }) {
   const [isDropdownOpen, setisDropdownOpen] = useState("default");

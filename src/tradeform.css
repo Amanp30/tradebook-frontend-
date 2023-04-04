@@ -6,6 +6,10 @@
     row-gap: 1em;
 }
 
+.hasfee {
+    grid-column: 1/1;
+}
+
 @media (max-width:600px) {
     .newtradeform {
         grid-template: auto / 1fr;

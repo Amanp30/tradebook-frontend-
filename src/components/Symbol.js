@@ -104,41 +104,39 @@ function Symbolinput({
   };
 
   return (
-    <div>
-      <div style={{ position: "relative" }}>
-        {showlabel && label && (
-          <label htmlFor={name} className="thelabel">
-            {" "}
-            {label}
-          </label>
-        )}
-        <div className="custominputbox">
-          <input
-            type="text"
-            value={state}
-            id={name}
-            placeholder={placeholder}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            autoComplete="off"
-            name={name}
-            onChange={handleInput}
-            className={"appinput " + "theinput"}
-            ref={inputRef}
-          />
-        </div>
-        {focused && (
-          <div
-            className={"showit showdropdown"}
-            onMouseOver={(e) => setisitemhovering(true)}
-            onMouseOut={(e) => setisitemhovering(false)}
-          >
-            {state.length < 1
-              ? showthedata(data)
-              : filteredData?.length > 0 && showthedata(filteredData)}
-          </div>
-        )}
+    <div style={{ position: "relative" }}>
+      {showlabel && label && (
+        <label htmlFor={name} className="thelabel">
+          {" "}
+          {label}
+        </label>
+      )}
+      <div className="custominputbox">
+        <input
+          type="text"
+          value={state}
+          id={name}
+          placeholder={placeholder}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          autoComplete="off"
+          name={name}
+          onChange={handleInput}
+          className={"appinput " + "theinput"}
+          ref={inputRef}
+        />
       </div>
+      {focused && (
+        <div
+          className={"showit showdropdown"}
+          onMouseOver={(e) => setisitemhovering(true)}
+          onMouseOut={(e) => setisitemhovering(false)}
+        >
+          {state.length < 1
+            ? showthedata(data)
+            : filteredData?.length > 0 && showthedata(filteredData)}
+        </div>
+      )}
     </div>
   );
 }

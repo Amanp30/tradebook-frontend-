@@ -148,6 +148,16 @@ function Newtrade() {
     console.log(formDataObj);
   };
 
+  const Inlineheading = ({ children }) => {
+    return (
+      <>
+        <h3 style={{ gridColumn: "1/-1", margin: "0 0 -12px 0px" }}>
+          {children}
+        </h3>
+      </>
+    );
+  };
+
   return (
     <>
       <Layout>
@@ -156,6 +166,7 @@ function Newtrade() {
             <input type="submit" />
           </Heading>
           <div className="newtradeform thebox">
+            <Inlineheading>General Data</Inlineheading>
             <Symbolinput
               label="Symbol"
               name="symbol"
@@ -179,13 +190,7 @@ function Newtrade() {
               state={broker}
               setState={setBroker}
             />
-            <Theinput
-              type="number"
-              label="Quantity"
-              placeholder="Instrument"
-              state={quantity}
-              setstate={setquantity}
-            />
+            <Inlineheading>Entry</Inlineheading>
             <Theinput
               label="Entry Date"
               type="datetime-local"
@@ -194,10 +199,24 @@ function Newtrade() {
             />
             <Theinput
               type="number"
+              label="Quantity"
+              placeholder="Instrument"
+              state={quantity}
+              setstate={setquantity}
+            />
+            <Theinput
+              type="number"
               label="Entry Price"
               placeholder="Entry price"
               state={entryprice}
               setstate={setentryprice}
+            />{" "}
+            <Inlineheading>Exit</Inlineheading>
+            <Theinput
+              label="Exit Date"
+              type="date"
+              state={exitdate}
+              setstate={setexitdate}
             />
             <Theinput
               type="number"
@@ -206,12 +225,7 @@ function Newtrade() {
               state={exitprice}
               setstate={setexitprice}
             />
-            <Theinput
-              label="Exit Date"
-              type="date"
-              state={exitdate}
-              setstate={setexitdate}
-            />
+            <Inlineheading>Other</Inlineheading>
             <Theinput
               type="number"
               label="Fees"

@@ -39,7 +39,11 @@ p,
 label,
 .menudropdown,
 .droplinks li::marker,
-.heading {
+.heading,
+h1,
+h2,
+h3,
+h4 {
     color: var(--p-color);
 }
 
