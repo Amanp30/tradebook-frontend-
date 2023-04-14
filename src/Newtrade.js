@@ -4,94 +4,71 @@ import Layout from "./components/Layout";
 import Theinput from "./components/Theinput";
 import { brokerdata } from "./helpers/brokerdata";
 import Stock from "./components/Forbrokerages";
-import Heading from "./components/Heading";
 import Theselect from "./components/Select";
 import Symbolinput from "./components/Symbol";
 import moment from "moment-timezone";
 import "./tradeform.css";
+import api from "./services/api";
+import Thedate from "./components/Date";
+import { getBroker, getUserId } from "./helpers/Auth";
+import useNotify from "./hooks/useNotify";
+import Notification from "./components/Notification";
+import { errorhandler, validateOrder } from "./helpers/codehandlers";
+import { Chartexplain, Formdiv, Heading } from "./components/Littles";
+import { Timeout, validateSymbol } from "./helpers/functions";
+import useTrade from "./hooks/useTrade";
 
 function Newtrade() {
-  const [instrument, setinstrument] = useState("hdfc");
-  const [quantity, setquantity] = useState(0);
-  const [entryprice, setentryprice] = useState(0);
-  const [exitprice, setexitprice] = useState(0);
-  const [fees, setfees] = useState(0);
+  const [instrument, setinstrument] = useState("");
+  const [quantity, setquantity] = useState();
+  const [entryprice, setentryprice] = useState();
+  const [exitprice, setexitprice] = useState();
+  const [fees, setfees] = useState();
+  const [timeframe, settimeframe] = useState("1 Minute");
+  const [emotions, setemotions] = useState("");
+  const [marketcondition, setmarketcondition] = useState("");
+  const [stoploss, setstoploss] = useState();
+  const [takeprofit, settakeprofit] = useState();
+
+  const [action, setaction] = useState("Buy");
+  // const [chart, setchart] = useState(null);
+  const [chart, setchart] = useState("");
+
   const [entrydate, setentrydate] = useState("");
   const [exitdate, setexitdate] = useState("2023-04-03");
 
-  // var xdate = new Date();
-  /*  var xdate = "2023-04-11T16:23:00.000Z";
-  var momentDate = moment.utc(xdate).local();
-  var formattedDate = momentDate.format("YYYY-MM-DD");
-  console.log(formattedDate); */
+  const now = moment().tz("Asia/Kolkata");
 
-  var dateString = "2023-04-03T11:56";
-  var momentDate = moment.utc(dateString).tz("Asia/Kolkata");
-  var formattedDate = momentDate.format("YYYY-MM-DDTHH:mm");
-  console.log(formattedDate);
+  // set entrydate to today's date at 9:00 AM
+  now.set({ hour: 9, minute: 15, second: 0, millisecond: 0 });
+  const theentrydate = now.format("YYYY-MM-DDTHH:mm");
 
-  useEffect(() => setentrydate(formattedDate), []);
+  // set exitdate to today's date at 9:30 AM
+  now.set({ hour: 10, minute: 30 });
+  const theexitdate = now.format("YYYY-MM-DDTHH:mm");
 
-  const [broker, setBroker] = useState("Angelone");
-  const [action, setaction] = useState("Sell");
+  useEffect(() => setentrydate(theentrydate), []);
+  useEffect(() => setexitdate(theexitdate), []);
 
-  var data = [
-    "RELIANCE",
-    "TATASTEEL",
-    "HDFCBANK",
-    "ICICIBANK",
-    "HINDUNILVR",
-    "INFY",
-    "KOTAKBANK",
-    "BHARTIARTL",
-    "HCLTECH",
-    "ITC",
-    "AXISBANK",
-    "WIPRO",
-    "BAJFINANCE",
-    "ULTRACEMCO",
-    "TITAN",
-    "ASIANPAINT",
-    "NESTLEIND",
-    "SBIN",
-    "MARUTI",
-    "ONGC",
-    "BANKBARODA",
-    "NTPC",
-    "TECHM",
-    "SUNPHARMA",
-    "INDUSINDBK",
-    "LT",
-    "DRREDDY",
-    "POWERGRID",
-    "IOC",
-    "TATAPOWER",
-    "CIPLA",
-    "TATAMOTORS",
-    "M&M",
-    "GAIL",
-    "EICHERMOT",
-    "JSWSTEEL",
-    "BAJAJFINSV",
-    "HEROMOTOCO",
-    "BAJAJ-AUTO",
-    "ONGC",
-    "UBL",
-    "HDFCLIFE",
-    "TATACONSUM",
-    "BAJAJHLDNG",
-    "MRF",
-    "BPCL",
-    "PIDILITIND",
-    "GRASIM",
-    "INDIGO",
-    "HDFCAMC",
-  ];
+  const {
+    clearnotification,
+    notifysuccess,
+    notifyerror,
+    message,
+    setnotifysuccess,
+    setmessage,
+    setnotifyerror,
+  } = useNotify();
 
-  // const handleAction = (event) => {
-  //   setaction(event.target.value);
-  // };
+  const { symboldata } = useTrade();
 
+  // useEffect(() => {
+  //   validateSymbol(instrument, setinstrument);
+  // }, [instrument]);
+
+  // console.log(typeof chart);
+
+  const broker = getBroker();
   const brokerInfo = brokerdata[broker.toLowerCase()]; // Get the brokerage and stt based on the broker name
 
   const mystock = new Stock({
@@ -101,10 +78,16 @@ function Newtrade() {
     exit: exitprice,
     brokerage: brokerInfo.brokerage,
     transactioncharges: brokerInfo.transactioncharges,
+    entrytime: entrydate,
+    exittime: exitdate,
+    stoploss: stoploss,
+    takeprofit: takeprofit,
   });
 
   const handleform = (e) => {
     e.preventDefault();
+
+    clearnotification();
 
     const fields = [
       { name: "symbol or instrument", value: instrument },
@@ -114,7 +97,25 @@ function Newtrade() {
       { name: "fees", value: fees },
       { name: "entry date", value: entrydate },
       { name: "exit date", value: exitdate },
+      { name: "Take profit", value: takeprofit },
+      { name: "Stoploss", value: stoploss },
     ];
+
+    if (validateSymbol(instrument, setinstrument)) {
+      // alert("Symbol have spaces else special char ");
+      return false;
+    }
+
+    if (entrydate > exitdate) {
+      setmessage("Entry date must be less than Exit date");
+      setnotifyerror(true);
+      return;
+    }
+
+    if (Array.isArray(chart) && chart.length === 0) {
+      alert("Please select an image file");
+      return;
+    }
 
     for (const field of fields) {
       if (!field.value) {
@@ -123,11 +124,33 @@ function Newtrade() {
       }
     }
 
+    var is = validateOrder(
+      action,
+      entryprice,
+      takeprofit,
+      stoploss,
+      setmessage,
+      setnotifyerror
+    );
+
+    if (is) {
+      return;
+    }
+
     var form = document.getElementById("theform");
     var data = new FormData(form);
 
-    data.append("symbol", instrument);
+    data.append("chart", chart);
+    data.append("user", getUserId());
+
+    // data.append("symbol", instrument);
     data.append("quantity", quantity);
+    data.append("emotions", emotions);
+    data.append("stoploss", stoploss);
+    data.append("takeprofit", takeprofit);
+    data.append("timeframe", timeframe);
+    data.append("marketcondition", marketcondition);
+    data.append("action", action);
     data.append("entryprice", entryprice);
     data.append("exitprice", exitprice);
     data.append("entrydate", entrydate);
@@ -138,6 +161,11 @@ function Newtrade() {
     data.append("profit", mystock.profit);
     data.append("netpnl", mystock.netpnl);
     data.append("returnpercent", mystock.gainpercent);
+    data.append("outcome", mystock.outcome);
+    data.append("holdingperiod", mystock.holdingPeriodhour);
+    data.append("rmultiple", mystock.rmultiple);
+    data.append("rrrplanned", mystock.rrrplanned);
+    data.append("rmultipledifference", mystock.rmultipledifference);
 
     var formDataObj = {};
 
@@ -145,103 +173,193 @@ function Newtrade() {
       formDataObj[key] = value;
     }
 
-    console.log(formDataObj);
-  };
+    api
+      .post("/trade/add", data)
+      .then((response) => {
+        setmessage(response.data.message);
+        setnotifysuccess(true);
+        console.log(response.data);
+        Timeout("/trades", 2000);
+      })
+      .catch((error) => {
+        console.log(error);
+        errorhandler(error, setmessage).then(() => {
+          setnotifyerror(true);
+        });
+      });
 
-  const Inlineheading = ({ children }) => {
-    return (
-      <>
-        <h3 style={{ gridColumn: "1/-1", margin: "0 0 -12px 0px" }}>
-          {children}
-        </h3>
-      </>
-    );
+    // console.table(formDataObj);
   };
 
   return (
     <>
       <Layout>
-        <form onSubmit={handleform} id="theform">
+        <form
+          onSubmit={handleform}
+          id="theform"
+          method="post"
+          encType="multipart/form-data"
+        >
           <Heading text="Create new trade" theclass="wrapper head class">
-            <input type="submit" />
+            <button type="submit" className="primarybtn">
+              Save
+            </button>
           </Heading>
           <div className="newtradeform thebox">
-            <Inlineheading>General Data</Inlineheading>
-            <Symbolinput
-              label="Symbol"
-              name="symbol"
-              showlabel
-              state={instrument}
-              setstate={(value) => setinstrument(value)}
-              data={data}
-              limit={5}
-              placeholder="Ex. PNB"
-              uppercase
-            />
-            <Theselect
-              label="Action"
-              options={["Buy", "Sell"]}
-              state={action}
-              setState={setaction}
-            />
-            <Theselect
-              label="Broker"
-              options={["Zerodha", "Angel one", "Upstox"]}
-              state={broker}
-              setState={setBroker}
-            />
-            <Inlineheading>Entry</Inlineheading>
-            <Theinput
-              label="Entry Date"
-              type="datetime-local"
-              state={entrydate}
-              setstate={setentrydate}
-            />
-            <Theinput
-              type="number"
-              label="Quantity"
-              placeholder="Instrument"
-              state={quantity}
-              setstate={setquantity}
-            />
-            <Theinput
-              type="number"
-              label="Entry Price"
-              placeholder="Entry price"
-              state={entryprice}
-              setstate={setentryprice}
-            />{" "}
-            <Inlineheading>Exit</Inlineheading>
-            <Theinput
-              label="Exit Date"
-              type="date"
-              state={exitdate}
-              setstate={setexitdate}
-            />
-            <Theinput
-              type="number"
-              label="Exit Price"
-              placeholder=""
-              state={exitprice}
-              setstate={setexitprice}
-            />
-            <Inlineheading>Other</Inlineheading>
-            <Theinput
-              type="number"
-              label="Fees"
-              placeholder="Instrument"
-              state={fees}
-              setstate={setfees}
-              className="hasfee"
-            >
-              <Brokerage
-                broker={broker}
-                taxes={mystock.totaltaxes}
-                setstate={setfees}
+            <Formdiv text="General Data">
+              <Symbolinput
+                label="Symbol"
+                name="symbol"
+                showlabel
+                state={instrument}
+                setstate={(value) => setinstrument(value)}
+                data={symboldata}
+                limit={10}
+                placeholder="Ex. INDUSINDBK"
+                uppercase
               />
-            </Theinput>
+              <Theselect
+                label="Action"
+                options={["Buy", "Sell"]}
+                state={action}
+                setState={setaction}
+              />
+              <Theselect
+                label="Timeframe"
+                options={[
+                  "1 Minute",
+                  "5 Minutes",
+                  "15 Minutes",
+                  "30 Minutes",
+                  "1 Hour",
+                  "4 Hours",
+                  "1 Day",
+                  "1 Week",
+                ]}
+                state={timeframe}
+                setState={settimeframe}
+              />
+            </Formdiv>
+            <Formdiv text="Entry">
+              {" "}
+              <Theinput
+                label="Entry Date"
+                type="datetime-local"
+                state={entrydate}
+                setstate={setentrydate}
+              />
+              <Theinput
+                type="number"
+                label="Quantity"
+                placeholder="0"
+                state={quantity}
+                setstate={setquantity}
+              />
+              <Theinput
+                type="number"
+                label="Entry Price"
+                placeholder="0"
+                state={entryprice}
+                setstate={setentryprice}
+              />{" "}
+              <Theinput
+                type="number"
+                label="Take Profit"
+                placeholder="0"
+                state={takeprofit}
+                setstate={settakeprofit}
+              />
+              <Theinput
+                type="number"
+                label="Stop Loss"
+                placeholder="0"
+                state={stoploss}
+                setstate={setstoploss}
+              />
+            </Formdiv>
+            <Formdiv text="Exit">
+              <Thedate
+                label="Exit date"
+                type="datetime-local"
+                state={exitdate}
+                setstate={setexitdate}
+                // min={"2023-05-17T18:29"}
+                // max={"2024-05-22T18:29"}
+              />
+              <Theinput
+                type="number"
+                label="Exit Price"
+                placeholder="0"
+                state={exitprice}
+                setstate={setexitprice}
+              />{" "}
+              <Theinput
+                type="number"
+                label="Fees"
+                placeholder="You can click on suggested or enter mannually"
+                state={fees}
+                setstate={setfees}
+                className="hasfee"
+              >
+                <Brokerage
+                  broker={broker}
+                  taxes={mystock.totaltaxes}
+                  setstate={setfees}
+                />
+              </Theinput>
+            </Formdiv>
+            <Formdiv text="Other information">
+              <Theselect
+                label="Emotions"
+                options={[
+                  "",
+                  "Impatience",
+                  "Fear",
+                  "Tilt",
+                  "Greed",
+                  "Confidence",
+                  "Uncertanity",
+                ]}
+                state={emotions}
+                setState={setemotions}
+              />
+              <Theselect
+                label="Market Conditions"
+                options={["", "Trending", "Flat"]}
+                state={marketcondition}
+                setState={setmarketcondition}
+              />
+            </Formdiv>
+            <Formdiv text="Chart">
+              <Chartexplain
+                chart={chart}
+                setchart={setchart}
+                setmessage={setmessage}
+                seterror={setnotifyerror}
+              />
+            </Formdiv>
           </div>
         </form>
+        <Notification
+          text={message}
+          error="topcenter"
+          icon
+          state={notifyerror}
+          setstate={setnotifyerror}
+          close
+          // stripe
+          // mobile
+        />
+        <Notification
+          text={message}
+          success="topcenter"
+          icon
+          state={notifysuccess}
+          setstate={setnotifysuccess}
+          close
+          // stripe
+          // mobile
+        />
       </Layout>
     </>
   );

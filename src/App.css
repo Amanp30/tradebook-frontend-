@@ -13,11 +13,13 @@ body {
     height: -webkit-fill-available;
 }
 
-.addnew {
-    padding: 0.4em .8em;
+.primarybtn {
+    padding: 0.4em 1.5em;
     background: #050096;
     border-radius: 0.2em;
     color: white;
+    font-size: 1em;
+    border: none;
 }
 
 a {
@@ -32,22 +34,17 @@ a {
 }
 
 
-/* fee recommendation start */
-.feerecommend {
-    padding: 0.4em .8em;
-    font-size: .8em;
-    height: 2.2em;
-    border-radius: 5px;
-    max-height: max-content;
-    transform: translateY(-4px);
+.flex {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1em;
 }
 
-.feerecommend span {
-    font-weight: 600;
+
+.boldtext {
+    font-weight: 500;
 }
-
-/* fee recommendation end  */
-
 
 :focus {
     outline: none;

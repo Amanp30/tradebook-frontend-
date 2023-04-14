@@ -8,6 +8,8 @@
     line-break: anywhere;
     background: beige !important;
     z-index: 1;
+    max-height: 190px;
+    overflow: hidden;
 }
 
 .theitems {
@@ -25,7 +27,7 @@
 
 .custominputbox {
     padding: .6em 1em;
-    width: fit-content;
+    width: 100%;
     border-radius: 5px;
     width: -webkit-fill-available;
 }

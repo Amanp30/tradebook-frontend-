@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import css from "./inputs.css";
+import "./inputs.css";
+import { v4 as uuidv4 } from "uuid";
 
 function Symbolinput({
   state,
@@ -49,7 +50,9 @@ function Symbolinput({
 
   useEffect(() => {
     setfilteredData(
-      data?.filter((item) => item.toLowerCase().includes(state.toLowerCase()))
+      data?.filter((item) =>
+        item?.toLowerCase()?.includes(state?.toLowerCase())
+      )
     );
   }, [state, data]);
 
@@ -60,20 +63,18 @@ function Symbolinput({
   }
 
   function showthedata(data) {
+    const uniqueId = uuidv4();
+
     return (
       <>
         {data?.map((item, index) => (
-          <>
-            {index < limit && (
-              <div
-                key={index}
-                className={"theitems"}
-                onClick={(e) => handleItemClick(item)}
-              >
-                {item}
-              </div>
-            )}
-          </>
+          <div
+            key={`${uniqueId}-${index}`}
+            className={"theitems"}
+            onClick={(e) => handleItemClick(item)}
+          >
+            {item}
+          </div>
         ))}
       </>
     );
@@ -132,7 +133,7 @@ function Symbolinput({
           onMouseOver={(e) => setisitemhovering(true)}
           onMouseOut={(e) => setisitemhovering(false)}
         >
-          {state.length < 1
+          {state?.length < 1
             ? showthedata(data)
             : filteredData?.length > 0 && showthedata(filteredData)}
         </div>

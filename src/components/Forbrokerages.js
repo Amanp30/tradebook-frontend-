@@ -7,6 +7,10 @@ class Stock {
     exit,
     brokerage,
     transactioncharges,
+    entrytime,
+    exittime,
+    stoploss,
+    takeprofit,
   }) {
     if (!new.target) {
       throw new Error("Please initialize first with new keyword");
@@ -17,6 +21,10 @@ class Stock {
     this.exit = exit;
     this.thebrokerage = brokerage;
     this.thetransactioncharges = transactioncharges;
+    this.entrytime = entrytime;
+    this.exittime = exittime;
+    this.stoploss = stoploss;
+    this.takeprofit = takeprofit;
     // this.#another = 5; // setting private field value
   }
 
@@ -152,6 +160,72 @@ class Stock {
       pnlPerShare = this.entry - this.exit;
     }
     return pnlPerShare.toFixed(2);
+  }
+
+  get outcome() {
+    if (/* this.action === "Sell" && */ this.pnlpershare > 0) {
+      return "Win";
+    } else if (this.pnlpershare < 0) {
+      return "Loss";
+    }
+  }
+  /* that works wornderfully but only in min */
+  get holdingPeriodminute() {
+    // console.log(this.entrytime);
+    // console.log(this.exittime);
+    const entryDate = new Date(this.entrytime);
+    const exitDate = new Date(this.exittime);
+    const millisecondsInMinute = 60 * 1000;
+    const holdingPeriodInMinutes =
+      (exitDate - entryDate) / millisecondsInMinute;
+    return holdingPeriodInMinutes;
+  }
+
+  /* in hours  */
+  get holdingPeriodhour() {
+    const entryDate = new Date(this.entrytime);
+    const exitDate = new Date(this.exittime);
+    const millisecondsInMinute = 60 * 1000;
+    const millisecondsInHour = 60 * millisecondsInMinute;
+    const holdingPeriodInMilliseconds = exitDate - entryDate;
+    const holdingPeriodInHours = Math.floor(
+      holdingPeriodInMilliseconds / millisecondsInHour
+    );
+    const remainingMilliseconds =
+      holdingPeriodInMilliseconds % millisecondsInHour;
+    const holdingPeriodInMinutes = Math.floor(
+      remainingMilliseconds / millisecondsInMinute
+    );
+    return holdingPeriodInHours + " : " + holdingPeriodInMinutes;
+  }
+
+  get rrrplanned() {
+    if (this.action === "Buy") {
+      const pnl = this.takeprofit - this.entry;
+      const risk = this.entry - this.stoploss;
+      return (pnl / risk).toFixed(2);
+    } else if (this.action === "Sell") {
+      const pnl = this.entry - this.takeprofit;
+      const risk = this.stoploss - this.entry;
+      return (pnl / risk).toFixed(2);
+    }
+  }
+
+  get rmultiple() {
+    if (this.action === "Buy") {
+      const pnl = this.exit - this.entry;
+      const risk = this.entry - this.stoploss;
+      return (pnl / risk).toFixed(2);
+    } else if (this.action === "Sell") {
+      const pnl = this.entry - this.exit;
+      const risk = this.stoploss - this.entry;
+      return (pnl / risk).toFixed(2);
+    }
+  }
+
+  get rmultipledifference() {
+    var diff = Math.abs(this.rrrplanned - this.rmultiple);
+    return diff;
   }
 }
 

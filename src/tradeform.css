@@ -1,25 +1,123 @@
 .newtradeform {
-    display: grid;
+    display: flex;
     padding: 1em;
-    grid-template: auto / 1fr 1fr 1fr;
-    gap: 2em;
+    flex-direction: column;
+    gap: 1.5em;
+}
+
+
+.thegrids {
+    display: grid;
+    grid-template: auto / repeat(3, 30%);
+    column-gap: 5%;
     row-gap: 1em;
 }
 
+.hidesuggest {
+    display: none;
+}
+
+/* 
 .hasfee {
     grid-column: 1/1;
+    flex-wrap: wrap;
+} */
+
+.labelcontainer {
+    flex-wrap: wrap;
 }
 
 @media (max-width:600px) {
-    .newtradeform {
+    .thegrids {
         grid-template: auto / 1fr;
         row-gap: 2em;
     }
 }
 
 @media (min-width:600px) and (max-width:930px) {
-    .newtradeform {
+    .thegrids {
         grid-template: auto / 1fr 1fr;
         row-gap: 2em;
     }
+}
+
+/* fee recommendation start */
+.feerecommend {
+    padding: 0.4em .8em;
+    font-size: .8em;
+    height: 2.2em;
+    border-radius: 5px;
+    max-height: max-content;
+    transform: translateY(-4px);
+}
+
+.feerecommend span {
+    font-weight: 600;
+}
+
+/* fee recommendation end  */
+
+
+.formchart {
+    padding: 1em;
+    background: #e9e9e9;
+    height: 450px;
+    grid-column: 1 / -1;
+    width: 100%;
+    border-radius: 10px;
+    position: relative;
+}
+
+@media (min-width:200px) and (max-width:1281px) {
+    .formchart {
+        max-height: 400px;
+        height: 250px;
+    }
+}
+
+.uploadimage {
+    height: 100%;
+    width: 100%;
+    border: 2px dashed;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.uploadimage img {
+    width: 100px;
+}
+
+input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: calc(100% - 32px);
+    height: calc(100% - 30px);
+    margin: auto;
+    opacity: 0;
+}
+
+img.selectedimage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+p.removeimg {
+    position: absolute;
+    bottom: 2em;
+    background: thistle;
+    border-radius: 2em;
+    color: black;
+    padding: 0.4em 1em;
+    box-shadow: 0 0 17px 0px rebeccapurple;
+    left: 0;
+    width: fit-content;
+    right: 0;
+    margin: auto;
 }

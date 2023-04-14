@@ -1,21 +1,21 @@
 import React, { useEffect, useRef } from "react";
 import "./inputs.css";
 
-function Theinput({
+function Thedate({
   type,
   name,
-  uppercase,
   disabled,
   label,
   state,
   setstate,
-  placeholder,
   className,
   children,
+  min,
+  max,
 }) {
   const inputRef = useRef(null);
 
-  var thehtmlfor = label.replace(/\s+/g, "").toLowerCase();
+  const htmlId = label?.replace(/\s+/g, "")?.toLowerCase();
 
   useEffect(() => {
     const divElement = inputRef.current.parentElement;
@@ -32,46 +32,41 @@ function Theinput({
     };
   }, []);
 
-  function handleOnChange(e) {
-    let value = e.target.value;
-    if (uppercase) {
-      value = value.toUpperCase();
-    }
-    setstate(value);
-  }
-
-  function Showlabel() {
-    return children ? (
-      <>
-        <div style={{ display: "flex" }} className="labelcontainer">
-          <label
-            className="thelabel"
-            htmlFor={thehtmlfor}
-            style={{ marginRight: "1em" }}
-          >
-            {label}
-          </label>{" "}
-          {children}
-        </div>
-      </>
-    ) : (
-      <label className="thelabel" htmlFor={thehtmlfor}>
+  function renderLabel() {
+    return (
+      <label className="thelabel" htmlFor={htmlId}>
         {label}
       </label>
     );
   }
 
+  function renderLabelWithChildren() {
+    return (
+      <div style={{ display: "flex" }}>
+        <label
+          className="thelabel"
+          htmlFor={htmlId}
+          style={{ marginRight: "1em" }}
+        >
+          {label}
+        </label>{" "}
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div className={className ? className : ""}>
-      <Showlabel />
+      {children ? renderLabelWithChildren() : renderLabel()}
       <div className="custominputbox">
         <input
           type={type}
           value={state}
-          id={thehtmlfor}
+          id={htmlId}
           name={name}
-          onChange={handleOnChange}
-          placeholder={placeholder}
+          min={min}
+          max={max}
+          onChange={(e) => setstate(e.target.value)}
           className={`text-input theinput`}
           ref={inputRef}
           disabled={disabled ? true : false}
@@ -81,4 +76,4 @@ function Theinput({
   );
 }
 
-export default Theinput;
+export default Thedate;

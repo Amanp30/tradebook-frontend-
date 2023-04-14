@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom"; // import the NavLink component from react-router-dom
 import Theme from "./Theme";
 import "./navbar.css";
+import { doLogout, isAuth } from "../helpers/Auth";
 
 function Dropdown({ data, heading }) {
   const [isDropdownOpen, setisDropdownOpen] = useState("default");
+
+  function setbodyscrollable() {
+    document.body.style.overflow = "";
+  }
 
   const handleDrop = (e) => {
     if (isDropdownOpen === "default" || isDropdownOpen === "close") {
@@ -13,6 +18,10 @@ function Dropdown({ data, heading }) {
       setisDropdownOpen("close");
     }
   };
+
+  useEffect(() => {
+    if (!isAuth()) doLogout();
+  }, []);
 
   return (
     <>
@@ -33,7 +42,11 @@ function Dropdown({ data, heading }) {
       >
         {data[0].links.map((item, index) => (
           <li key={index}>
-            <NavLink to={item.link} activeclassname="active-link">
+            <NavLink
+              to={item.link}
+              activeclassname="active-link"
+              onClick={setbodyscrollable}
+            >
               {item.text}
             </NavLink>
           </li>
@@ -122,6 +135,10 @@ function Navbar() {
     };
   }, [isOpen]);
 
+  function setbodyscrollable() {
+    document.body.style.overflow = "";
+  }
+
   return (
     <>
       <div className="onlymobile">
@@ -134,6 +151,7 @@ function Navbar() {
         <img
           src="/shutdown.png"
           style={{ width: "25px", position: "absolute", right: "1em" }}
+          onClick={(e) => doLogout()}
         />
       </div>
       <div
@@ -150,17 +168,26 @@ function Navbar() {
           <Theme />
         </div>
         <div className="links_container">
-          <NavLink to="/" activeclassname="active-link">
+          <NavLink
+            to="/"
+            activeclassname="active-link"
+            onClick={setbodyscrollable}
+          >
             Dashboard
           </NavLink>
-          <NavLink to="/trades" activeclassname="active-link">
+
+          <NavLink
+            to="/trades"
+            activeclassname="active-link"
+            onClick={setbodyscrollable}
+          >
             Trades
           </NavLink>
           <Dropdown heading="Reports" data={Reportsdata} />
           <Dropdown heading="More" data={Reportsdata} />
           <Dropdown heading="Settings" data={Settingsdata} />
           <Dropdown heading="Account" data={Settingsdata} />
-          <div className="logout thebox">
+          <div className="logout thebox" onClick={(e) => doLogout()}>
             <img src="/shutdown.png" style={{ width: "25px" }} /> <p>Logout</p>
           </div>
         </div>

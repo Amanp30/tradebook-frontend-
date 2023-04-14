@@ -32,7 +32,7 @@ function Select({
 
   function renderOptions() {
     return options.map((option, index) => (
-      <option key={index} value={option.replace(/\s+/g, "")}>
+      <option key={index} value={option}>
         {option}
       </option>
     ));

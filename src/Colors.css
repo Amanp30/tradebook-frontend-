@@ -57,6 +57,7 @@ a {
 
 .openmenubtn,
 .menudropdown img,
+.backimg,
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-calendar-picker-indicator,
 input[type="week"]::-webkit-calendar-picker-indicator,
@@ -67,8 +68,16 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 .navbar,
 .navbar_inner.opening,
 .navbar_inner.closing,
-.thebox {
+.thebox,
+.imageenlarge img:first-child {
     background-color: var(--primary-background);
+}
+
+@media (max-width:900px) {
+    .backdropfilter {
+        background-color:
+            var(--primary-background) !important;
+    }
 }
 
 
