@@ -9,7 +9,7 @@ import {
   Waiting,
 } from "./components/Littles";
 import { errorhandler } from "./helpers/codehandlers";
-import { momentdate, Timeout } from "./helpers/functions";
+import { momentdate } from "./helpers/functions";
 import useNotify from "./hooks/useNotify";
 import { deleteTrade, editTradeapi } from "./services/apiEndpoints";
 
@@ -48,7 +48,9 @@ function Detailtrdae() {
       .then((response) => {
         const { chart } = response;
         response.chart =
-          chart === "" ? "" : `${process.env.REACT_APP_DOMAIN}uploads/${chart}`;
+          chart === ""
+            ? ""
+            : `${process.env.REACT_APP_DOMAIN}/uploads/${chart}`;
         setvalues(response);
 
         setshowContent(true);
