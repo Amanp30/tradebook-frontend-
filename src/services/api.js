@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "../helpers/Auth";
 
 const api = axios.create({
-  baseURL: `${REACT_APP_API}`,
+  baseURL: `${process.env.REACT_APP_API}`,
   withCredentials: true, // send cookies with requests
 });
 

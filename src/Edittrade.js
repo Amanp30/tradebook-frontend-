@@ -48,7 +48,9 @@ function Edittrade() {
       .then((response) => {
         const { chart } = response;
         response.chart =
-          chart === "" ? "" : `${REACT_APP_API}/uploads/${chart}`;
+          chart === ""
+            ? ""
+            : `${process.env.REACT_APP_DOMAIN}/uploads/${chart}`;
         setvalues(response);
         setTimeout(() => {
           setShouldMountChart(true); // update shouldMount to true after 3 seconds
