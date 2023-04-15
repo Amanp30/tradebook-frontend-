@@ -24,7 +24,7 @@ const Tradecontent = ({ data, deletefunc }) => {
         {data.map((item) => {
           return (
             <React.Fragment key={item._id}>
-              <div className="thetrade ">
+              <div className="thetrade hoverbg">
                 <Action action={item.action} />
                 <Outcome text={item.outcome} />
                 <Link

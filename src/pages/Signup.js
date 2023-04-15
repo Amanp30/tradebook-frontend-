@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Theinput from "./components/Theinput";
+import Theinput from "../components/inputs/Theinput";
 import axios from "axios";
-import { errorhandler } from "./helpers/codehandlers";
-import "./auth.css";
-import Notification from "./components/Notification";
+import { errorhandler } from "../helpers/codehandlers";
+import "../styles/auth.css";
+import Notification from "../components/notification/Notification";
 import { Link } from "react-router-dom";
-import { setCookie, setLocalStorage } from "./helpers/Auth";
 
-function Login() {
+function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [notifysuccess, setnotifysuccess] = useState(false);
   const [notifyerror, setnotifyerror] = useState(false);
@@ -52,25 +52,16 @@ function Login() {
     const formData = new FormData(event.target);
 
     axios
-      .post(`${process.env.REACT_APP_API}/user/login`, formData, {
+      .post(`${process.env.REACT_APP_API}/user/signup`, formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
-        console.log(response.data);
-
-        setCookie("token", response.data.token, 1);
-        setLocalStorage("user", response.data.user);
-        setLocalStorage("broker", response.data.broker);
-
+        // console.log(response);
         setnotifysuccess(true);
-        setmessage("Login Successful");
-
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 2000);
+        setmessage(response?.data?.success);
       })
       .catch((err) => {
         // console.log(err);
@@ -85,7 +76,7 @@ function Login() {
     <>
       <p className="logo forauth">TradeBook</p>
       <form onSubmit={handleFormSubmit} className="thesignupform">
-        <h2 style={{ marginBottom: ".8em" }}>LOGIN</h2>
+        <h2 style={{ marginBottom: ".8em" }}>SIGNUP</h2>
         <Theinput
           label="Email"
           name="email"
@@ -101,18 +92,14 @@ function Login() {
           state={password}
           setstate={setPassword}
           className="authpassword"
-        >
-          <Link to="/account/forgot-password" className="authlinks">
-            Forgot Password
-          </Link>
-        </Theinput>
+        ></Theinput>
         <button type="submit" className="authbtn" disabled={loading}>
-          {loading ? "Loading..." : "Login"}
+          {loading ? "Registering..." : "Register"}
         </button>
         <p className="otherp">
-          Don't have account{" "}
-          <Link to={"/account/signup"} style={{ textDecoration: "underline" }}>
-            Create One
+          Already have account{" "}
+          <Link to={"/account/login"} style={{ textDecoration: "underline" }}>
+            Login
           </Link>{" "}
         </p>
       </form>
@@ -137,8 +124,15 @@ function Login() {
         // stripe
         // mobile
       />
+      {/* <Notification
+        state={true}
+        text="Saving data"
+        saving="topleft"
+        icon
+        stripe
+      /> */}
     </>
   );
 }
 
-export default Login;
+export default Signup;

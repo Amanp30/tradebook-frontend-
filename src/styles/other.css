@@ -1,0 +1,24 @@
+.accountgrid {
+    padding: 1em;
+    display: grid;
+    grid-template: auto / 2fr 2fr;
+    border-radius: 5px;
+    gap: 2em;
+}
+
+.defaultpad {
+    padding: 1em;
+}
+
+.defaultbr {
+    border-radius: 5px;
+}
+
+.holeone {
+    grid-column: 1/-1;
+}
+
+.notfull {
+    max-width: fit-content;
+
+}

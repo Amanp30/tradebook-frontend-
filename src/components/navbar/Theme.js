@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getCookie } from "../helpers/Auth";
+import { getCookie } from "../../helpers/Auth";
 
 const Theme = () => {
   const [theme, setTheme] = useState(

@@ -1,10 +1,9 @@
 import React from "react";
 
 function Brokerage({ setstate, broker, taxes }) {
-  console.log(taxes);
   return (
     <span
-      className={`feerecommend ${broker} ${
+      className={`feerecommend ${broker.toLowerCase().replace(/\s/g, "")} ${
         taxes === "NaN" || taxes === "0.00" ? "hidesuggest" : ""
       }`}
       onClick={(e) => setstate(taxes)}

@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Oval, Radio } from "react-loader-spinner";
 import { Link } from "react-router-dom";
+import Theinput from "../components/inputs/Theinput";
+import Theselect from "../components/inputs/Select";
+import {
+  getAccountUserDetails,
+  saveAccountUserDetails,
+} from "../services/apiEndpoints";
+import { indianStates } from "../helpers/functions";
 
 export const Heading = ({ text, children, theclass }) => {
   var wrapperclasses = theclass ? theclass + " heading_comp " : "heading_comp ";
   return (
     <div className={wrapperclasses}>
       <h1 className="heading">{text}</h1>{" "}
-      <div className="otheractions">{children}</div>
+      {children ? <div className="otheractions">{children}</div> : null}
     </div>
   );
 };
@@ -286,4 +293,108 @@ export const Imagezoom = ({ theimage }) => {
       ) : null}
     </>
   );
+};
+
+export const Notradefound = () => {
+  return <p>Hey! no trade found first add one</p>;
+};
+
+export const Accountsettings = ({ saveFunc, btnclass }) => {
+  const [data, setdata] = useState([]);
+  const [showcontent, setshowcontent] = useState(false);
+
+  function getData() {
+    getAccountUserDetails()
+      .then((response) => {
+        console.log(response);
+        setdata(response);
+        setshowcontent(true);
+      })
+      .catch((error) => {
+        // errorhandler(error, setmessage).then(() => {
+        //   setnotifyerror(true);
+        // });
+        alert("Some Error occured");
+      });
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const handlesubmit = (event) => {
+    event.preventDefault();
+
+    const formDataObj = {
+      firstname: data.firstname,
+      lastname: data.lastname,
+      mobileno: data.mobileno,
+      state: data.state,
+      broker: data.broker,
+    };
+
+    saveFunc(data);
+  };
+
+  if (showcontent === false) {
+    return <>Loading</>;
+  }
+
+  if (showcontent)
+    return (
+      <>
+        <div className="thebox defaultpad defaultbr">
+          <form
+            onSubmit={handlesubmit}
+            id="theform"
+            method="post"
+            encType="multipart/form-data"
+            className="accountgrid"
+          >
+            <Theinput
+              type="text"
+              label="First Name"
+              placeholder=""
+              state={data.firstname}
+              setstate={(value) => setdata({ ...data, firstname: value })}
+            />
+            <Theinput
+              type="text"
+              label="Last Name"
+              placeholder=""
+              state={data.lastname}
+              setstate={(value) => setdata({ ...data, lastname: value })}
+            />{" "}
+            <Theinput
+              type="number"
+              label="Mobile"
+              placeholder="8741xxx986"
+              state={data.mobileno}
+              className="holeone"
+              setstate={(value) => setdata({ ...data, mobileno: value })}
+            />
+            <Theselect
+              label="State"
+              options={indianStates}
+              state={data.state}
+              className="holeone"
+              setState={(value) => setdata({ ...data, state: value })}
+            />
+            <Theselect
+              label="Broker"
+              options={["", "Upstox", "Zerodha", "Angel one"]}
+              state={data.broker}
+              className="holeone"
+              setState={(value) => setdata({ ...data, broker: value })}
+            />
+            <button
+              type="submit"
+              className={btnclass ? `${btnclass} primarybtn ` : "primarybtn"}
+            >
+              Update Information
+            </button>
+          </form>
+        </div>
+      </>
+    );
 };

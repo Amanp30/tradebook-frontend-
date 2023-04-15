@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import api from "../services/api";
+import { getDistinctTrades } from "../services/apiEndpoints";
 
 export default function useTrade() {
   const [symboldata, setSymboldata] = useState([]);
 
   useEffect(() => {
-    api
-      .get("/trade/distinctsymbol")
-      .then((response) => setSymboldata(response?.data?.symbols))
+    getDistinctTrades()
+      .then((response) => setSymboldata(response))
       .catch((error) => console.log(error));
   }, []);
 

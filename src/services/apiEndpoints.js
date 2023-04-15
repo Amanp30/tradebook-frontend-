@@ -1,6 +1,8 @@
 import { getUserId } from "../helpers/Auth";
 import api from "./api";
 
+const theuser = getUserId();
+
 function apiErrorhandler(error) {
   if (
     error?.response?.data?.message &&
@@ -14,9 +16,39 @@ function apiErrorhandler(error) {
   }
 }
 
+export const getAccountUserDetails = async () => {
+  try {
+    const response = await api.get(`/account/${theuser}`);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
+export const saveAccountUserDetails = async (data) => {
+  try {
+    const response = await api.post(`/account/save/${theuser}`, data);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
+export const getDistinctTrades = async () => {
+  try {
+    const response = await api.get(`/trade/distinctsymbol/${theuser}`);
+    return response?.data?.symbols;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
 export const getTrades = async () => {
   try {
-    const response = await api.get(`/trade/showtrades/${getUserId()}`);
+    const response = await api.get(`/trade/showtrades/${theuser}`);
     return response?.data?.trades;
   } catch (error) {
     console.log(error);
@@ -26,8 +58,8 @@ export const getTrades = async () => {
 
 export const editTradeapi = async (tradeid) => {
   try {
-    const response = await api.get(`/trade/edit/${tradeid}/${getUserId()}`);
-    return response?.data;
+    const response = await api.get(`/trade/edit/${tradeid}/${theuser}`);
+    return response?.data[0];
   } catch (error) {
     console.log(error);
     apiErrorhandler(error);

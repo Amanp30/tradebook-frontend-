@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Theinput from "./components/Theinput";
+import Theinput from "../components/inputs/Theinput";
 import axios from "axios";
-import { errorhandler } from "./helpers/codehandlers";
-import "./auth.css";
-import Notification from "./components/Notification";
+import { errorhandler } from "../helpers/codehandlers";
+import "../styles/auth.css";
+import Notification from "../components/notification/Notification";
 import { Link } from "react-router-dom";
+import { setCookie, setLocalStorage } from "../helpers/Auth";
 
-function Forgotpassword() {
+function Login() {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const [notifysuccess, setnotifysuccess] = useState(false);
@@ -30,6 +32,8 @@ function Forgotpassword() {
     setLoading(true);
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
+    const passwordRegex = /^.{6,}$/;
 
     if (!emailRegex.test(email)) {
       setmessage("Invalid email address");
@@ -38,19 +42,35 @@ function Forgotpassword() {
       return;
     }
 
+    if (!passwordRegex.test(password)) {
+      setmessage("Password should contain at least 6 characters");
+      setnotifyerror(true);
+      setLoading(false);
+      return;
+    }
+
     const formData = new FormData(event.target);
 
     axios
-      .post(`${process.env.REACT_APP_API}/user/forgotpassword`, formData, {
+      .post(`${process.env.REACT_APP_API}/user/login`, formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
+
+        setCookie("token", response.data.token, 1);
+        setLocalStorage("user", response.data.user);
+        setLocalStorage("broker", response.data.broker);
+
         setnotifysuccess(true);
-        setmessage(response?.data?.success);
+        setmessage("Login Successful");
+
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
       })
       .catch((err) => {
         // console.log(err);
@@ -64,8 +84,8 @@ function Forgotpassword() {
   return (
     <>
       <p className="logo forauth">TradeBook</p>
-      <form onSubmit={handleFormSubmit} className="thesignupform forgotpass">
-        <h2 style={{ marginBottom: ".8em" }}>Forgot Password</h2>
+      <form onSubmit={handleFormSubmit} className="thesignupform">
+        <h2 style={{ marginBottom: ".8em" }}>LOGIN</h2>
         <Theinput
           label="Email"
           name="email"
@@ -74,13 +94,25 @@ function Forgotpassword() {
           setstate={setEmail}
           className="authemail"
         />
+        <Theinput
+          label="Password"
+          name="password"
+          type="password"
+          state={password}
+          setstate={setPassword}
+          className="authpassword"
+        >
+          <Link to="/account/forgot-password" className="authlinks">
+            Forgot Password
+          </Link>
+        </Theinput>
         <button type="submit" className="authbtn" disabled={loading}>
-          {loading ? "Sending Email..." : "Send Email"}
+          {loading ? "Loading..." : "Login"}
         </button>
         <p className="otherp">
-          Click here to{" "}
-          <Link to={"/account/login"} style={{ textDecoration: "underline" }}>
-            Login
+          Don't have account{" "}
+          <Link to={"/account/signup"} style={{ textDecoration: "underline" }}>
+            Create One
           </Link>{" "}
         </p>
       </form>
@@ -109,4 +141,4 @@ function Forgotpassword() {
   );
 }
 
-export default Forgotpassword;
+export default Login;

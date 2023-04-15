@@ -1,6 +1,6 @@
 import React from "react";
-import Layout from "./components/Layout";
-import { Heading } from "./components/Littles";
+import Layout from "../components/Layout";
+import { Heading } from "../components/Littles";
 
 function Dashboard() {
   return (

@@ -73,9 +73,11 @@
         display: block !important;
     }
 
-    .thepad {
-        margin-bottom: 2em;
-    }
+
+}
+
+.thepad {
+    margin-bottom: 2em;
 }
 
 .detailgrid {
@@ -88,8 +90,35 @@
 .thepad {
     padding: 1em;
     border-radius: 10px;
+    height: max-content;
 }
 
+.onedetail {
+    margin-bottom: .5em;
+}
+
+.detailheading {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.detailheading:after {
+    content: "";
+    position: absolute;
+    width: -webkit-fill-available;
+    height: 3px;
+    /* background: crimson; */
+    top: calc(100% - 2px - 50%);
+    margin-left: 8px;
+}
+
+@media (min-width:600px) and (max-width:1200px) {
+    .detailgrid {
+        display: block;
+    }
+}
 
 /* chart image */
 

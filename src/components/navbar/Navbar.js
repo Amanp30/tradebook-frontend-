@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom"; // import the NavLink component from react-router-dom
 import Theme from "./Theme";
 import "./navbar.css";
-import { doLogout, isAuth } from "../helpers/Auth";
+import { doLogout, isAuth } from "../../helpers/Auth";
 
 function Dropdown({ data, heading }) {
   const [isDropdownOpen, setisDropdownOpen] = useState("default");
@@ -91,7 +91,7 @@ function Navbar() {
       links: [
         {
           text: "General",
-          link: "/general",
+          link: "/account-details",
         },
         {
           text: "Change Password",
@@ -184,9 +184,9 @@ function Navbar() {
             Trades
           </NavLink>
           <Dropdown heading="Reports" data={Reportsdata} />
-          <Dropdown heading="More" data={Reportsdata} />
+
           <Dropdown heading="Settings" data={Settingsdata} />
-          <Dropdown heading="Account" data={Settingsdata} />
+
           <div className="logout thebox" onClick={(e) => doLogout()}>
             <img src="/shutdown.png" style={{ width: "25px" }} /> <p>Logout</p>
           </div>

@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
-import Brokerage from "./components/AnotherBrokerage";
-import Layout from "./components/Layout";
-import Theinput from "./components/Theinput";
-import { brokerdata } from "./helpers/brokerdata";
-import Stock from "./components/Forbrokerages";
-import Theselect from "./components/Select";
-import Symbolinput from "./components/Symbol";
+import Brokerage from "../components/AnotherBrokerage";
+import Layout from "../components/Layout";
+import Theinput from "../components/inputs/Theinput";
+import { brokerdata } from "../helpers/brokerdata";
+import Stock from "../components/Forbrokerages";
+import Theselect from "../components/inputs/Select";
+import Symbolinput from "../components/inputs/Symbol";
 import moment from "moment-timezone";
-import "./tradeform.css";
-import Thedate from "./components/Date";
-import { getBroker } from "./helpers/Auth";
-import useNotify from "./hooks/useNotify";
-import Notification from "./components/Notification";
-import { errorhandler, validateOrder } from "./helpers/codehandlers";
+import "../styles/tradeform.css";
+import Thedate from "../components/inputs/Date";
+import { getBroker } from "../helpers/Auth";
+import useNotify from "../hooks/useNotify";
+import Notification from "../components/notification/Notification";
+import { errorhandler, validateOrder } from "../helpers/codehandlers";
 import {
   Chartexplain,
   Formdiv,
   Servererror,
   Waiting,
   Heading,
-} from "./components/Littles";
-import { Timeout, validateSymbol } from "./helpers/functions";
-import useTrade from "./hooks/useTrade";
-import { editTradeapi, updateTradeapi } from "./services/apiEndpoints";
+} from "../components/Littles";
+import { Timeout, validateSymbol } from "../helpers/functions";
+import useTrade from "../hooks/useTrade";
+import { editTradeapi, updateTradeapi } from "../services/apiEndpoints";
 import { useParams } from "react-router-dom";
 
 function Edittrade() {
@@ -67,7 +67,7 @@ function Edittrade() {
   // console.log(values);
 
   const broker = getBroker();
-  const brokerInfo = brokerdata[broker.toLowerCase()]; // Get the brokerage and stt based on the broker name
+  const brokerInfo = brokerdata[broker.toLowerCase().replace(/\s/g, "")]; // Get the brokerage and stt based on the broker name
 
   const mystock = new Stock({
     action: values.action,

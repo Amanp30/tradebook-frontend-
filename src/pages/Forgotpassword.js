@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Theinput from "./components/Theinput";
+import Theinput from "../components/inputs/Theinput";
 import axios from "axios";
-import { errorhandler } from "./helpers/codehandlers";
-import "./auth.css";
-import Notification from "./components/Notification";
-import { Link, useParams } from "react-router-dom";
+import { errorhandler } from "../helpers/codehandlers";
+import "../styles/auth.css";
+import Notification from "../components/notification/Notification";
+import { Link } from "react-router-dom";
 
-function Resetpassword() {
-  const [password, setpassword] = useState("");
+function Forgotpassword() {
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
   const [notifysuccess, setnotifysuccess] = useState(false);
   const [notifyerror, setnotifyerror] = useState(false);
   const [message, setmessage] = useState("");
-
-  const { link } = useParams();
 
   useEffect(() => {
     const html = document.querySelector("html");
@@ -31,10 +29,10 @@ function Resetpassword() {
     setmessage("");
     setLoading(true);
 
-    const passwordRegex = /^.{6,}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!passwordRegex.test(password)) {
-      setmessage("Password must be atleast 6 characters");
+    if (!emailRegex.test(email)) {
+      setmessage("Invalid email address");
       setnotifyerror(true);
       setLoading(false);
       return;
@@ -43,7 +41,7 @@ function Resetpassword() {
     const formData = new FormData(event.target);
 
     axios
-      .post(`${process.env.REACT_APP_API}/user/reset/${link}`, formData, {
+      .post(`${process.env.REACT_APP_API}/user/forgotpassword`, formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -67,13 +65,13 @@ function Resetpassword() {
     <>
       <p className="logo forauth">TradeBook</p>
       <form onSubmit={handleFormSubmit} className="thesignupform forgotpass">
-        <h2 style={{ marginBottom: ".8em" }}>Reset Password</h2>
+        <h2 style={{ marginBottom: ".8em" }}>Forgot Password</h2>
         <Theinput
-          label="Password"
-          name="password"
-          type="password"
-          state={password}
-          setstate={setpassword}
+          label="Email"
+          name="email"
+          type="text"
+          state={email}
+          setstate={setEmail}
           className="authemail"
         />
         <button type="submit" className="authbtn" disabled={loading}>
@@ -111,4 +109,4 @@ function Resetpassword() {
   );
 }
 
-export default Resetpassword;
+export default Forgotpassword;

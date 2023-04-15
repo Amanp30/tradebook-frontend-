@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Layout from "./components/Layout";
+import Layout from "../components/Layout";
 import { Link } from "react-router-dom";
-import { deleteTrade, getTrades } from "./services/apiEndpoints";
-import useNotify from "./hooks/useNotify";
-import { errorhandler } from "./helpers/codehandlers";
-import Notification from "./components/Notification";
-import { Waiting, Heading, Servererror } from "./components/Littles";
-import Tradecontent from "./components/Tradecontent";
+import { deleteTrade, getTrades } from "../services/apiEndpoints";
+import useNotify from "../hooks/useNotify";
+import { errorhandler } from "../helpers/codehandlers";
+import Notification from "../components/notification/Notification";
+import {
+  Waiting,
+  Heading,
+  Servererror,
+  Notradefound,
+} from "../components/Littles";
+import Tradecontent from "../components/Tradecontent";
 
 function Trades() {
   const {
@@ -85,7 +90,11 @@ function Trades() {
             </Link>
           </Heading>{" "}
           {/* Trades */}
-          <Tradecontent data={data} deletefunc={(e) => deleteOne(e)} />
+          {data.length !== 0 ? (
+            <Tradecontent data={data} deletefunc={(e) => deleteOne(e)} />
+          ) : (
+            <Notradefound />
+          )}
           {/* Notification */}
           <Notification
             text={message}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Oval } from "react-loader-spinner";
-import "../components/notification.css";
+// import "./notification/notification.css";
+import "../notification/notification.css";
 
 function Notification({
   icon,

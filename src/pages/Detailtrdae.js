@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import Layout from "./components/Layout";
+import Layout from "../components/Layout";
 import {
   Editdeleteset,
+  Greenred,
   Imagezoom,
   Outcome,
   Servererror,
   Waiting,
-} from "./components/Littles";
-import { errorhandler } from "./helpers/codehandlers";
-import { momentdate } from "./helpers/functions";
-import useNotify from "./hooks/useNotify";
-import { deleteTrade, editTradeapi } from "./services/apiEndpoints";
+} from "../components/Littles";
+import { errorhandler } from "../helpers/codehandlers";
+import { momentdate } from "../helpers/functions";
+import useNotify from "../hooks/useNotify";
+import { deleteTrade, editTradeapi } from "../services/apiEndpoints";
 
 function Detailtrdae() {
   const { trade } = useParams();
@@ -82,7 +83,14 @@ function Detailtrdae() {
     return (
       <>
         <Layout>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "1em",
+              flexWrap: "wrap",
+            }}
+          >
             {" "}
             <Link to={"/trades"}>
               <img
@@ -95,13 +103,24 @@ function Detailtrdae() {
                 }}
               />
             </Link>
-            <h1 style={{ marginLeft: "20px" }}>{values?.symbol}</h1>
+            <h1 style={{ marginLeft: "20px", marginRight: "20px" }}>
+              {values?.symbol}
+            </h1>
+            <Outcome text={values.outcome} />
           </div>
           <Editdeleteset id={values._id} deletefunc={(e) => deleteOne(e)} />
 
           <div className="detailgrid">
             <div className="detailone thebox thepad">
-              <h2 className="">Trade Information</h2>
+              <h2 style={{ marginBottom: "20px" }}>
+                {" "}
+                <img
+                  src="/infoicon.svg"
+                  style={{ width: "22px", marginRight: "10px" }}
+                />
+                Trade Information
+              </h2>
+              <div className="detailheading">General Data</div>
               <div className="flex onedetail">
                 <p className="boldtext">Symbol</p>
                 <p>{values.symbol ? values.symbol : "-"}</p>
@@ -123,6 +142,7 @@ function Detailtrdae() {
                 <p className="boldtext">Timeframe</p>
                 <p>{values.timeframe ? values.timeframe : "-"}</p>
               </div>
+              <div className="detailheading">Trade Entry</div>
 
               <div className="flex onedetail">
                 <p className="boldtext">Entry Date</p>
@@ -145,6 +165,8 @@ function Detailtrdae() {
                 <p className="boldtext">Stoploss</p>
                 <p>{values.stoploss ? values.stoploss : "-"}</p>
               </div>
+              <div className="detailheading">Trade Exit</div>
+
               <div className="flex onedetail">
                 <p className="boldtext">Exit Date</p>
                 <p>{values.exitdate ? momentdate(values.exitdate) : "-"}</p>
@@ -152,6 +174,21 @@ function Detailtrdae() {
               <div className="flex onedetail">
                 <p className="boldtext">Exit Price</p>
                 <p>{values.exitprice ? values.exitprice : "-"}</p>
+              </div>
+              <div className="detailheading">Trade Results</div>
+              <div className="flex onedetail">
+                <p className="boldtext">Profit Per Share</p>
+                <p>{values.pnlpershare ? `${values.pnlpershare}` : "-"}</p>
+              </div>
+              <div className="flex onedetail">
+                <p className="boldtext">Results, %</p>
+                <p>
+                  {values.returnpercent ? (
+                    <Greenred number={values.returnpercent} append="%" />
+                  ) : (
+                    "-"
+                  )}
+                </p>
               </div>
               <div className="flex onedetail">
                 <p className="boldtext">Profit</p>
@@ -163,8 +200,16 @@ function Detailtrdae() {
               </div>
               <div className="flex onedetail">
                 <p className="boldtext">Net PNL</p>
-                <p>{values.netpnl ? values.netpnl : "-"}</p>
+                <p>
+                  {values.netpnl ? (
+                    <Greenred number={values.netpnl} append=" INR" />
+                  ) : (
+                    "-"
+                  )}
+                </p>
               </div>
+              <div className="detailheading">Other Details</div>
+
               <div className="flex onedetail">
                 <p className="boldtext">Market Condition</p>
                 <p>{values.marketcondition ? values.marketcondition : "-"}</p>
@@ -185,17 +230,10 @@ function Detailtrdae() {
                 <p className="boldtext">R Multiple</p>
                 <p>{values.rmultiple ? values.rmultiple : "-"}</p>
               </div>
-              <div className="flex onedetail">
-                <p className="boldtext">Results, %</p>
-                <p>{values.returnpercent ? `${values.returnpercent}%` : "-"}</p>
-              </div>
+
               <div className="flex onedetail">
                 <p className="boldtext">Duration</p>
                 <p>{values.holdingperiod ? `${values.holdingperiod}` : "-"}</p>
-              </div>
-              <div className="flex onedetail">
-                <p className="boldtext">Profit Per Share</p>
-                <p>{values.pnlpershare ? `${values.pnlpershare}` : "-"}</p>
               </div>
             </div>
             <div className="detailtwo thebox thepad">
@@ -205,8 +243,8 @@ function Detailtrdae() {
                   <Imagezoom theimage={values.chart} />
                 </>
               ) : null}
-              <h2>Notes</h2>
-              <textarea className="detailtext"></textarea>
+              {/* <h2>Notes</h2>
+              <textarea className="detailtext"></textarea> */}
             </div>
           </div>
         </Layout>
