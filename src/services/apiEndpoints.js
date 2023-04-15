@@ -1,3 +1,4 @@
+import { getUserId } from "../helpers/Auth";
 import api from "./api";
 
 function apiErrorhandler(error) {
@@ -15,7 +16,7 @@ function apiErrorhandler(error) {
 
 export const getTrades = async () => {
   try {
-    const response = await api.get("/trade/showtrades");
+    const response = await api.get(`/trade/showtrades/${getUserId()}`);
     return response?.data?.trades;
   } catch (error) {
     console.log(error);
@@ -25,7 +26,7 @@ export const getTrades = async () => {
 
 export const editTradeapi = async (tradeid) => {
   try {
-    const response = await api.get(`/trade/edit/${tradeid}`);
+    const response = await api.get(`/trade/edit/${tradeid}/${getUserId()}`);
     return response?.data;
   } catch (error) {
     console.log(error);
