@@ -10,7 +10,7 @@ import {
   Waiting,
 } from "../components/Littles";
 import { errorhandler } from "../helpers/codehandlers";
-import { momentdate } from "../helpers/functions";
+import { momentdate, Timeout } from "../helpers/functions";
 import useNotify from "../hooks/useNotify";
 import { deleteTrade, editTradeapi } from "../services/apiEndpoints";
 
@@ -35,7 +35,10 @@ function Detailtrdae() {
     deleteTrade(id)
       .then((response) => {
         console.log(response);
-        window.location.href = "/trades";
+        setmessage("Trade Deleted");
+        setnotifysuccess(true);
+        Timeout("/trades", 2000);
+        // window.location.href = "/trades";
       })
       .catch((error) => {
         errorhandler(error, setmessage).then(() => {
@@ -82,7 +85,14 @@ function Detailtrdae() {
   if (showContent)
     return (
       <>
-        <Layout>
+        <Layout
+          message={message}
+          success={notifysuccess}
+          setsuccess={setnotifysuccess}
+          error={notifyerror}
+          seterror={setnotifyerror}
+        >
+          {" "}
           <div
             style={{
               display: "flex",
@@ -109,7 +119,6 @@ function Detailtrdae() {
             <Outcome text={values.outcome} />
           </div>
           <Editdeleteset id={values._id} deletefunc={(e) => deleteOne(e)} />
-
           <div className="detailgrid">
             <div className="detailone thebox thepad">
               <h2 style={{ marginBottom: "20px" }}>
@@ -221,10 +230,6 @@ function Detailtrdae() {
               <div className="flex onedetail">
                 <p className="boldtext">RRR - Planned</p>
                 <p>{values.rrrplanned ? values.rrrplanned : "-"}</p>
-              </div>
-              <div className="flex onedetail">
-                <p className="boldtext">R Multiple</p>
-                <p>{values.rmultiple ? values.rmultiple : "-"}</p>
               </div>
               <div className="flex onedetail">
                 <p className="boldtext">R Multiple</p>

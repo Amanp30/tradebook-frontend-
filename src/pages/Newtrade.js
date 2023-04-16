@@ -20,15 +20,15 @@ import useTrade from "../hooks/useTrade";
 
 function Newtrade() {
   const [instrument, setinstrument] = useState("");
-  const [quantity, setquantity] = useState();
-  const [entryprice, setentryprice] = useState();
-  const [exitprice, setexitprice] = useState();
-  const [fees, setfees] = useState();
+  const [quantity, setquantity] = useState(0);
+  const [entryprice, setentryprice] = useState(0);
+  const [exitprice, setexitprice] = useState(0);
+  const [fees, setfees] = useState(0);
   const [timeframe, settimeframe] = useState("1 Minute");
   const [emotions, setemotions] = useState("");
   const [marketcondition, setmarketcondition] = useState("");
-  const [stoploss, setstoploss] = useState();
-  const [takeprofit, settakeprofit] = useState();
+  const [stoploss, setstoploss] = useState(0);
+  const [takeprofit, settakeprofit] = useState(0);
 
   const [action, setaction] = useState("Buy");
   // const [chart, setchart] = useState(null);
@@ -69,7 +69,7 @@ function Newtrade() {
   // console.log(typeof chart);
 
   const broker = getBroker();
-  const brokerInfo = brokerdata[broker.toLowerCase()]; // Get the brokerage and stt based on the broker name
+  const brokerInfo = brokerdata[broker.toLowerCase().replace(/\s/g, "")]; // Get the brokerage and stt based on the broker name
 
   const mystock = new Stock({
     action: action,
@@ -193,7 +193,15 @@ function Newtrade() {
 
   return (
     <>
-      <Layout>
+      {/* <Layout> */}
+      <Layout
+        message={message}
+        success={notifysuccess}
+        setsuccess={setnotifysuccess}
+        error={notifyerror}
+        seterror={setnotifyerror}
+      >
+        {" "}
         <form
           onSubmit={handleform}
           id="theform"
@@ -300,6 +308,7 @@ function Newtrade() {
                 state={fees}
                 setstate={setfees}
                 className="hasfee"
+                step=".01"
               >
                 <Brokerage
                   broker={broker}
@@ -340,26 +349,6 @@ function Newtrade() {
             </Formdiv>
           </div>
         </form>
-        <Notification
-          text={message}
-          error="topcenter"
-          icon
-          state={notifyerror}
-          setstate={setnotifyerror}
-          close
-          // stripe
-          // mobile
-        />
-        <Notification
-          text={message}
-          success="topcenter"
-          icon
-          state={notifysuccess}
-          setstate={setnotifysuccess}
-          close
-          // stripe
-          // mobile
-        />
       </Layout>
     </>
   );

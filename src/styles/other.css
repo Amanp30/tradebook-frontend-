@@ -20,5 +20,48 @@
 
 .notfull {
     max-width: fit-content;
+}
 
+
+.updatesymbolinput {
+    min-width: 500px;
+}
+
+.allSymbolsgrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1em;
+}
+
+@media screen and (max-width: 768px) {
+    .allSymbolsgrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .updatesymbolinput {
+        min-width: 320px;
+        width: 100%;
+        max-width: 400px;
+    }
+
+}
+
+
+.symboldiv {
+    padding: 1em;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+
+
+
+.thenote {
+    padding: 1em;
+    border-radius: 5px;
+    margin-bottom: 2em;
+    border: 2px solid orangered;
+    /* background-color: orangered !important; */
 }

@@ -11,7 +11,6 @@ import "../styles/tradeform.css";
 import Thedate from "../components/inputs/Date";
 import { getBroker } from "../helpers/Auth";
 import useNotify from "../hooks/useNotify";
-import Notification from "../components/notification/Notification";
 import { errorhandler, validateOrder } from "../helpers/codehandlers";
 import {
   Chartexplain,
@@ -227,7 +226,14 @@ function Edittrade() {
   if (shouldMountChart)
     return (
       <>
-        <Layout>
+        <Layout
+          message={message}
+          success={notifysuccess}
+          setsuccess={setnotifysuccess}
+          error={notifyerror}
+          seterror={setnotifyerror}
+        >
+          {" "}
           <form
             onSubmit={handleform}
             id="theform"
@@ -351,6 +357,7 @@ function Edittrade() {
                   state={values.fees}
                   setstate={(value) => setvalues({ ...values, fees: value })}
                   className="hasfee"
+                  step=".01"
                 >
                   <Brokerage
                     broker={broker}
@@ -399,26 +406,6 @@ function Edittrade() {
               </Formdiv>
             </div>
           </form>
-          <Notification
-            text={message}
-            error="topcenter"
-            icon
-            state={notifyerror}
-            setstate={setnotifyerror}
-            close
-            // stripe
-            // mobile
-          />
-          <Notification
-            text={message}
-            success="topcenter"
-            icon
-            state={notifysuccess}
-            setstate={setnotifysuccess}
-            close
-            // stripe
-            // mobile
-          />
         </Layout>
       </>
     );

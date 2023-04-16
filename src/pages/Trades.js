@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { deleteTrade, getTrades } from "../services/apiEndpoints";
 import useNotify from "../hooks/useNotify";
 import { errorhandler } from "../helpers/codehandlers";
-import Notification from "../components/notification/Notification";
+// import Notification from "../components/notification/Notification";
 import {
   Waiting,
   Heading,
@@ -82,40 +82,24 @@ function Trades() {
   if (showContent)
     return (
       <>
-        <Layout>
+        <Layout
+          message={message}
+          success={notifysuccess}
+          setsuccess={setnotifysuccess}
+          error={notifyerror}
+          seterror={setnotifyerror}
+        >
           <Heading text="Trades">
             <Link to="/new-trade" className="primarybtn">
-              {" "}
               + Add Trade
             </Link>
           </Heading>{" "}
           {/* Trades */}
-          {data.length !== 0 ? (
+          {data?.length !== 0 ? (
             <Tradecontent data={data} deletefunc={(e) => deleteOne(e)} />
           ) : (
             <Notradefound />
           )}
-          {/* Notification */}
-          <Notification
-            text={message}
-            error="topcenter"
-            icon
-            state={notifyerror}
-            setstate={setnotifyerror}
-            close
-            // stripe
-            // mobile
-          />
-          <Notification
-            text={message}
-            success="topcenter"
-            icon
-            state={notifysuccess}
-            setstate={setnotifysuccess}
-            close
-            // stripe
-            // mobile
-          />
         </Layout>
       </>
     );

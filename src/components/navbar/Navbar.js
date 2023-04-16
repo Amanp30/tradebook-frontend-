@@ -94,8 +94,8 @@ function Navbar() {
           link: "/account-details",
         },
         {
-          text: "Change Password",
-          link: "/change-password",
+          text: "Instruments",
+          link: "/instruments",
         },
         {
           text: "Import Trades",

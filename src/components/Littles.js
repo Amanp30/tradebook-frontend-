@@ -194,17 +194,36 @@ export const Servererror = () => {
 };
 
 export const Outcome = ({ text }) => {
+  let className = "";
+
+  if (text === "Win") {
+    className = "win";
+  } else if (text === "Loss") {
+    className = "loss";
+  } else if (text === "Break Even") {
+    className = "breakeven";
+  }
+
   return (
     <>
-      <p className={text === "Win" ? "win" : "loss"}>{text}</p>
+      <p className={className}>{text}</p>
     </>
   );
 };
 
 export const Greenred = ({ number, append }) => {
+  let className = "";
+
+  if (number > 0) {
+    className = "gain";
+  } else if (number < 0) {
+    className = "lost";
+  } else if (number === 0) {
+    className = "breakequal";
+  }
   return (
     <>
-      <p className={number > 0 ? "gain" : "lost"}>
+      <p className={className}>
         {number}
         {append}{" "}
       </p>
@@ -337,7 +356,14 @@ export const Accountsettings = ({ saveFunc, btnclass }) => {
   };
 
   if (showcontent === false) {
-    return <>Loading</>;
+    return <Waiting />;
+  }
+  if (showcontent === "servererror") {
+    return (
+      <>
+        <Servererror />
+      </>
+    );
   }
 
   if (showcontent)
@@ -397,4 +423,28 @@ export const Accountsettings = ({ saveFunc, btnclass }) => {
         </div>
       </>
     );
+};
+
+export const Fullwindowbackground = ({ children, className }) => {
+  return (
+    <div className="fullwidth">
+      <div
+        className={
+          className ? className + " popupCenter thebox" : " popupCenter thebox"
+        }
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
+
+export const Thenote = ({ children, className }) => {
+  return (
+    <div
+      className={className ? className + " thenote thebox" : " thenote thebox"}
+    >
+      {children}
+    </div>
+  );
 };

@@ -15,6 +15,8 @@ import Resetpassword from "./pages/Resetpassword";
 import Signup from "./pages/Signup";
 import Trades from "./pages/Trades";
 import Accountdetails from "./pages/Accountdetails";
+import Instruments from "./pages/Instruments";
+import Importtrades from "./pages/Importtrades";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Route path="/edit/:tradeid" element={<Edittrade />} />
           <Route path="/detail/:trade" element={<Detailtrdae />} />
           <Route path="/account-details" element={<Accountdetails />} />
+          <Route path="/instruments" element={<Instruments />} />
+          <Route path="/import-trades" element={<Importtrades />} />
 
           {/* Signup routes */}
           <Route path="/account/login" element={<Login />} />

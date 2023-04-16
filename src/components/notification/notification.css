@@ -76,38 +76,38 @@
 
 .bottomleft {
     position: fixed;
-    bottom: 5%;
+    bottom: 3em;
     left: 2%;
 }
 
 .bottomright {
     position: fixed;
-    bottom: 5%;
+    bottom: 3em;
     right: 2%;
 }
 
 .bottomcenter {
     position: fixed;
-    bottom: 5%;
+    bottom: 3em;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 .topleft {
     position: fixed;
-    top: 5%;
+    top: 3em;
     left: 2%;
 }
 
 .topright {
     position: fixed;
-    top: 5%;
+    top: 3em;
     right: 2%;
 }
 
 .topcenter {
     position: fixed;
-    top: 5%;
+    top: 3em;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -175,14 +175,14 @@
 
     .mobiletop {
         position: fixed;
-        top: 8%;
+        top: 4em;
         left: 50%;
         transform: translateX(-50%);
     }
 
     .mobilebottom {
         position: fixed;
-        bottom: 8%;
+        bottom: 5em;
         left: 50%;
         transform: translateX(-50%);
     }

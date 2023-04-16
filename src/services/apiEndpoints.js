@@ -46,6 +46,26 @@ export const getDistinctTrades = async () => {
   }
 };
 
+export const getSymbolNametoUpdate = async () => {
+  try {
+    const response = await api.get(`/trade/distinctsymbol/${theuser}`);
+    return response?.data?.symbols;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
+export const saveSymbolNametoUpdate = async (data) => {
+  try {
+    const response = await api.post(`/trade/nameupdate/${theuser}`, data);
+    return response?.data?.message;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
 export const getTrades = async () => {
   try {
     const response = await api.get(`/trade/showtrades/${theuser}`);

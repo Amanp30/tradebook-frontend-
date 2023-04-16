@@ -167,8 +167,11 @@ class Stock {
       return "Win";
     } else if (this.pnlpershare < 0) {
       return "Loss";
+    } else if (this.pnlpershare === "0.00") {
+      return "Break Even";
     }
   }
+
   /* that works wornderfully but only in min */
   get holdingPeriodminute() {
     // console.log(this.entrytime);

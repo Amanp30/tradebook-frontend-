@@ -16,7 +16,7 @@ function Theinput({
 }) {
   const inputRef = useRef(null);
 
-  var thehtmlfor = label.replace(/\s+/g, "").toLowerCase();
+  var thehtmlfor = label?.replace(/\s+/g, "")?.toLowerCase();
 
   useEffect(() => {
     const divElement = inputRef.current.parentElement;

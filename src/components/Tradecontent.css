@@ -1,5 +1,6 @@
 .win,
-.loss {
+.loss,
+.breakeven {
     width: fit-content;
     height: fit-content;
     padding: 0 0.5em;
@@ -11,13 +12,16 @@
 .win {
     background: green;
     color: white;
+}
 
+.breakeven {
+    background: #555555;
+    color: white;
 }
 
 .loss {
     background: red;
     color: white;
-
 }
 
 .alltradescontainer {
