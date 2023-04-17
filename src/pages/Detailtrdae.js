@@ -3,8 +3,10 @@ import { Link, useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import {
   Editdeleteset,
+  Fullwindowbackground,
   Greenred,
   Imagezoom,
+  Notesviewer,
   Outcome,
   Servererror,
   Waiting,
@@ -12,13 +14,60 @@ import {
 import { errorhandler } from "../helpers/codehandlers";
 import { momentdate, Timeout } from "../helpers/functions";
 import useNotify from "../hooks/useNotify";
-import { deleteTrade, editTradeapi } from "../services/apiEndpoints";
+import {
+  addNewNote,
+  deleteoneNote,
+  deleteTrade,
+  editTradeapi,
+  updateoneNote,
+} from "../services/apiEndpoints";
+
+function Popupinput({ note, setnote, updateFunction, tradeid }) {
+  const [newNote, setnewNote] = useState(note);
+  // console.log(note);
+  return (
+    <>
+      {note && typeof note.note === "string" ? (
+        <Fullwindowbackground className="updateSymbol">
+          {/* <h3 style={{ color: "black" }}>Edit Symbol Name</h3> */}
+          <h3>Edit Note</h3>
+          <textarea
+            className="detailtext textareawidth"
+            value={newNote.note}
+            onChange={(e) => setnewNote({ note: e.target.value })}
+          />
+          <div className="flexend btngroup">
+            <button
+              className="cancelbtn"
+              onClick={(e) => setnote({ note: null })}
+            >
+              Cancel
+            </button>
+            <button
+              className="primarybtn"
+              onClick={(e) =>
+                updateFunction(tradeid, {
+                  noteindex: note.index,
+                  note: newNote.note,
+                })
+              }
+            >
+              Update
+            </button>
+          </div>
+        </Fullwindowbackground>
+      ) : null}
+    </>
+  );
+}
 
 function Detailtrdae() {
   const { trade } = useParams();
 
   const [values, setvalues] = useState([]);
   const [showContent, setshowContent] = useState(false);
+  const [textareaValue, setTextareaValue] = useState("");
+  const [note, setnote] = useState({ index: null, note: null });
 
   const {
     clearnotification,
@@ -30,11 +79,62 @@ function Detailtrdae() {
     setnotifyerror,
   } = useNotify();
 
-  function deleteOne(id) {
+  function handleTextareaChange(event) {
+    setTextareaValue(event.target.value);
+  }
+
+  function newNote(tradeid, data) {
+    addNewNote(tradeid, { note: data })
+      .then((response) => {
+        // console.log(response);
+        setmessage(response?.message);
+        setnotifysuccess(true);
+        setvalues({ ...values, notes: response.notes });
+        setTextareaValue("");
+      })
+      .catch((error) => {
+        setmessage("Unable to add note");
+        setnotifyerror(true);
+        console.log(error);
+      });
+  }
+  function updateNote(tradeid, data) {
+    updateoneNote(tradeid, data)
+      .then((response) => {
+        console.log(response);
+        setmessage(response?.message);
+        setnotifysuccess(true);
+        setvalues({ ...values, notes: response.notes });
+        setTextareaValue("");
+        setnote({ note: null });
+      })
+      .catch((error) => {
+        setmessage("Unable to add note");
+        setnotifyerror(true);
+        console.log(error);
+      });
+  }
+
+  function deleteNote(tradeid, data) {
+    deleteoneNote(tradeid, { index: data })
+      .then((response) => {
+        // console.log(response);
+        setmessage(response?.message);
+        setnotifysuccess(true);
+        setvalues({ ...values, notes: response.notes });
+      })
+      .catch((error) => {
+        setmessage("Unable to add note");
+        setnotifyerror(true);
+        console.log(error);
+      });
+  }
+
+  function deleteoneTrade(id) {
     clearnotification();
     deleteTrade(id)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setmessage("Trade Deleted");
         setnotifysuccess(true);
         Timeout("/trades", 2000);
@@ -81,7 +181,7 @@ function Detailtrdae() {
     );
   }
 
-  console.log(values);
+  // console.log(values);
   if (showContent)
     return (
       <>
@@ -92,7 +192,6 @@ function Detailtrdae() {
           error={notifyerror}
           seterror={setnotifyerror}
         >
-          {" "}
           <div
             style={{
               display: "flex",
@@ -101,7 +200,6 @@ function Detailtrdae() {
               flexWrap: "wrap",
             }}
           >
-            {" "}
             <Link to={"/trades"}>
               <img
                 src="/backarrow.svg"
@@ -118,11 +216,13 @@ function Detailtrdae() {
             </h1>
             <Outcome text={values.outcome} />
           </div>
-          <Editdeleteset id={values._id} deletefunc={(e) => deleteOne(e)} />
+          <Editdeleteset
+            id={values._id}
+            deletefunc={(e) => deleteoneTrade(e)}
+          />
           <div className="detailgrid">
             <div className="detailone thebox thepad">
               <h2 style={{ marginBottom: "20px" }}>
-                {" "}
                 <img
                   src="/infoicon.svg"
                   style={{ width: "22px", marginRight: "10px" }}
@@ -191,13 +291,11 @@ function Detailtrdae() {
               </div>
               <div className="flex onedetail">
                 <p className="boldtext">Results, %</p>
-                <p>
-                  {values.returnpercent ? (
-                    <Greenred number={values.returnpercent} append="%" />
-                  ) : (
-                    "-"
-                  )}
-                </p>
+                {values.returnpercent ? (
+                  <Greenred number={values.returnpercent} append="%" />
+                ) : (
+                  "-"
+                )}
               </div>
               <div className="flex onedetail">
                 <p className="boldtext">Profit</p>
@@ -209,13 +307,11 @@ function Detailtrdae() {
               </div>
               <div className="flex onedetail">
                 <p className="boldtext">Net PNL</p>
-                <p>
-                  {values.netpnl ? (
-                    <Greenred number={values.netpnl} append=" INR" />
-                  ) : (
-                    "-"
-                  )}
-                </p>
+                {values.netpnl ? (
+                  <Greenred number={values.netpnl} append=" INR" />
+                ) : (
+                  "-"
+                )}
               </div>
               <div className="detailheading">Other Details</div>
 
@@ -248,8 +344,33 @@ function Detailtrdae() {
                   <Imagezoom theimage={values.chart} />
                 </>
               ) : null}
-              {/* <h2>Notes</h2>
-              <textarea className="detailtext"></textarea> */}
+              <h2>Notes</h2>{" "}
+              <Notesviewer
+                data={values.notes}
+                tradeid={values._id}
+                deleteFunction={deleteNote}
+                setnote={setnote}
+              />
+              <textarea
+                className="detailtext"
+                placeholder="Write note for this trade"
+                value={textareaValue}
+                onChange={handleTextareaChange}
+              />
+              <button
+                className="primarybtn"
+                onClick={(e) => newNote(values._id, textareaValue)}
+              >
+                ADD NOTE
+              </button>
+              {typeof note.note === "string" && (
+                <Popupinput
+                  note={note}
+                  setnote={setnote}
+                  updateFunction={updateNote}
+                  tradeid={values._id}
+                />
+              )}
             </div>
           </div>
         </Layout>

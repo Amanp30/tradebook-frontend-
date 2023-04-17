@@ -8,6 +8,8 @@ import {
   saveAccountUserDetails,
 } from "../services/apiEndpoints";
 import { indianStates } from "../helpers/functions";
+import { v4 as uuidv4 } from "uuid";
+import { localeData } from "moment";
 
 export const Heading = ({ text, children, theclass }) => {
   var wrapperclasses = theclass ? theclass + " heading_comp " : "heading_comp ";
@@ -223,10 +225,7 @@ export const Greenred = ({ number, append }) => {
   }
   return (
     <>
-      <p className={className}>
-        {number}
-        {append}{" "}
-      </p>
+      <p className={className}>{`${number}${append}`}</p>
     </>
   );
 };
@@ -288,13 +287,13 @@ export const Imagezoom = ({ theimage }) => {
           }}
         />
         <p
+          className="removeimg"
           style={{
             color: "black",
-            bottom: "5em",
-            left: "50%",
-            transform: "translate(-50%, 50%)",
+            bottom: "3em",
+            // left: "50%",
+            // transform: "translate(-50%, 50%)",
           }}
-          className="fullimage"
           onClick={(e) => setIsOpened(true)}
         >
           Full
@@ -304,7 +303,7 @@ export const Imagezoom = ({ theimage }) => {
         <div className="backdropfilter">
           <div className="imageenlarge">
             <img src={theimage} />
-            <div className="closeimage" onClick={(e) => setIsOpened(false)}>
+            <div className="removeimg" onClick={(e) => setIsOpened(false)}>
               Close
             </div>
           </div>
@@ -315,7 +314,13 @@ export const Imagezoom = ({ theimage }) => {
 };
 
 export const Notradefound = () => {
-  return <p>Hey! no trade found first add one</p>;
+  return (
+    <Thenote className="notfound">
+      <h2>
+        Hey! no trade found <br /> first add one
+      </h2>
+    </Thenote>
+  );
 };
 
 export const Accountsettings = ({ saveFunc, btnclass }) => {
@@ -446,5 +451,58 @@ export const Thenote = ({ children, className }) => {
     >
       {children}
     </div>
+  );
+};
+
+export const Notesviewer = ({
+  data,
+  className,
+  deleteFunction,
+  tradeid,
+  setnote,
+}) => {
+  return (
+    <>
+      {" "}
+      {data?.length > 0 ? (
+        <div
+          className={
+            className ? className + " notelist thebox" : " notelist thebox"
+          }
+          style={{ margin: "1em 0" }}
+        >
+          {data?.map((item, index) => {
+            const uniqueId = uuidv4();
+            return (
+              <React.Fragment key={uniqueId}>
+                {
+                  <div
+                    className="symboldiv thebox"
+                    style={{ padding: "1em 0" }}
+                  >
+                    <p>{item}</p>{" "}
+                    <div className="flexend">
+                      {" "}
+                      <img
+                        src="/edit.svg"
+                        style={{ width: "20px" }}
+                        onClick={(e) => {
+                          setnote({ index: index, note: item });
+                        }}
+                      />
+                      <img
+                        src="/delete.svg"
+                        style={{ width: "20px" }}
+                        onClick={(e) => deleteFunction(tradeid, index)}
+                      />
+                    </div>
+                  </div>
+                }
+              </React.Fragment>
+            );
+          })}
+        </div>
+      ) : null}
+    </>
   );
 };

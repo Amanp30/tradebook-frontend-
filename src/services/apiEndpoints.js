@@ -66,6 +66,45 @@ export const saveSymbolNametoUpdate = async (data) => {
   }
 };
 
+export const addNewNote = async (tradeid, data) => {
+  try {
+    const response = await api.post(
+      `/trade/notes/addnote/${tradeid}/${theuser}`,
+      data
+    );
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
+export const deleteoneNote = async (tradeid, data) => {
+  try {
+    const response = await api.post(
+      `/trade/notes/deletenote/${tradeid}/${theuser}`,
+      data
+    );
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
+export const updateoneNote = async (tradeid, data) => {
+  try {
+    const response = await api.post(
+      `/trade/notes/updatenote/${tradeid}/${theuser}`,
+      data
+    );
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
 export const getTrades = async () => {
   try {
     const response = await api.get(`/trade/showtrades/${theuser}`);

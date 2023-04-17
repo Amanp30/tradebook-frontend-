@@ -94,7 +94,6 @@ function Trades() {
               + Add Trade
             </Link>
           </Heading>{" "}
-          {/* Trades */}
           {data?.length !== 0 ? (
             <Tradecontent data={data} deletefunc={(e) => deleteOne(e)} />
           ) : (

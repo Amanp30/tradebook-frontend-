@@ -124,6 +124,35 @@
     }
 }
 
+
+.notfound {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    padding: 3em;
+    justify-content: center;
+}
+
+.detailtext {
+    padding: 1em;
+    border-radius: 5px;
+    width: -webkit-fill-available;
+    max-height: 350px;
+    min-height: 150px;
+    resize: vertical;
+}
+
+.textareawidth {
+    min-width: 500px;
+    max-height: 200px;
+}
+
+@media (max-width:600px) {
+    .textareawidth {
+        min-width: 330px;
+    }
+}
+
 /* chart image */
 
 .backdropfilter {
