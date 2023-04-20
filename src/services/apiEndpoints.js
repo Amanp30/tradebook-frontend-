@@ -124,6 +124,7 @@ export const editTradeapi = async (tradeid) => {
     apiErrorhandler(error);
   }
 };
+
 export const updateTradeapi = async (tradeid, data) => {
   try {
     const response = await api.post(`/trade/update/${tradeid}`, data);
@@ -137,6 +138,18 @@ export const updateTradeapi = async (tradeid, data) => {
 export const deleteTrade = async (tradeid) => {
   try {
     const response = await api.get(`/trade/delete/${tradeid}`);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
+// Reports routes
+
+export const getReport = async () => {
+  try {
+    const response = await api.get(`/report/bytimeframe/${theuser}`);
     return response?.data;
   } catch (error) {
     console.log(error);

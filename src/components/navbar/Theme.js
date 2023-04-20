@@ -8,6 +8,7 @@ const Theme = () => {
 
   useEffect(() => {
     // Select the html element
+
     const html = document.querySelector("html");
 
     // Set the className based on the current theme

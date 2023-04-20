@@ -360,6 +360,7 @@ function Detailtrdae() {
               <button
                 className="primarybtn"
                 onClick={(e) => newNote(values._id, textareaValue)}
+                disabled={!textareaValue ? true : false}
               >
                 ADD NOTE
               </button>
