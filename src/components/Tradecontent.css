@@ -106,12 +106,10 @@
     font-weight: 600;
     margin-bottom: 12px;
     position: relative;
-<<<<<<< HEAD
     box-sizing: border-box;
     overflow: hidden;
-=======
-    box-sizing: border-box;   overflow: hidden;
->>>>>>> origin/main
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .detailheading:after {
