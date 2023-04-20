@@ -126,7 +126,7 @@ function Importtrades() {
                   <>
                     <p>Name {item?.symbol}</p>
                     <p>Profit{item?.profit}</p>
-                    <p>Return Percent {item?.retrunpercent}%</p>
+                    <p>Return Percent {item?.returnpercent}%</p>
                   </>
                 );
               })
@@ -140,7 +140,7 @@ function Importtrades() {
                   <>
                     <p>Name {item?.symbol}</p>
                     <p>Loss{item?.profit}</p>
-                    <p>Return Percent {item?.retrunpercent}%</p>
+                    <p>Return Percent {item?.returnpercent}%</p>
                   </>
                 );
               })
