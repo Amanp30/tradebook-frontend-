@@ -156,3 +156,13 @@ export const getReport = async () => {
     apiErrorhandler(error);
   }
 };
+
+export const getReportSymbol = async () => {
+  try {
+    const response = await api.get(`/report/bysymbol/${theuser}`);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};

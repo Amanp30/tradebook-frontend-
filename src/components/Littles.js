@@ -506,3 +506,72 @@ export const Notesviewer = ({
     </>
   );
 };
+
+export const Reportselector = ({ data, hoveredIndex, setHoveredIndex }) => {
+  const [reportselector, setreportselector] = useState(false);
+  // console.log(data);
+
+  const handleClicoutside = (e) => {
+    const theitem = document.querySelector(".thereportselector");
+
+    if (!theitem.contains(e.target)) {
+      // The user has clicked outside the custom selector box
+      setreportselector(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClicoutside);
+
+    return () => {
+      document.removeEventListener("click", handleClicoutside);
+    };
+  }, []);
+
+  return (
+    <div className="thereportselector">
+      <p
+        className="selectedone"
+        onClick={(e) => setreportselector(!reportselector)}
+      >
+        {data?.[hoveredIndex]?._id}{" "}
+        <img
+          src="/droparrow.svg"
+          style={{ width: "10px" }}
+          className="customreportdrop"
+        />
+      </p>
+      <div
+        className={
+          reportselector
+            ? data?.length > 20
+              ? "alotdata thecustomselectorbox openbox"
+              : " thecustomselectorbox openbox dothatstyle"
+            : "thecustomselectorbox closebox"
+        }
+        // style={{ display: reportselector ? "block" : "none" }}
+      >
+        {data?.map((item) => {
+          const uniqueId = uuidv4();
+          return (
+            <React.Fragment key={uniqueId}>
+              <p
+                className={
+                  hoveredIndex === item.sortOrderIndex
+                    ? "selected thecustomoption"
+                    : "thecustomoption"
+                }
+                onClick={(e) => {
+                  setHoveredIndex(item.sortOrderIndex);
+                  setreportselector(false);
+                }}
+              >
+                {item._id}
+              </p>
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </div>
+  );
+};

@@ -17,6 +17,7 @@ import Trades from "./pages/Trades";
 import Accountdetails from "./pages/Accountdetails";
 import Instruments from "./pages/Instruments";
 import Importtrades from "./pages/Importtrades";
+import Bysymbol from "./pages/Bysymbol";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/account-details" element={<Accountdetails />} />
           <Route path="/instruments" element={<Instruments />} />
           <Route path="/import-trades" element={<Importtrades />} />
+          <Route path="/bysymbol" element={<Bysymbol />} />
 
           {/* Signup routes */}
           <Route path="/account/login" element={<Login />} />

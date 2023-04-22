@@ -82,6 +82,10 @@ function Navbar() {
           text: "Yearly",
           link: "/Yearly",
         },
+        {
+          text: "Symbols",
+          link: "/bysymbol",
+        },
       ],
     },
   ];

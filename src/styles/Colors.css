@@ -14,6 +14,7 @@
     --input-placeholder: #C4C4C4;
     --detailholding: #0044ff;
     --trade-hover-bg: rgba(218, 202, 251, 0.101);
+    --performance-bg: rebeccapurple;
 
 }
 
@@ -33,6 +34,7 @@
     --input-placeholder: #c1c1c1;
     --detailholding: grey;
     --trade-hover-bg: rgba(222, 222, 222, 0.174);
+    --performance-bg: #4caf509c;
 }
 
 
@@ -52,6 +54,10 @@ h4 {
     color: var(--p-color);
 }
 
+.profittrue,
+.percenttrue {
+    background: var(--performance-bg);
+}
 
 .detailheading {
     color: var(--detailholding);
@@ -77,6 +83,7 @@ a {
 .openmenubtn,
 .menudropdown img,
 .backimg,
+.customreportdrop,
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-calendar-picker-indicator,
 input[type="week"]::-webkit-calendar-picker-indicator,

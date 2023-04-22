@@ -9,6 +9,34 @@
 }
 
 
+.reportchart {
+    height: 520px;
+}
+
+.charttabs {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding: 2px;
+}
+
+.thetabchange {
+    padding: 0px 10px;
+    /* background: #607D8B; */
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (max-width:600px) {
+    .reportchart {
+        height: 400px;
+    }
+}
+
+
+/* above chart css */
+
+
 html,
 body {
     height: -webkit-fill-available;

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
 import Chart from "../components/charts/chart";
 import Layout from "../components/Layout";
 import useNotify from "../hooks/useNotify";
-import { getReport } from "../services/apiEndpoints";
+import { getReportSymbol } from "../services/apiEndpoints";
 import { Heading, Reportselector } from "../components/Littles";
 
 function reducer(state, action) {
@@ -16,7 +16,7 @@ function reducer(state, action) {
   }
 }
 
-function Importtrades() {
+function Bysymbol() {
   const {
     clearnotification,
     notifysuccess,
@@ -38,7 +38,7 @@ function Importtrades() {
   }, [state]);
 
   useEffect(() => {
-    getReport()
+    getReportSymbol()
       .then((res) => {
         setvalues(res);
         console.log("from server");
@@ -48,17 +48,16 @@ function Importtrades() {
   }, []);
 
   const timeframe = values.data?.[hoveredIndex]?.sortOrderIndex;
-  const filteredBestTrades = values?.bestTrades?.filter((theindex, index) => {
+  const filteredBestTrades = values?.bestTrades?.filter((theindex) => {
     if (theindex.sortOrderIndex === timeframe) {
       return theindex;
     }
   });
-  const filteredWorstTrades = values?.worstTrades?.filter((theindex, index) => {
+  const filteredWorstTrades = values?.worstTrades?.filter((theindex) => {
     if (theindex.sortOrderIndex === timeframe) {
       return theindex;
     }
   });
-  // console.log(filteredWorstTrades);
 
   return (
     <>
@@ -88,6 +87,7 @@ function Importtrades() {
             tradecount={values.tradecount}
             hoveredIndex={hoveredIndex}
             setHoveredIndex={setHoveredIndex}
+            // showoptions={false}
           />
           <div>
             <p className="flex">
@@ -130,11 +130,11 @@ function Importtrades() {
             {filteredBestTrades && filteredBestTrades.length > 0 ? (
               filteredBestTrades?.[0]?.bestTrades.map((item) => {
                 return (
-                  <>
+                  <div key={item._id}>
                     <p>Name {item?.symbol}</p>
                     <p>Profit{item?.profit}</p>
                     <p>Return Percent {item?.returnpercent}%</p>
-                  </>
+                  </div>
                 );
               })
             ) : (
@@ -144,11 +144,11 @@ function Importtrades() {
             {filteredWorstTrades && filteredWorstTrades.length > 0 ? (
               filteredWorstTrades?.[0]?.worstTrades.map((item) => {
                 return (
-                  <>
+                  <div key={item._id}>
                     <p>Name {item?.symbol}</p>
                     <p>Loss{item?.profit}</p>
                     <p>Return Percent {item?.returnpercent}%</p>
-                  </>
+                  </div>
                 );
               })
             ) : (
@@ -161,4 +161,4 @@ function Importtrades() {
   );
 }
 
-export default Importtrades;
+export default Bysymbol;

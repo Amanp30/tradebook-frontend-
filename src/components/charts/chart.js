@@ -11,6 +11,23 @@ import {
 } from "chart.js";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
+const formatNumber = (num) => {
+  if (num < 0) {
+    return "-" + formatNumber(-num);
+  } else if (num >= 10000000) {
+    return (num / 10000000).toFixed(1) + " Cr";
+  } else if (num >= 100000) {
+    return (num / 100000).toFixed(1) + " L";
+  } else if (num >= 1000) {
+    return (num / 1000).toFixed(1) + " K";
+  } else if (num >= 10000000 * 100) {
+    return (num / (10000000 * 100)).toFixed(1) + " Arab";
+  } else if (num >= 10000000 * 100 * 100) {
+    return (num / (10000000 * 100 * 100)).toFixed(1) + " Kharab";
+  } else {
+    return num;
+  }
+};
 
 function Chart({
   charttitle,
@@ -22,6 +39,8 @@ function Chart({
   ytitle,
   hoveredIndex,
   setHoveredIndex,
+  percentarray,
+  showoptions = true,
 }) {
   const htmltheme = document.querySelector("html").classList;
   const themebtn = document.querySelector(".themebtn");
@@ -30,6 +49,9 @@ function Chart({
     ycolor: "",
     gridlinecolor: "",
   });
+
+  const [isprofitloss, setisprofitloss] = useState(true);
+  const showingdatafor = isprofitloss ? profitandloss : percentarray;
 
   useEffect(() => {
     setchartsettings({
@@ -74,31 +96,40 @@ function Chart({
         },
         ticks: {
           beginAtZero: true,
+          fontSize: 8,
           color: chartsettings.ycolor, // set font color here
+          callback: (value) =>
+            isprofitloss ? formatNumber(value) : value + "%",
         },
         title: {
-          display: true,
+          display: false,
           text: ytitle,
           color: chartsettings.ycolor,
           font: {
-            size: 12,
+            size: 8,
             weight: "normal",
           },
           align: "end",
         },
       },
       x: {
-        ticks: { color: chartsettings.xcolor },
+        ticks: {
+          color: chartsettings.xcolor,
+          fontSize: 8,
+          callback: function (value, index) {
+            return labels[value];
+          },
+        },
         grid: {
           color: chartsettings.gridlinecolor, // Change the color of the horizontal grid lines
         },
         // offset: true,
         title: {
-          display: true,
+          display: false,
           text: xtitle,
           color: chartsettings.ycolor,
           font: {
-            size: 12,
+            size: 8,
             weight: "normal",
           },
           align: "end",
@@ -106,6 +137,8 @@ function Chart({
       },
     },
     responsive: true,
+    maintainAspectRatio: false,
+
     plugins: {
       title: {
         display: true,
@@ -121,18 +154,18 @@ function Chart({
         },
       },
     },
-    onHover: (event, chartElement) => {
-      //   console.log(chartElement);
-      if (chartElement?.length) {
-        const labelIndex = chartElement[0].index;
-        const label = labels[labelIndex];
-        const hoveredIndex = label ? labels.indexOf(label) : null;
-        setHoveredIndex(hoveredIndex);
-      }
-    },
+    // onHover: (event, chartElement) => {
+    //   //   console.log(chartElement);
+    //   if (chartElement?.length) {
+    //     const labelIndex = chartElement[0].index;
+    //     const label = labels[labelIndex];
+    //     const hoveredIndex = label ? labels.indexOf(label) : null;
+    //     setHoveredIndex(hoveredIndex);
+    //   }
+    // },
     onClick: (event, chartElement) => {
       if (chartElement?.length) {
-        console.log("Clicked bar data:", profitandloss[chartElement[0].index]);
+        // console.log("Clicked bar data:", profitandloss[chartElement[0].index]);
         setHoveredIndex(chartElement[0].index);
         // alert(5);
       }
@@ -145,42 +178,45 @@ function Chart({
     labels,
     datasets: [
       {
-        label: "PNL",
-        data: profitandloss,
+        // label: "PNL",
+        data: showingdatafor,
         backgroundColor: color,
         borderColor: "gold",
+        hoverBorderRadius: 10,
+        inflateAmount: "auto",
         categorySpacing: 0.3,
         barThickness: "flex",
-        borderWidth: profitandloss?.map((_, i) =>
-          i === hoveredIndex ? 10 : 0
+        borderWidth: showingdatafor?.map((_, i) =>
+          i === hoveredIndex ? 5 : 0
         ),
         lineTension: 5,
       },
-      //   {
-      //     label: "FEE",
-      //     data: data3,
-      //     backgroundColor: "orange",
-      //     lineTension: 0,
-      //   },
     ],
   };
+  const profitClass = isprofitloss ? "profittrue" : "";
+  const percentClass = !isprofitloss ? "percenttrue" : "";
 
   return (
     <>
-      <div
-        style={{
-          width: "auto",
-          margin: "auto",
-          marginBottom: "4em",
-          //   height: "700px",
-        }}
-      >
+      {showoptions ? (
+        <div className="charttabs">
+          <p style={{ fontSize: "14px" }}>Performance:</p>
+          <p
+            className={`${profitClass} thetabchange`}
+            onClick={() => setisprofitloss(true)}
+          >
+            ₹
+          </p>
+          <p
+            className={`${percentClass} thetabchange`}
+            onClick={() => setisprofitloss(false)}
+          >
+            %
+          </p>
+        </div>
+      ) : null}
+      <div className="reportchart">
         <Bar options={options} data={data} />
-
-        <p style={{ height: "4em" }}>
-          {" "}
-          {hoveredIndex && <>{profitandloss[hoveredIndex]}</>}
-        </p>
       </div>
     </>
   );
