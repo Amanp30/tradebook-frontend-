@@ -83,8 +83,12 @@ function Navbar() {
           link: "/Yearly",
         },
         {
+          text: "Timeframe",
+          link: "/report/timeframe",
+        },
+        {
           text: "Symbols",
-          link: "/bysymbol",
+          link: "/report/symbol",
         },
       ],
     },
@@ -103,7 +107,7 @@ function Navbar() {
         },
         {
           text: "Import Trades",
-          link: "/import-trades",
+          link: "/",
         },
       ],
     },

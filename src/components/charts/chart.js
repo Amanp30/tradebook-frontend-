@@ -146,6 +146,7 @@ function Chart({
       },
       tooltip: {
         displayColors: false,
+        enabled: true,
         callbacks: {
           label: (tooltipItem) => {
             const trades = tradecount[tooltipItem.index];

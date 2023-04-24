@@ -16,8 +16,8 @@ import Signup from "./pages/Signup";
 import Trades from "./pages/Trades";
 import Accountdetails from "./pages/Accountdetails";
 import Instruments from "./pages/Instruments";
-import Importtrades from "./pages/Importtrades";
-import Bysymbol from "./pages/Bysymbol";
+import Reporttimeframe from "./pages/Reporttimeframe";
+import Reportsymbol from "./pages/Reportsymbol";
 
 function App() {
   return (
@@ -31,8 +31,9 @@ function App() {
           <Route path="/detail/:trade" element={<Detailtrdae />} />
           <Route path="/account-details" element={<Accountdetails />} />
           <Route path="/instruments" element={<Instruments />} />
-          <Route path="/import-trades" element={<Importtrades />} />
-          <Route path="/bysymbol" element={<Bysymbol />} />
+
+          <Route path="/report/timeframe" element={<Reporttimeframe />} />
+          <Route path="/report/symbol" element={<Reportsymbol />} />
 
           {/* Signup routes */}
           <Route path="/account/login" element={<Login />} />

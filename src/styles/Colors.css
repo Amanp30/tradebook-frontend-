@@ -15,6 +15,7 @@
     --detailholding: #0044ff;
     --trade-hover-bg: rgba(218, 202, 251, 0.101);
     --performance-bg: rebeccapurple;
+    --tableheadings-bg: rebeccapurple;
 
 }
 
@@ -35,6 +36,7 @@
     --detailholding: grey;
     --trade-hover-bg: rgba(222, 222, 222, 0.174);
     --performance-bg: #4caf509c;
+    --tableheadings-bg: rgba(0, 255, 153, 0.178);
 }
 
 
@@ -61,6 +63,10 @@ h4 {
 
 .detailheading {
     color: var(--detailholding);
+}
+
+.anothertrade.heading {
+    background-color: var(--tableheadings-bg);
 }
 
 .detailheading::after {

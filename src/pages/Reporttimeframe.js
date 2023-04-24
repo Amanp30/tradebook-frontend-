@@ -3,7 +3,12 @@ import Chart from "../components/charts/chart";
 import Layout from "../components/Layout";
 import useNotify from "../hooks/useNotify";
 import { getReport } from "../services/apiEndpoints";
-import { Heading, Reportselector } from "../components/Littles";
+import {
+  Heading,
+  Pnltable,
+  Reportselector,
+  Showotherdetails,
+} from "../components/Littles";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -16,7 +21,7 @@ function reducer(state, action) {
   }
 }
 
-function Importtrades() {
+function Reporttimeframe() {
   const {
     clearnotification,
     notifysuccess,
@@ -89,76 +94,28 @@ function Importtrades() {
             hoveredIndex={hoveredIndex}
             setHoveredIndex={setHoveredIndex}
           />
-          <div>
-            <p className="flex">
-              Timeframe <span> {values.data?.[hoveredIndex]?._id}</span>
-            </p>
-            <p className="flex">
-              No of trades taken in timeframe{" "}
-              <span> {values.data?.[hoveredIndex]?.countTrades}</span>
-            </p>
-            <p className="flex">
-              maxReturnPercent
-              <span> {values.data?.[hoveredIndex]?.maxReturnPercent}%</span>
-            </p>
-            <p className="flex">
-              minReturnPercent
-              <span> {values.data?.[hoveredIndex]?.minReturnPercent}%</span>
-            </p>
-            <p className="flex">
-              Win Rate
-              <span> {values.data?.[hoveredIndex]?.winRate}</span>
-            </p>
-            <p className="flex">
-              Loss Rate
-              <span> {values.data?.[hoveredIndex]?.lossRate}</span>
-            </p>
-            <p className="flex">
-              Total Pnl
-              <span> {values.data?.[hoveredIndex]?.totalPnL}</span>
-            </p>
-            <p className="flex">
-              Fees Paid
-              <span> {values.data?.[hoveredIndex]?.totalFees}</span>
-            </p>
-            <p className="flex">
-              Most traded symbol
-              <span> {values.data?.[hoveredIndex]?.mostTradedSymbol}</span>
-            </p>
-
-            <h2> Most profitable trades</h2>
-            {filteredBestTrades && filteredBestTrades.length > 0 ? (
-              filteredBestTrades?.[0]?.bestTrades.map((item) => {
-                return (
-                  <>
-                    <p>Name {item?.symbol}</p>
-                    <p>Profit{item?.profit}</p>
-                    <p>Return Percent {item?.returnpercent}%</p>
-                  </>
-                );
-              })
-            ) : (
-              <p>"Nothing found"</p>
-            )}
-            <h2> Most worst trades</h2>
-            {filteredWorstTrades && filteredWorstTrades.length > 0 ? (
-              filteredWorstTrades?.[0]?.worstTrades.map((item) => {
-                return (
-                  <>
-                    <p>Name {item?.symbol}</p>
-                    <p>Loss{item?.profit}</p>
-                    <p>Return Percent {item?.returnpercent}%</p>
-                  </>
-                );
-              })
-            ) : (
-              <p>"Nothing found"</p>
-            )}
-          </div>
+        </div>{" "}
+        <div className="thepad">
+          <Showotherdetails
+            forheading="Timeframe"
+            data={values?.data?.[hoveredIndex]}
+          />
+          <Pnltable
+            data={filteredBestTrades}
+            type="win"
+            whichone={"bestTrades"}
+            headtext="Most Profitable"
+          />
+          <Pnltable
+            data={filteredWorstTrades}
+            type="win"
+            whichone={"worstTrades"}
+            headtext="Worst Trades"
+          />
         </div>
       </Layout>
     </>
   );
 }
 
-export default Importtrades;
+export default Reporttimeframe;

@@ -39,6 +39,12 @@ function momentdate(date) {
   return formattedDate;
 }
 
+function momentsmall(date) {
+  const timezone = "Asia/Kolkata";
+  const formattedDate = moment(date).tz(timezone).format("D MMM - YY");
+  return formattedDate;
+}
+
 function onlytime(date) {
   const timezone = "Asia/Kolkata";
 
@@ -80,4 +86,11 @@ const indianStates = [
   "West Bengal",
 ];
 
-export { Timeout, validateSymbol, momentdate, onlytime, indianStates };
+export {
+  Timeout,
+  validateSymbol,
+  momentdate,
+  onlytime,
+  indianStates,
+  momentsmall,
+};

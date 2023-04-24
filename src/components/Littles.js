@@ -3,13 +3,9 @@ import { Oval, Radio } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import Theinput from "../components/inputs/Theinput";
 import Theselect from "../components/inputs/Select";
-import {
-  getAccountUserDetails,
-  saveAccountUserDetails,
-} from "../services/apiEndpoints";
-import { indianStates } from "../helpers/functions";
+import { getAccountUserDetails } from "../services/apiEndpoints";
+import { indianStates, momentsmall } from "../helpers/functions";
 import { v4 as uuidv4 } from "uuid";
-import { localeData } from "moment";
 
 export const Heading = ({ text, children, theclass }) => {
   var wrapperclasses = theclass ? theclass + " heading_comp " : "heading_comp ";
@@ -573,5 +569,109 @@ export const Reportselector = ({ data, hoveredIndex, setHoveredIndex }) => {
         })}
       </div>
     </div>
+  );
+};
+
+export const Pnltable = ({
+  data,
+  headtext = "Most Profitable",
+  type,
+  whichone,
+}) => {
+  // console.log(data);
+  return (
+    <>
+      <div className="pnltablereport">
+        <h3>{headtext}</h3>
+        <div className="tradewrapper">
+          <div className="anothertrade heading">
+            <p>Symbol</p>
+            <p>{type === "win" ? "Profit" : "Loss"}</p>
+            <p>Unit</p>
+            <p>Return, %</p>
+            <p>Action</p>
+            <p>Open Date</p>
+            <p>{type === "win" ? "Net Profit" : "Net Loss"}</p>
+
+            <p>R Multiple</p>
+            <p>R Planned</p>
+          </div>
+          {data && data.length > 0 ? (
+            data?.[0]?.[whichone].map((item) => {
+              return (
+                <div key={item._id} className="anothertrade">
+                  <Link to={`/detail/${item?._id}`} className="reportdetail">
+                    {item?.symbol}
+                  </Link>
+                  <p>{item?.profit}</p>
+                  <p>{item?.quantity}</p>
+                  <p> {item?.returnpercent}%</p>
+                  <p> {item?.action}</p>
+                  <p> {momentsmall(item?.entrydate)}</p>
+                  <p> {item?.netpnl}</p>
+                  <p> {item?.rmultiple}</p>
+                  <p> {item?.rrrplanned}</p>
+                </div>
+              );
+            })
+          ) : (
+            <div className="notradefoundtable">
+              {" "}
+              <p>No Trades found</p>
+            </div>
+          )}{" "}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export const Showotherdetails = ({ data, forheading }) => {
+  console.log(data);
+  return (
+    <>
+      {/* <h3 style={{ margin: "2em 0 1em 0" }}> */}
+      <h3 style={{ marginBottom: "1em" }}>
+        {forheading} {" - "} {data?._id}
+      </h3>
+      <div className="showrportdetail">
+        <p>
+          Best Trade{" "}
+          <span>
+            {data?.bestTrade?.symbol} {data?.bestTrade?.profit}
+          </span>
+        </p>
+        <p>
+          Worst Trade{" "}
+          <span>
+            {data?.worstTrade?.symbol} {data?.worstTrade?.profit}
+          </span>
+        </p>
+        <p>
+          Max Return, % <span>{data?.maxReturnPercent.toFixed(2)}%</span>
+        </p>
+        <p>
+          Min Return, % <span>{data?.minReturnPercent.toFixed(2)}%</span>
+        </p>
+        <p>
+          Win Rate <span>{data?.winRate.toFixed(2)}%</span>
+        </p>
+        <p>
+          Loss Rate <span>{data?.lossRate.toFixed(2)}%</span>
+        </p>
+        <p>
+          Total PNL <span>{data?.totalPnL.toFixed(2)}</span>
+        </p>
+        <p>
+          Total Fees <span>{data?.totalFees.toFixed(2)}</span>
+        </p>
+        <p>
+          Trade Count <span>{data?.countTrades}</span>
+        </p>
+        <p>
+          Most Traded <span>{data?.mostTradedSymbol}</span>
+        </p>
+      </div>{" "}
+    </>
   );
 };
