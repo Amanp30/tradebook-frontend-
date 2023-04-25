@@ -272,7 +272,6 @@ export const Imagezoom = ({ theimage }) => {
   return (
     <>
       <div style={{ position: "relative" }}>
-        {" "}
         <img
           src={theimage}
           style={{
@@ -459,7 +458,6 @@ export const Notesviewer = ({
 }) => {
   return (
     <>
-      {" "}
       {data?.length > 0 ? (
         <div
           className={
@@ -478,7 +476,6 @@ export const Notesviewer = ({
                   >
                     <p>{item}</p>{" "}
                     <div className="flexend">
-                      {" "}
                       <img
                         src="/edit.svg"
                         style={{ width: "20px" }}
@@ -616,7 +613,6 @@ export const Pnltable = ({
             })
           ) : (
             <div className="notradefoundtable">
-              {" "}
               <p>No Trades found</p>
             </div>
           )}{" "}
@@ -628,6 +624,17 @@ export const Pnltable = ({
 
 export const Showotherdetails = ({ data, forheading }) => {
   console.log(data);
+
+  var datalength = data?.trades?.length;
+  var forprofit = data?.bestTrade?.profit > 0;
+  var fortheloss = data?.worstTrade?.profit < 0;
+
+  var printprofit =
+    data?.bestTrade?.symbol + " (" + data?.bestTrade?.profit + ")";
+  var printloss =
+    data?.worstTrade?.symbol + " (" + data?.worstTrade?.profit + ")";
+  // console.log(checkedbestworst);
+
   return (
     <>
       {/* <h3 style={{ margin: "2em 0 1em 0" }}> */}
@@ -638,13 +645,22 @@ export const Showotherdetails = ({ data, forheading }) => {
         <p>
           Best Trade{" "}
           <span>
-            {data?.bestTrade?.symbol} {data?.bestTrade?.profit}
+            {datalength === 1 && forprofit
+              ? printprofit
+              : datalength > 1 && forprofit
+              ? printprofit
+              : "-"}
           </span>
         </p>
         <p>
           Worst Trade{" "}
           <span>
-            {data?.worstTrade?.symbol} {data?.worstTrade?.profit}
+            {" "}
+            {datalength === 1 && fortheloss
+              ? printloss
+              : datalength > 1 && fortheloss
+              ? printloss
+              : "-"}
           </span>
         </p>
         <p>

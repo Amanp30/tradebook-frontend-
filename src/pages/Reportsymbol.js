@@ -109,7 +109,7 @@ function Reportsymbol() {
           />
           <Pnltable
             data={filteredWorstTrades}
-            type="win"
+            type="Loss"
             whichone={"worstTrades"}
             headtext="Worst Trades"
           />

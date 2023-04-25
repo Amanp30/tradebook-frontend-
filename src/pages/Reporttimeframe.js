@@ -108,7 +108,7 @@ function Reporttimeframe() {
           />
           <Pnltable
             data={filteredWorstTrades}
-            type="win"
+            type="loss"
             whichone={"worstTrades"}
             headtext="Worst Trades"
           />
