@@ -18,6 +18,7 @@ import Accountdetails from "./pages/Accountdetails";
 import Instruments from "./pages/Instruments";
 import Reporttimeframe from "./pages/Reporttimeframe";
 import Reportsymbol from "./pages/Reportsymbol";
+import Reportyearly from "./pages/Reportyearly";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
 
           <Route path="/report/timeframe" element={<Reporttimeframe />} />
           <Route path="/report/symbol" element={<Reportsymbol />} />
+          <Route path="/report/yearly" element={<Reportyearly />} />
 
           {/* Signup routes */}
           <Route path="/account/login" element={<Login />} />

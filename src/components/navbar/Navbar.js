@@ -80,7 +80,7 @@ function Navbar() {
         },
         {
           text: "Yearly",
-          link: "/Yearly",
+          link: "/report/yearly",
         },
         {
           text: "Timeframe",

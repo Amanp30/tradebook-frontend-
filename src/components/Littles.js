@@ -630,9 +630,21 @@ export const Showotherdetails = ({ data, forheading }) => {
   var fortheloss = data?.worstTrade?.profit < 0;
 
   var printprofit =
-    data?.bestTrade?.symbol + " (" + data?.bestTrade?.profit + ")";
+    data?.bestTrade?.symbol +
+    // " (" +
+    // data?.bestTrade?.profit +
+    // ")" +
+    " (" +
+    data?.bestTrade?.returnpercent +
+    "%)";
   var printloss =
-    data?.worstTrade?.symbol + " (" + data?.worstTrade?.profit + ")";
+    data?.worstTrade?.symbol +
+    // " (" +
+    // data?.worstTrade?.profit +
+    // ")" +
+    " (" +
+    data?.worstTrade?.returnpercent +
+    "%)";
   // console.log(checkedbestworst);
 
   return (
@@ -684,9 +696,11 @@ export const Showotherdetails = ({ data, forheading }) => {
         <p>
           Trade Count <span>{data?.countTrades}</span>
         </p>
-        <p>
-          Most Traded <span>{data?.mostTradedSymbol}</span>
-        </p>
+        {data?.mostTradedSymbol && (
+          <p>
+            Most Traded <span>{data?.mostTradedSymbol}</span>
+          </p>
+        )}
       </div>{" "}
     </>
   );
