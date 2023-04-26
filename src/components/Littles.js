@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 import Theinput from "../components/inputs/Theinput";
 import Theselect from "../components/inputs/Select";
 import { getAccountUserDetails } from "../services/apiEndpoints";
-import { indianStates, momentsmall } from "../helpers/functions";
+import {
+  getMonthNames,
+  indianStates,
+  momentsmall,
+  monthNames,
+} from "../helpers/functions";
 import { v4 as uuidv4 } from "uuid";
 
 export const Heading = ({ text, children, theclass }) => {
@@ -569,6 +574,81 @@ export const Reportselector = ({ data, hoveredIndex, setHoveredIndex }) => {
   );
 };
 
+export const Reportselectorformonthly = ({
+  data,
+  hoveredIndex,
+  setHoveredIndex,
+}) => {
+  const [reportselector, setreportselector] = useState(false);
+  console.log(data);
+
+  const handleClicoutside = (e) => {
+    const theitem = document.querySelector(".thereportselector");
+
+    if (!theitem.contains(e.target)) {
+      // The user has clicked outside the custom selector box
+      setreportselector(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClicoutside);
+
+    return () => {
+      document.removeEventListener("click", handleClicoutside);
+    };
+  }, []);
+
+  var fordataji = getMonthNames(data);
+
+  return (
+    <div className="thereportselector">
+      <p
+        className="selectedone"
+        onClick={(e) => setreportselector(!reportselector)}
+      >
+        {fordataji?.[hoveredIndex]}{" "}
+        <img
+          src="/droparrow.svg"
+          style={{ width: "10px" }}
+          className="customreportdrop"
+        />
+      </p>
+      <div
+        className={
+          reportselector
+            ? data?.length > 20
+              ? "alotdata thecustomselectorbox openbox"
+              : " thecustomselectorbox openbox dothatstyle"
+            : "thecustomselectorbox closebox"
+        }
+        // style={{ display: reportselector ? "block" : "none" }}
+      >
+        {fordataji?.map((item, index) => {
+          const uniqueId = uuidv4();
+          return (
+            <React.Fragment key={uniqueId}>
+              <p
+                className={
+                  hoveredIndex === index
+                    ? "selected thecustomoption"
+                    : "thecustomoption"
+                }
+                onClick={(e) => {
+                  setHoveredIndex(index);
+                  setreportselector(false);
+                }}
+              >
+                {item}
+              </p>
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 export const Pnltable = ({
   data,
   headtext = "Most Profitable",
@@ -622,8 +702,8 @@ export const Pnltable = ({
   );
 };
 
-export const Showotherdetails = ({ data, forheading }) => {
-  console.log(data);
+export const Showotherdetails = ({ data, forheading, themonth }) => {
+  // console.log(data);
 
   var datalength = data?.trades?.length;
   var forprofit = data?.bestTrade?.profit > 0;
@@ -651,7 +731,7 @@ export const Showotherdetails = ({ data, forheading }) => {
     <>
       {/* <h3 style={{ margin: "2em 0 1em 0" }}> */}
       <h3 style={{ marginBottom: "1em" }}>
-        {forheading} {" - "} {data?._id}
+        {forheading} {" - "} {themonth ? themonth : data?._id}
       </h3>
       <div className="showrportdetail">
         <p>

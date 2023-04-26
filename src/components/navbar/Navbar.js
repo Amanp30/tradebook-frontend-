@@ -76,7 +76,7 @@ function Navbar() {
         },
         {
           text: "Monthly",
-          link: "/monthly",
+          link: "/report/monthly",
         },
         {
           text: "Yearly",

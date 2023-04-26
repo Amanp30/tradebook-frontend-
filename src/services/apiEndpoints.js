@@ -176,3 +176,13 @@ export const getReportyearly = async () => {
     apiErrorhandler(error);
   }
 };
+
+export const getReportmonthly = async () => {
+  try {
+    const response = await api.get(`/report/bymonthly/${theuser}`);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};

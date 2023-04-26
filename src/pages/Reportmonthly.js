@@ -2,27 +2,16 @@ import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
 import Chart from "../components/charts/chart";
 import Layout from "../components/Layout";
 import useNotify from "../hooks/useNotify";
-import { getReportyearly } from "../services/apiEndpoints";
+import { getReportmonthly } from "../services/apiEndpoints";
 import {
   Heading,
   Pnltable,
-  Reportselector,
+  Reportselectorformonthly,
   Showotherdetails,
 } from "../components/Littles";
-import Linechart from "../components/charts/Linechart";
+import { getMonthNames, monthNames } from "../helpers/functions";
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "increment":
-      return { count: state.count + 1 };
-    case "decrement":
-      return { count: state.count - 1 };
-    default:
-      throw new Error();
-  }
-}
-
-function Reportyearly() {
+function Reportmonthly() {
   const {
     clearnotification,
     notifysuccess,
@@ -33,18 +22,12 @@ function Reportyearly() {
     setnotifyerror,
   } = useNotify();
 
-  const [state, dispatch] = useReducer(reducer, { count: 0 });
   const [values, setvalues] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [error, seterror] = useState(0);
 
-  useLayoutEffect(() => {
-    const width = document.body.clientWidth;
-    console.log(`Width: ${width}`);
-  }, [state]);
-
   useEffect(() => {
-    getReportyearly()
+    getReportmonthly()
       .then((res) => {
         setvalues(res);
         console.log("from server");
@@ -65,6 +48,8 @@ function Reportyearly() {
     }
   });
 
+  var thelabeledmontharray = getMonthNames(values.labels);
+
   return (
     <>
       <Layout
@@ -74,9 +59,9 @@ function Reportyearly() {
         error={notifyerror}
         seterror={setnotifyerror}
       >
-        <Heading text="Yearly">
-          <Reportselector
-            data={values?.data}
+        <Heading text="Monthly">
+          <Reportselectorformonthly
+            data={values?.labels}
             hoveredIndex={hoveredIndex}
             setHoveredIndex={setHoveredIndex}
           />
@@ -85,7 +70,7 @@ function Reportyearly() {
           <Chart
             ytitle="PNL In RS"
             xtitle="Timeframe"
-            label={values.labels}
+            label={thelabeledmontharray}
             profitandloss={values.pnlArray}
             percentarray={values.averageReturnPercent}
             color={values.color}
@@ -98,8 +83,9 @@ function Reportyearly() {
 
         <div className="thepad">
           <Showotherdetails
-            forheading="Year"
+            forheading="Month"
             data={values?.data?.[hoveredIndex]}
+            themonth={monthNames?.[hoveredIndex]}
           />
           <Pnltable
             data={filteredBestTrades}
@@ -119,4 +105,4 @@ function Reportyearly() {
   );
 }
 
-export default Reportyearly;
+export default Reportmonthly;

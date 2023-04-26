@@ -54,6 +54,44 @@ function onlytime(date) {
   return formattedtime;
 }
 
+function getMonthNames(labels) {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const result = [];
+  for (let i = 0; i < labels?.length; i++) {
+    const monthIndex = labels?.[i] - 1;
+    result?.push(monthNames[monthIndex]);
+  }
+  return result;
+}
+
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 const indianStates = [
   "",
   "Andhra Pradesh",
@@ -93,4 +131,6 @@ export {
   onlytime,
   indianStates,
   momentsmall,
+  getMonthNames,
+  monthNames,
 };
