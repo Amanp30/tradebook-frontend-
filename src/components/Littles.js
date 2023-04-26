@@ -645,7 +645,7 @@ export const Showotherdetails = ({ data, forheading }) => {
     " (" +
     data?.worstTrade?.returnpercent +
     "%)";
-  // console.log(checkedbestworst);
+  // console.log(checkedbestworst)
 
   return (
     <>
