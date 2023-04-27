@@ -5,10 +5,9 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
-  Title,
   Tooltip,
-  Legend,
 } from "chart.js";
+import { colorchartjs } from "colorchartjs";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 const formatNumber = (num) => {
@@ -84,6 +83,14 @@ function Chart({
       themebtn?.removeEventListener("click", handleClick);
     };
   }, [themebtn]);
+
+  var thechartbgcolorinrupees = profitandloss
+    ? colorchartjs(profitandloss, "#2E7D32", "#D32F2F", 0)
+    : null;
+
+  var thechartbgcolorinpercent = percentarray
+    ? colorchartjs(percentarray, "#2E7D32", "#D32F2F", 0)
+    : null;
 
   const options = {
     animation: false, // disable animation
@@ -181,7 +188,9 @@ function Chart({
       {
         // label: "PNL",
         data: showingdatafor,
-        backgroundColor: color,
+        backgroundColor: isprofitloss
+          ? thechartbgcolorinrupees
+          : thechartbgcolorinpercent,
         borderColor: "gold",
         hoverBorderRadius: 10,
         inflateAmount: "auto",
@@ -219,6 +228,11 @@ function Chart({
       <div className="reportchart">
         <Bar options={options} data={data} />
       </div>
+      {isprofitloss ? null : (
+        <p style={{ fontSize: "12px", marginTop: "2em" }}>
+          Showing average return percent data.
+        </p>
+      )}
     </>
   );
 }

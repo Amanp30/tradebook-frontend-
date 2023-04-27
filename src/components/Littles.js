@@ -578,6 +578,7 @@ export const Reportselectorformonthly = ({
   data,
   hoveredIndex,
   setHoveredIndex,
+  dataof,
 }) => {
   const [reportselector, setreportselector] = useState(false);
   console.log(data);
@@ -599,7 +600,7 @@ export const Reportselectorformonthly = ({
     };
   }, []);
 
-  var fordataji = getMonthNames(data);
+  var fordataji = dataof(data);
 
   return (
     <div className="thereportselector">
@@ -658,8 +659,11 @@ export const Pnltable = ({
   // console.log(data);
   return (
     <>
-      <div className="pnltablereport">
-        <h3>{headtext}</h3>
+      <div
+        className="pnltablereport"
+        style={{ margin: whichone === "worstTrades" ? "3em 0 5em 0" : null }}
+      >
+        <h3 style={{ margin: ".8em 0" }}>{headtext}</h3>
         <div className="tradewrapper">
           <div className="anothertrade heading">
             <p>Symbol</p>

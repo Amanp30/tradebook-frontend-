@@ -9,7 +9,7 @@ import {
   Reportselectorformonthly,
   Showotherdetails,
 } from "../components/Littles";
-import { getMonthNames, monthNames } from "../helpers/functions";
+import { getMonthNames, getWeekDay, monthNames } from "../helpers/functions";
 
 function Reportmonthly() {
   const {
@@ -64,6 +64,7 @@ function Reportmonthly() {
             data={values?.labels}
             hoveredIndex={hoveredIndex}
             setHoveredIndex={setHoveredIndex}
+            dataof={getMonthNames}
           />
         </Heading>
         <div className="thebox thepad">
@@ -85,7 +86,7 @@ function Reportmonthly() {
           <Showotherdetails
             forheading="Month"
             data={values?.data?.[hoveredIndex]}
-            themonth={monthNames?.[hoveredIndex]}
+            themonth={thelabeledmontharray?.[hoveredIndex]}
           />
           <Pnltable
             data={filteredBestTrades}

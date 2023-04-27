@@ -72,7 +72,7 @@ function Navbar() {
         },
         {
           text: "Weekday",
-          link: "/weekday",
+          link: "/report/weekday",
         },
         {
           text: "Monthly",

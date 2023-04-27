@@ -77,6 +77,25 @@ function getMonthNames(labels) {
   return result;
 }
 
+function getWeekDay(days) {
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  const result = [];
+  for (let i = 0; i < days?.length; i++) {
+    const dayIndex = days?.[i] - 1;
+    result?.push(daysOfWeek[dayIndex]);
+  }
+  return result;
+}
+
 const monthNames = [
   "January",
   "February",
@@ -133,4 +152,5 @@ export {
   momentsmall,
   getMonthNames,
   monthNames,
+  getWeekDay,
 };
