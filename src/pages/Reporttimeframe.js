@@ -8,18 +8,9 @@ import {
   Pnltable,
   Reportselector,
   Showotherdetails,
+  Waiting,
+  Servererror,
 } from "../components/Littles";
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "increment":
-      return { count: state.count + 1 };
-    case "decrement":
-      return { count: state.count - 1 };
-    default:
-      throw new Error();
-  }
-}
 
 function Reporttimeframe() {
   const {
@@ -32,15 +23,9 @@ function Reporttimeframe() {
     setnotifyerror,
   } = useNotify();
 
-  const [state, dispatch] = useReducer(reducer, { count: 0 });
   const [values, setvalues] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(0);
-  const [error, seterror] = useState(0);
-
-  useLayoutEffect(() => {
-    const width = document.body.clientWidth;
-    console.log(`Width: ${width}`);
-  }, [state]);
+  const [showContent, setshowContent] = useState(false);
 
   useEffect(() => {
     getReport()
@@ -48,8 +33,11 @@ function Reporttimeframe() {
         setvalues(res);
         console.log("from server");
         console.table(res);
+        setshowContent(true);
       })
-      .catch((error) => seterror(error));
+      .catch((error) => {
+        setshowContent("servererror");
+      });
   }, []);
 
   const timeframe = values.data?.[hoveredIndex]?.sortOrderIndex;
@@ -63,59 +51,76 @@ function Reporttimeframe() {
       return theindex;
     }
   });
-  // console.log(filteredWorstTrades);
 
-  return (
-    <>
-      <Layout
-        message={message}
-        success={notifysuccess}
-        setsuccess={setnotifysuccess}
-        error={notifyerror}
-        seterror={setnotifyerror}
-      >
-        <Heading text="Timeframe">
-          <Reportselector
-            data={values?.data}
-            hoveredIndex={hoveredIndex}
-            setHoveredIndex={setHoveredIndex}
-          />
-        </Heading>
-        <div className="thebox thepad">
-          {" "}
-          <Chart
-            ytitle="PNL In RS"
-            xtitle="Timeframe"
-            label={values.labels}
-            profitandloss={values.pnlArray}
-            percentarray={values.averageReturnPercent}
-            color={values.color}
-            tradecount={values.tradecount}
-            hoveredIndex={hoveredIndex}
-            setHoveredIndex={setHoveredIndex}
-          />
-        </div>{" "}
-        <div className="thepad">
-          <Showotherdetails
-            forheading="Timeframe"
-            data={values?.data?.[hoveredIndex]}
-          />
-          <Pnltable
-            data={filteredBestTrades}
-            type="win"
-            whichone={"bestTrades"}
-            headtext="Most Profitable"
-          />
-          <Pnltable
-            data={filteredWorstTrades}
-            type="loss"
-            whichone={"worstTrades"}
-            headtext="Worst Trades"
-          />
-        </div>
+  if (showContent === false) {
+    return (
+      <Layout>
+        <Waiting />
       </Layout>
-    </>
-  );
+    );
+  }
+  if (showContent === "servererror") {
+    return (
+      <>
+        <Layout>
+          <Servererror />
+        </Layout>
+      </>
+    );
+  }
+
+  if (showContent)
+    return (
+      <>
+        <Layout
+          message={message}
+          success={notifysuccess}
+          setsuccess={setnotifysuccess}
+          error={notifyerror}
+          seterror={setnotifyerror}
+        >
+          <Heading text="Timeframe">
+            <Reportselector
+              data={values?.data}
+              hoveredIndex={hoveredIndex}
+              setHoveredIndex={setHoveredIndex}
+            />
+          </Heading>
+          <div className="thebox thepad">
+            {" "}
+            <Chart
+              ytitle="PNL In RS"
+              xtitle="Timeframe"
+              label={values.labels}
+              profitandloss={values.pnlArray}
+              percentarray={values.averageReturnPercent}
+              color={values.color}
+              tradecount={values.tradecount}
+              hoveredIndex={hoveredIndex}
+              setHoveredIndex={setHoveredIndex}
+            />
+          </div>{" "}
+          <div className="thepad">
+            <Showotherdetails
+              forheading="Timeframe"
+              data={values?.data?.[hoveredIndex]}
+            />
+            <Pnltable
+              data={filteredBestTrades}
+              type="win"
+              whichone={"bestTrades"}
+              headtext="Most Profitable"
+            />
+            <Pnltable
+              data={filteredWorstTrades}
+              type="loss"
+              whichone={"worstTrades"}
+              headtext="Worst Trades"
+            />
+          </div>
+        </Layout>
+      </>
+    );
 }
 
 export default Reporttimeframe;

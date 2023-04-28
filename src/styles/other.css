@@ -201,3 +201,7 @@ p.selected.thecustomoption {
         column-gap: 0em;
     }
 }
+
+.updateSymbol h3 {
+    margin-bottom: 0.6em;
+}

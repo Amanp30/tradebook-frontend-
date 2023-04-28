@@ -40,7 +40,7 @@ function Dropdown({ data, heading }) {
             : "droplinks close"
         }
       >
-        {data[0].links.map((item, index) => (
+        {data?.[0]?.links.map((item, index) => (
           <li key={index}>
             <NavLink
               to={item.link}
@@ -68,7 +68,15 @@ function Navbar() {
         },
         {
           text: "Hourly",
-          link: "/hourly",
+          link: "/report/hourly",
+        },
+        {
+          text: "Volumes",
+          link: "/report/volumes",
+        },
+        {
+          text: "Holding Time",
+          link: "/report/holding-time",
         },
         {
           text: "Weekday",

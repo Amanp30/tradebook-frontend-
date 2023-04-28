@@ -6,7 +6,7 @@ export const getCookie = (name) => {
 
 export const setCookie = (name, value, expirationDays) => {
   let date = new Date();
-  date.setTime(date.getTime() + expirationDays * 24 * 60 * 60 * 1000);
+  date?.setTime(date?.getTime() + expirationDays * 24 * 60 * 60 * 1000);
   let expires = "expires=" + date.toUTCString();
   document.cookie = name + "=" + value + ";" + expires + ";path=/";
 };
@@ -47,11 +47,11 @@ export const isAuth = () => {
 
 const userid = () => {
   const user = getLocalStorage("user");
-  return user ? user.toString() : null;
+  return user ? user?.toString() : null;
 };
 const broker = () => {
   const broker = getLocalStorage("broker");
-  return broker ? broker.toString() : "Upstox";
+  return broker ? broker?.toString() : "Upstox";
 };
 
 const thetoken = () => {

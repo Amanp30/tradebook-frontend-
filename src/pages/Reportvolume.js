@@ -2,18 +2,17 @@ import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
 import Chart from "../components/charts/chart";
 import Layout from "../components/Layout";
 import useNotify from "../hooks/useNotify";
-import { getReportmonthly } from "../services/apiEndpoints";
+import { getReportvolume } from "../services/apiEndpoints";
 import {
   Heading,
   Pnltable,
-  Reportselectorformonthly,
-  Servererror,
+  Reportselector,
   Showotherdetails,
   Waiting,
+  Servererror,
 } from "../components/Littles";
-import { getMonthNames, getWeekDay, monthNames } from "../helpers/functions";
 
-function Reportmonthly() {
+function Reportvolume() {
   const {
     clearnotification,
     notifysuccess,
@@ -29,7 +28,7 @@ function Reportmonthly() {
   const [showContent, setshowContent] = useState(false);
 
   useEffect(() => {
-    getReportmonthly()
+    getReportvolume()
       .then((res) => {
         setvalues(res);
         console.log("from server");
@@ -42,18 +41,16 @@ function Reportmonthly() {
   }, []);
 
   const timeframe = values.data?.[hoveredIndex]?.sortOrderIndex;
-  const filteredBestTrades = values?.bestTrades?.filter((theindex) => {
+  const filteredBestTrades = values?.bestTrades?.filter((theindex, index) => {
     if (theindex.sortOrderIndex === timeframe) {
       return theindex;
     }
   });
-  const filteredWorstTrades = values?.worstTrades?.filter((theindex) => {
+  const filteredWorstTrades = values?.worstTrades?.filter((theindex, index) => {
     if (theindex.sortOrderIndex === timeframe) {
       return theindex;
     }
   });
-
-  var thelabeledmontharray = getMonthNames(values.labels);
 
   if (showContent === false) {
     return (
@@ -82,34 +79,31 @@ function Reportmonthly() {
           error={notifyerror}
           seterror={setnotifyerror}
         >
-          <Heading text="Monthly">
-            <Reportselectorformonthly
-              data={values?.labels}
+          <Heading text="Volume Report">
+            <Reportselector
+              data={values?.data}
               hoveredIndex={hoveredIndex}
               setHoveredIndex={setHoveredIndex}
-              dataof={getMonthNames}
             />
           </Heading>
           <div className="thebox thepad">
+            {" "}
             <Chart
               ytitle="PNL In RS"
               xtitle="Timeframe"
-              label={thelabeledmontharray}
+              label={values.labels}
               profitandloss={values.pnlArray}
               percentarray={values.averageReturnPercent}
               color={values.color}
               tradecount={values.tradecount}
               hoveredIndex={hoveredIndex}
               setHoveredIndex={setHoveredIndex}
-              // showoptions={false}
             />
-          </div>
-
+          </div>{" "}
           <div className="thepad">
             <Showotherdetails
-              forheading="Month"
+              forheading="Timeframe"
               data={values?.data?.[hoveredIndex]}
-              themonth={thelabeledmontharray?.[hoveredIndex]}
             />
             <Pnltable
               data={filteredBestTrades}
@@ -119,7 +113,7 @@ function Reportmonthly() {
             />
             <Pnltable
               data={filteredWorstTrades}
-              type="Loss"
+              type="loss"
               whichone={"worstTrades"}
               headtext="Worst Trades"
             />
@@ -129,4 +123,4 @@ function Reportmonthly() {
     );
 }
 
-export default Reportmonthly;
+export default Reportvolume;

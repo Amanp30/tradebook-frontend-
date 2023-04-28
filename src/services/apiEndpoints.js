@@ -196,3 +196,13 @@ export const getReportweekday = async () => {
     apiErrorhandler(error);
   }
 };
+
+export const getReportvolume = async () => {
+  try {
+    const response = await api.get(`/report/byvolume/${theuser}`);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
