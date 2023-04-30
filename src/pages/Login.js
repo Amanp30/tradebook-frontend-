@@ -59,11 +59,11 @@ function Login() {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response?.data);
 
-        setCookie("token", response.data.token, 1);
-        setLocalStorage("user", response.data.user);
-        setLocalStorage("broker", response.data.broker);
+        setCookie("token", response?.data?.token, 1);
+        setLocalStorage("user", response?.data?.user);
+        setLocalStorage("broker", response?.data?.broker);
 
         setnotifysuccess(true);
         setmessage("Login Successful");

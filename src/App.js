@@ -22,6 +22,7 @@ import Reportyearly from "./pages/Reportyearly";
 import Reportmonthly from "./pages/Reportmonthly";
 import Reportweekday from "./pages/Reportweekday";
 import Reportvolume from "./pages/Reportvolume";
+import Reporthourly from "./pages/Reporthourly";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path="/report/monthly" element={<Reportmonthly />} />
           <Route path="/report/weekday" element={<Reportweekday />} />
           <Route path="/report/volumes" element={<Reportvolume />} />
+          <Route path="/report/hourly" element={<Reporthourly />} />
 
           {/* Signup routes */}
           <Route path="/account/login" element={<Login />} />

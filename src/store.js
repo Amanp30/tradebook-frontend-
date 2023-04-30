@@ -1,21 +1,8 @@
 import { createStore } from "redux";
-
-const initialState = {
-  theme: "light",
-};
-
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "TOGGLE_THEME":
-      return {
-        ...state,
-        theme: state.theme === "light" ? "dark" : "light",
-      };
-    default:
-      return state;
-  }
-};
-
-const store = createStore(reducer);
+import rootReducer from "./Reducers/index";
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 export default store;

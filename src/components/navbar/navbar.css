@@ -106,9 +106,9 @@
 }
 
 
-.droplinks.openDrop {
+/* .droplinks.openDrop {
     animation: slidesDown .5s ease-in-out forwards;
-}
+} */
 
 ul.droplinks {
     padding: 0 2em 0 2em;

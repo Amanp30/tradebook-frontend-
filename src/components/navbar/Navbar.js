@@ -3,9 +3,12 @@ import { NavLink } from "react-router-dom"; // import the NavLink component from
 import Theme from "./Theme";
 import "./navbar.css";
 import { doLogout, isAuth } from "../../helpers/Auth";
+import { useSelector, useDispatch } from "react-redux/es/exports";
+import { handleReportDropdown, handleSettingsDropdown } from "../../Actions";
 
-function Dropdown({ data, heading }) {
-  const [isDropdownOpen, setisDropdownOpen] = useState("default");
+function Dropdown({ data, heading, isDropdownOpen }) {
+  const dispatch = useDispatch();
+  console.log(heading);
 
   function setbodyscrollable() {
     document.body.style.overflow = "";
@@ -13,9 +16,13 @@ function Dropdown({ data, heading }) {
 
   const handleDrop = (e) => {
     if (isDropdownOpen === "default" || isDropdownOpen === "close") {
-      setisDropdownOpen("open");
+      heading === "Reports"
+        ? dispatch(handleReportDropdown("open"))
+        : dispatch(handleSettingsDropdown("open"));
     } else {
-      setisDropdownOpen("close");
+      heading === "Reports"
+        ? dispatch(handleReportDropdown("close"))
+        : dispatch(handleSettingsDropdown("close"));
     }
   };
 
@@ -57,7 +64,9 @@ function Dropdown({ data, heading }) {
 }
 
 function Navbar() {
-  const [isOpen, setIsOpen] = useState("default");
+  const [isOpen, setisOpen] = useState("default");
+  const Reportstate = useSelector((state) => state.Reportreducer);
+  const Settingsstate = useSelector((state) => state.Settingsreducer);
 
   var Reportsdata = [
     {
@@ -126,21 +135,13 @@ function Navbar() {
       var body = document.body;
       var openmenu = document.querySelector(".openmenubtn");
       var targetmenu = document.querySelector(".navbar_inner.opening");
-      var icon = document.querySelector(".themebtn");
-      if (
-        event.target === openmenu ||
-        (event.target.closest(".links_container") && event.target === icon)
-      ) {
-        setIsOpen("openit");
+
+      if (event.target === openmenu) {
+        setisOpen("openit");
         body.style.overflow = "hidden";
         return;
-      } else if (
-        isOpen === "openit" &&
-        targetmenu &&
-        !targetmenu.contains(event.target) &&
-        !event.target.classList.contains("themebtn")
-      ) {
-        setIsOpen("closeit");
+      } else if (isOpen === "openit" && !targetmenu.contains(event.target)) {
+        setisOpen("closeit");
         body.style.overflow = "";
       }
     }
@@ -199,9 +200,17 @@ function Navbar() {
           >
             Trades
           </NavLink>
-          <Dropdown heading="Reports" data={Reportsdata} />
+          <Dropdown
+            heading="Reports"
+            data={Reportsdata}
+            isDropdownOpen={Reportstate}
+          />
 
-          <Dropdown heading="Settings" data={Settingsdata} />
+          <Dropdown
+            heading="Settings"
+            data={Settingsdata}
+            isDropdownOpen={Settingsstate}
+          />
 
           <div className="logout thebox" onClick={(e) => doLogout()}>
             <img src="/shutdown.png" style={{ width: "25px" }} /> <p>Logout</p>

@@ -206,3 +206,13 @@ export const getReportvolume = async () => {
     apiErrorhandler(error);
   }
 };
+
+export const getReporthourly = async () => {
+  try {
+    const response = await api.get(`/report/byhourly/${theuser}`);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};

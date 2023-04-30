@@ -232,7 +232,6 @@ export const Greenred = ({ number, append }) => {
 };
 
 export const Action = ({ action }) => {
-  console.log(action);
   return (
     <>
       <img
