@@ -24,10 +24,13 @@ import Reportweekday from "./pages/Reportweekday";
 import Reportvolume from "./pages/Reportvolume";
 import Reporthourly from "./pages/Reporthourly";
 
+import ScrollToTop from "./components/scrollToTop";
+
 function App() {
   return (
     <>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/trades" element={<Trades />} />
@@ -36,7 +39,6 @@ function App() {
           <Route path="/detail/:trade" element={<Detailtrdae />} />
           <Route path="/account-details" element={<Accountdetails />} />
           <Route path="/instruments" element={<Instruments />} />
-
           <Route path="/report/timeframe" element={<Reporttimeframe />} />
           <Route path="/report/symbol" element={<Reportsymbol />} />
           <Route path="/report/yearly" element={<Reportyearly />} />
@@ -44,7 +46,6 @@ function App() {
           <Route path="/report/weekday" element={<Reportweekday />} />
           <Route path="/report/volumes" element={<Reportvolume />} />
           <Route path="/report/hourly" element={<Reporthourly />} />
-
           {/* Signup routes */}
           <Route path="/account/login" element={<Login />} />
           <Route path="/account/signup" element={<Signup />} />

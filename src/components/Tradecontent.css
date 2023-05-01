@@ -46,14 +46,16 @@
     /* border-bottom: 2px solid darkblue; */
 }
 
-
-
 .thetrade:first-child {
     box-shadow: 0 -20px 55px 1px rgba(202, 202, 202, 0.44);
     padding-bottom: .5em;
     padding-top: .2em;
     /* padding-right: 0; */
     width: max-content;
+}
+
+.hoverbg {
+    width: fit-content !important;
 }
 
 .gain,
