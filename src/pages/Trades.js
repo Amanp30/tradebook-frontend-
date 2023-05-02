@@ -46,7 +46,7 @@ function Trades() {
   function getData() {
     getTrades()
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setdata(response);
         setshowContent(true);
       })

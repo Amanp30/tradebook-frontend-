@@ -8,7 +8,6 @@ import { handleReportDropdown, handleSettingsDropdown } from "../../Actions";
 
 function Dropdown({ data, heading, isDropdownOpen }) {
   const dispatch = useDispatch();
-  console.log(heading);
 
   function setbodyscrollable() {
     document.body.style.overflow = "";

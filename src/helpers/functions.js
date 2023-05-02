@@ -1,11 +1,5 @@
 import moment from "moment-timezone";
 
-const Timeout = (route, time) => {
-  setTimeout(() => {
-    window.location.href = route;
-  }, time);
-};
-
 function validateSymbol(instrument, setinstrument) {
   var trimmedInstrument = instrument.trim();
   // var withoutSpaces = trimmedInstrument.replace(/\s+/g, "");
@@ -144,7 +138,6 @@ const indianStates = [
 ];
 
 export {
-  Timeout,
   validateSymbol,
   momentdate,
   onlytime,

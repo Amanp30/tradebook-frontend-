@@ -12,13 +12,15 @@ import api from "../services/api";
 import Thedate from "../components/inputs/Date";
 import { getBroker, getUserId } from "../helpers/Auth";
 import useNotify from "../hooks/useNotify";
-import Notification from "../components/notification/Notification";
 import { errorhandler, validateOrder } from "../helpers/codehandlers";
 import { Chartexplain, Formdiv, Heading } from "../components/Littles";
-import { Timeout, validateSymbol } from "../helpers/functions";
+import { validateSymbol } from "../helpers/functions";
 import useTrade from "../hooks/useTrade";
+import { useNavigate } from "react-router-dom";
 
 function Newtrade() {
+  const navigate = useNavigate();
+
   const [instrument, setinstrument] = useState("");
   const [quantity, setquantity] = useState(0);
   const [entryprice, setentryprice] = useState(0);
@@ -178,8 +180,9 @@ function Newtrade() {
       .then((response) => {
         setmessage(response.data.message);
         setnotifysuccess(true);
-        console.log(response.data);
-        Timeout("/trades", 2000);
+        setTimeout(() => {
+          navigate("/trades");
+        }, 2000);
       })
       .catch((error) => {
         console.log(error);

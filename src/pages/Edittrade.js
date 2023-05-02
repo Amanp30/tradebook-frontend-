@@ -19,13 +19,15 @@ import {
   Waiting,
   Heading,
 } from "../components/Littles";
-import { Timeout, validateSymbol } from "../helpers/functions";
+import { validateSymbol } from "../helpers/functions";
 import useTrade from "../hooks/useTrade";
 import { editTradeapi, updateTradeapi } from "../services/apiEndpoints";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux/es/exports";
 
 function Edittrade() {
   const { tradeid } = useParams();
+  const navigate = useNavigate();
 
   const {
     clearnotification,
@@ -80,6 +82,26 @@ function Edittrade() {
     stoploss: values.stoploss,
     takeprofit: values.takeprofit,
   });
+
+  const [thenavgourl, setThenavgourl] = useState("");
+
+  var theurlarray = useSelector((state) => state?.Previousurls);
+  var lasturl = theurlarray[theurlarray.length - 1];
+  var secondlasturl = theurlarray[theurlarray.length - 2];
+  var thirdlasturl = theurlarray[theurlarray.length - 3];
+
+  useEffect(() => {
+    if (secondlasturl?.includes("trades")) {
+      var splited = secondlasturl?.split("/");
+      setThenavgourl(`/${splited[3]}`);
+    } else if (secondlasturl?.includes("detail")) {
+      var hellosplit = thirdlasturl?.split("/");
+      console.log(hellosplit);
+      setThenavgourl(`/${hellosplit.slice(3).join("/")}`);
+    } else {
+      setThenavgourl("/trades");
+    }
+  }, [secondlasturl, thirdlasturl]);
 
   const handleform = (e) => {
     e.preventDefault();
@@ -191,7 +213,10 @@ function Edittrade() {
         setmessage("Trade updated successfully");
         setnotifysuccess(true);
         // console.log(response.data);
-        Timeout("/trades", 2000);
+        console.log(thenavgourl);
+        setTimeout(() => {
+          navigate(thenavgourl);
+        }, 2000);
       })
       .catch((error) => {
         console.log(error);

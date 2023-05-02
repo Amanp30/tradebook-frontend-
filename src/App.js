@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import "./styles/App.css";
@@ -25,12 +25,14 @@ import Reportvolume from "./pages/Reportvolume";
 import Reporthourly from "./pages/Reporthourly";
 
 import ScrollToTop from "./components/scrollToTop";
+import MyPreviousUrls from "./components/MyPreviousUrls";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <ScrollToTop />
+        <MyPreviousUrls />
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/trades" element={<Trades />} />

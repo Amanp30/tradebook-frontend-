@@ -7,8 +7,8 @@ import { useParams } from "react-router-dom";
 
 const Tradecontent = ({ data, deletefunc }) => {
   const { trade } = useParams();
-  console.log(trade);
-  console.log(data);
+  // console.log(trade);
+  // console.log(data);
 
   return (
     <>

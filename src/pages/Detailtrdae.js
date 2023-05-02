@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux/es/exports";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import {
   Editdeleteset,
@@ -12,7 +13,7 @@ import {
   Waiting,
 } from "../components/Littles";
 import { errorhandler } from "../helpers/codehandlers";
-import { momentdate, Timeout } from "../helpers/functions";
+import { momentdate } from "../helpers/functions";
 import useNotify from "../hooks/useNotify";
 import {
   addNewNote,
@@ -25,6 +26,7 @@ import {
 function Popupinput({ note, setnote, updateFunction, tradeid }) {
   const [newNote, setnewNote] = useState(note);
   // console.log(note);
+
   return (
     <>
       {note && typeof note.note === "string" ? (
@@ -63,6 +65,24 @@ function Popupinput({ note, setnote, updateFunction, tradeid }) {
 
 function Detailtrdae() {
   const { trade } = useParams();
+  const navigate = useNavigate();
+
+  const [thenavgourl, setThenavgourl] = useState("");
+
+  var theurlarray = useSelector((state) => state?.Previousurls);
+  var secondlasturl = theurlarray[theurlarray.length - 2];
+
+  useEffect(() => {
+    if (secondlasturl?.includes("trades")) {
+      var splited = secondlasturl?.split("/");
+      setThenavgourl(`/${splited[3]}`);
+    } else if (secondlasturl?.includes("report")) {
+      var hellosplit = secondlasturl?.split("/");
+      setThenavgourl(`/${hellosplit.slice(3).join("/")}`);
+    } else {
+      setThenavgourl("/trades");
+    }
+  }, [secondlasturl]);
 
   const [values, setvalues] = useState([]);
   const [showContent, setshowContent] = useState(false);
@@ -137,8 +157,9 @@ function Detailtrdae() {
         // console.log(response);
         setmessage("Trade Deleted");
         setnotifysuccess(true);
-        Timeout("/trades", 2000);
-        // window.location.href = "/trades";
+        setTimeout(() => {
+          navigate(thenavgourl);
+        }, 2000);
       })
       .catch((error) => {
         errorhandler(error, setmessage).then(() => {
@@ -200,7 +221,7 @@ function Detailtrdae() {
               flexWrap: "wrap",
             }}
           >
-            <Link to={"/trades"}>
+            <Link to={thenavgourl}>
               <img
                 src="/backarrow.svg"
                 className="backimg"
