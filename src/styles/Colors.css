@@ -16,6 +16,9 @@
     --trade-hover-bg: rgba(218, 202, 251, 0.101);
     --performance-bg: rebeccapurple;
     --tableheadings-bg: rebeccapurple;
+    --profitgreen-bg: rgb(43, 255, 0);
+    --profitred-bg: red;
+    --defaultnotcolored-bg: rgba(234, 234, 234, 0.328);
 
 }
 
@@ -37,7 +40,28 @@
     --trade-hover-bg: rgba(222, 222, 222, 0.174);
     --performance-bg: #4caf509c;
     --tableheadings-bg: rgba(0, 255, 153, 0.178);
+    --profitgreen-bg: #1fbd06;
+    --profitred-bg: red;
+    --defaultnotcolored-bg: rgb(218, 218, 218);
 }
+
+
+
+/* calendar colors here  */
+
+.profitred {
+    background: var(--profitred-bg) !important;
+}
+
+.defaultnotcolored {
+    background-color: var(--defaultnotcolored-bg) !important;
+}
+
+.profitgreen {
+    background-color: var(--profitgreen-bg) !important;
+}
+
+/* calendar colors here  */
 
 
 html {

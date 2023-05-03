@@ -53,6 +53,8 @@ function Reportcalendar() {
 
   //   console.log(mdate);
 
+  const [selectedDate, setSelectedDate] = useState("");
+
   const b = mdate.map((monthDates, index) => (
     <div key={index} className="twelveone">
       <h2 style={{ fontSize: ".8em", marginBottom: ".5em" }}>
@@ -62,31 +64,28 @@ function Reportcalendar() {
         {monthDates.map((date) => {
           const foundData = data.find((d) => d._id.includes(date));
 
-          //   console.log(date);
           return (
             <>
               <div
                 key={date}
-                style={{
-                  background:
-                    date === ""
-                      ? "transparent"
-                      : foundData?.profitinrs > 0
-                      ? "green"
-                      : foundData?.profitinrs < 0
-                      ? "red"
-                      : "#bebebe",
-                  color: "white",
-                  width: ".8em",
-                  height: ".8em",
+                className={`calendar-date ${
+                  date === ""
+                    ? ""
+                    : foundData?.profitinrs > 0
+                    ? "profitgreen"
+                    : foundData?.profitinrs < 0
+                    ? "profitred"
+                    : "defaultnotcolored"
+                } ${selectedDate && selectedDate === date ? "selected" : ""}`}
+                onClick={() => {
+                  if (date !== "" && foundData) {
+                    setSelectedDate(date);
+                    setthefseleceted(foundData);
+                  } else {
+                    console.log("No data found");
+                  }
                 }}
-                onClick={() =>
-                  foundData ? setthefseleceted(foundData) : "No data found"
-                }
-              >
-                {/* {date && moment(date).format("D")} */}
-                {/* {foundData ? date + "In data true " : `${date} not in data`} */}
-              </div>
+              ></div>
             </>
           );
         })}
@@ -94,14 +93,17 @@ function Reportcalendar() {
     </div>
   ));
 
-  const shortDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const shortDays = ["S", "M", "T", "W", "T", "F", "S"];
 
   const days = shortDays.map((day, index) => <p>{day}</p>);
 
   return (
     <>
       <Layout>
-        <div style={{ display: "flex", gap: "10px" }} className="thebox">
+        <div
+          style={{ display: "flex", gap: "10px", overflow: "auto" }}
+          className="thebox thepad"
+        >
           <div className="days">{days}</div>
           <div className="kasngn">{b}</div>
         </div>

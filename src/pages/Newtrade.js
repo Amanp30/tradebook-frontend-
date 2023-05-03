@@ -22,15 +22,15 @@ function Newtrade() {
   const navigate = useNavigate();
 
   const [instrument, setinstrument] = useState("");
-  const [quantity, setquantity] = useState(0);
-  const [entryprice, setentryprice] = useState(0);
-  const [exitprice, setexitprice] = useState(0);
-  const [fees, setfees] = useState(0);
+  const [quantity, setquantity] = useState("");
+  const [entryprice, setentryprice] = useState("");
+  const [exitprice, setexitprice] = useState("");
+  const [fees, setfees] = useState("");
   const [timeframe, settimeframe] = useState("1 Minute");
   const [emotions, setemotions] = useState("");
   const [marketcondition, setmarketcondition] = useState("");
-  const [stoploss, setstoploss] = useState(0);
-  const [takeprofit, settakeprofit] = useState(0);
+  const [stoploss, setstoploss] = useState("");
+  const [takeprofit, settakeprofit] = useState("");
 
   const [action, setaction] = useState("Buy");
   // const [chart, setchart] = useState(null);
