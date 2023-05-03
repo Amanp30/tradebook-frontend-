@@ -216,3 +216,13 @@ export const getReporthourly = async () => {
     apiErrorhandler(error);
   }
 };
+
+export const getCalenderReport = async () => {
+  try {
+    const response = await api.get(`/report/calendar/${theuser}`);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};

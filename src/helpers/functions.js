@@ -1,5 +1,21 @@
 import moment from "moment-timezone";
 
+function getDatesForCurrentYear() {
+  const year = new Date().getFullYear(); // get the current year
+  const startDate = moment(`${year}-01-01`, "YYYY-MM-DD"); // create a moment object for the start date of the year
+  const endDate = moment(`${year}-12-31`, "YYYY-MM-DD");
+
+  const dates = []; // create an empty array to store the dates
+
+  // loop through each day between the start and end dates and add them to the array
+  while (startDate.isSameOrBefore(endDate)) {
+    dates.push(startDate.format("YYYY-MM-DD")); // add the current date to the array
+    startDate.add(1, "day"); // move to the next day
+  }
+
+  return dates;
+}
+
 function validateSymbol(instrument, setinstrument) {
   var trimmedInstrument = instrument.trim();
   // var withoutSpaces = trimmedInstrument.replace(/\s+/g, "");
@@ -24,6 +40,14 @@ function validateSymbol(instrument, setinstrument) {
   return false;
 }
 
+function momentcalendar(date) {
+  const timezone = "Asia/Kolkata";
+
+  const formattedDate = moment(date).tz(timezone).format("YYYY-MM-DD");
+  // .format("D MMMM YYYY h:mm A z");
+
+  return formattedDate;
+}
 function momentdate(date) {
   const timezone = "Asia/Kolkata";
 
@@ -138,7 +162,9 @@ const indianStates = [
 ];
 
 export {
+  getDatesForCurrentYear,
   validateSymbol,
+  momentcalendar,
   momentdate,
   onlytime,
   indianStates,

@@ -106,6 +106,10 @@ function Navbar() {
           text: "Symbols",
           link: "/report/symbol",
         },
+        {
+          text: "Calendar",
+          link: "/report/calendar",
+        },
       ],
     },
   ];
