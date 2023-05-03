@@ -1,7 +1,5 @@
 import moment from "moment-timezone";
 
-<<<<<<< HEAD
-=======
 function getDatesForCurrentYear() {
   const year = new Date().getFullYear(); // get the current year
   const startDate = moment(`${year}-01-01`, "YYYY-MM-DD"); // create a moment object for the start date of the year
@@ -18,7 +16,6 @@ function getDatesForCurrentYear() {
   return dates;
 }
 
->>>>>>> origin/main
 function validateSymbol(instrument, setinstrument) {
   var trimmedInstrument = instrument.trim();
   // var withoutSpaces = trimmedInstrument.replace(/\s+/g, "");
@@ -43,8 +40,6 @@ function validateSymbol(instrument, setinstrument) {
   return false;
 }
 
-<<<<<<< HEAD
-=======
 function momentcalendar(date) {
   const timezone = "Asia/Kolkata";
 
@@ -53,7 +48,7 @@ function momentcalendar(date) {
 
   return formattedDate;
 }
->>>>>>> origin/main
+
 function momentdate(date) {
   const timezone = "Asia/Kolkata";
 
@@ -168,13 +163,9 @@ const indianStates = [
 ];
 
 export {
-<<<<<<< HEAD
-  validateSymbol,
-=======
   getDatesForCurrentYear,
   validateSymbol,
   momentcalendar,
->>>>>>> origin/main
   momentdate,
   onlytime,
   indianStates,

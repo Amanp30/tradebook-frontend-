@@ -216,8 +216,6 @@ export const getReporthourly = async () => {
     apiErrorhandler(error);
   }
 };
-<<<<<<< HEAD
-=======
 
 export const getCalenderReport = async () => {
   try {
@@ -228,4 +226,3 @@ export const getCalenderReport = async () => {
     apiErrorhandler(error);
   }
 };
->>>>>>> origin/main

@@ -106,13 +106,10 @@ function Navbar() {
           text: "Symbols",
           link: "/report/symbol",
         },
-<<<<<<< HEAD
-=======
         {
           text: "Calendar",
           link: "/report/calendar",
         },
->>>>>>> origin/main
       ],
     },
   ];
