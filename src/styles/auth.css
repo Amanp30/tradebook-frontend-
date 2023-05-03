@@ -1,0 +1,63 @@
+form.thesignupform {
+    min-width: 250px;
+    width: 100%;
+    max-width: 350px;
+    margin: auto;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 30%);
+    background: white;
+    padding: 2.6em;
+    border-radius: 1em;
+}
+
+@media (min-width:600px) {
+    .thesignupform {
+        min-width: 400px !important;
+    }
+}
+
+.authemail,
+.authpassword {
+    margin-bottom: 1em;
+}
+
+.thesignupform.forgotpass {
+    transform: translate(-50%, 40%);
+}
+
+.forauth {
+    text-align: center;
+    margin: 0;
+    font-size: 2em;
+    transform: translateY(220%);
+}
+
+.authlinks {
+    color: blue;
+    text-decoration: underline;
+    font-size: 12px;
+}
+
+.authpassword .labelcontainer {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.authbtn {
+    background: linear-gradient(180deg, black, #242424);
+    color: white;
+    border: none;
+    padding: 1em;
+    width: 100%;
+    border-radius: .5em;
+    margin-bottom: 2em;
+}
+
+.authbtn:hover {
+    background: linear-gradient(180deg, black, #000000);
+}
+
+.otherp {
+    color: rgb(52, 52, 52);
+}

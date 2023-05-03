@@ -1,0 +1,171 @@
+/* light theme variables */
+:root.dark-theme {
+    --themain-background: #161d31;
+    --image-filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(1deg) brightness(104%) contrast(104%);
+    --navbar-shadow: #d3d3d366;
+    --logo-color: beige;
+    --p-color: white;
+    --a-color: white;
+    --primary-background: #283046;
+    --input-border: white;
+    --input-background: var(--primary-background);
+    --input-shadow: rgba(245, 245, 245, 0.713);
+    --input-text-color: white;
+    --input-placeholder: #C4C4C4;
+    --detailholding: #0044ff;
+    --trade-hover-bg: rgba(218, 202, 251, 0.101);
+    --performance-bg: rebeccapurple;
+    --tableheadings-bg: rebeccapurple;
+
+}
+
+/* dark theme */
+:root.light-theme {
+    --themain-background: #f8f8f8;
+    --image-filter: unset;
+    --navbar-shadow: #2304d066;
+    --logo-color: blue;
+    --p-color: black;
+    --a-color: black;
+    --primary-background: white;
+    --input-border: black;
+    --input-background: white;
+    --input-shadow: rgba(3, 102, 214, 0.3);
+    --input-text-color: black;
+    --input-placeholder: #c1c1c1;
+    --detailholding: grey;
+    --trade-hover-bg: rgba(222, 222, 222, 0.174);
+    --performance-bg: #4caf509c;
+    --tableheadings-bg: rgba(0, 255, 153, 0.178);
+}
+
+
+html {
+    background-color: var(--themain-background);
+}
+
+p,
+label,
+.menudropdown,
+.droplinks li::marker,
+.heading,
+h1,
+h2,
+h3,
+h4 {
+    color: var(--p-color);
+}
+
+.profittrue,
+.percenttrue {
+    background: var(--performance-bg);
+}
+
+.detailheading {
+    color: var(--detailholding);
+}
+
+.anothertrade.heading {
+    background-color: var(--tableheadings-bg);
+}
+
+.detailheading::after {
+    background-color: var(--p-color);
+}
+
+.hoverbg:hover {
+    background-color: var(--trade-hover-bg);
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) .2s;
+}
+
+a {
+    color: var(--a-color);
+}
+
+.logo {
+    color: var(--logo-color);
+}
+
+.openmenubtn,
+.menudropdown img,
+.backimg,
+.customreportdrop,
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="week"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: var(--image-filter);
+}
+
+.navbar,
+.navbar_inner.opening,
+.navbar_inner.closing,
+.thebox,
+.imageenlarge img:first-child {
+    background-color: var(--primary-background);
+}
+
+@media (max-width:900px) {
+    .backdropfilter {
+        background-color:
+            var(--primary-background) !important;
+    }
+}
+
+
+@media (max-width:950px) {
+    .navbar_inner.opening {
+        box-shadow: 20px 0px 20000px 60px var(--navbar-shadow);
+    }
+}
+
+
+/* colors for input boxes */
+
+.custominputbox {
+    border: 1px solid var(--input-border);
+    background-color: var(--input-background);
+    cursor: text;
+}
+
+.theinput,
+.Select {
+    color: var(--input-text-color);
+}
+
+option {
+    color: black;
+    background-color: orange;
+    font-size: 1.2em;
+}
+
+.thebox::placeholder {
+    color: var(--input-placeholder, orange);
+    /* color: red; */
+}
+
+.custominputbox:focus-within {
+    /* set styles for when the container or input is in focus */
+    box-shadow: var(--input-shadow) 0px 0px 0px 3px;
+}
+
+.custominputbox input::placeholder {
+    color: var(--input-placeholder, #ccc);
+    /* set the default color and fallback value */
+}
+
+
+.upstox {
+    background: #41246e;
+    color: white;
+}
+
+.zerodha {
+    background: #387ed1;
+    color: white;
+}
+
+.angelone {
+    background: #2e51ff;
+    color: white;
+}
