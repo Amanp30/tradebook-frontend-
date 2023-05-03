@@ -24,8 +24,9 @@ import Reportweekday from "./pages/Reportweekday";
 import Reportvolume from "./pages/Reportvolume";
 import Reporthourly from "./pages/Reporthourly";
 
-import MyPreviousUrls from "./components/MyPreviousUrls";
 import ScrollToTop from "./components/scrollToTop";
+import MyPreviousUrls from "./components/MyPreviousUrls";
+import Reportcalendar from "./pages/Reportcalendar";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route path="/report/weekday" element={<Reportweekday />} />
           <Route path="/report/volumes" element={<Reportvolume />} />
           <Route path="/report/hourly" element={<Reporthourly />} />
+          <Route path="/report/calendar" element={<Reportcalendar />} />
           {/* Signup routes */}
           <Route path="/account/login" element={<Login />} />
           <Route path="/account/signup" element={<Signup />} />

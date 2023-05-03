@@ -77,8 +77,13 @@ function Reportcalendar() {
                       ? "red"
                       : "#bebebe",
                   color: "white",
+<<<<<<< HEAD
                   height: ".8em",
                   width: ".8em",
+=======
+                  width: ".8em",
+                  height: ".8em",
+>>>>>>> origin/main
                 }}
                 onClick={() =>
                   foundData ? setthefseleceted(foundData) : "No data found"
