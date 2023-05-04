@@ -6,8 +6,7 @@
 
 .calendar-date.selected {
     border-radius: 50%;
-    transform: scale(1.8);
-    box-shadow: 0 0 2px 2px white;
+    transform: scale(1.5);
 }
 
 .twelveone div {
@@ -31,7 +30,7 @@
 
 .days p {
     font-size: .7em;
-    font-weight: bolder;
+    font-weight: 500;
 }
 
 * {
@@ -47,6 +46,44 @@
 
 .reportchart {
     height: 520px;
+}
+
+.dougnutresponsive {
+    width: 100px;
+}
+
+.calendarmain {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    justify-items: center;
+}
+
+.calendarmain div {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    height: 100%;
+}
+
+@media (max-width:600px) {
+    .calendarmain {
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: flex-start;
+    }
+
+    .calendarmain div {
+        gap: .4em;
+        margin-bottom: 1em;
+    }
+
+    .calendarmain div:last-child {
+        margin-bottom: 0em;
+    }
+}
+
+.forcalendar.dougnutresponsive {
+    width: 65px;
 }
 
 .charttabs {

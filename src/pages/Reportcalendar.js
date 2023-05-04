@@ -3,26 +3,30 @@ import Layout from "../components/Layout";
 import { getCalenderReport } from "../services/apiEndpoints";
 import moment from "moment";
 import {
+  formatNumber,
   getDatesForCurrentYear,
-  getMonthNames,
   monthNames,
 } from "../helpers/functions";
+import Tradecontent from "../components/Tradecontent";
+import { Calendardata, Heading, Thenote } from "../components/Littles";
+import { v4 as uuid } from "uuid";
+import { Doughnutchart } from "../components/charts/Dougnutchart";
 
 function Reportcalendar() {
   const [data, setData] = useState([]);
+  const [otherdata, setotherdata] = useState([]);
   const [thefseleceted, setthefseleceted] = useState([]);
 
   useEffect(() => {
-    getCalenderReport().then((res) => {
-      //   console.log(res);
-      setData(res);
+    getCalenderReport().then(({ result, ...otherdata }) => {
+      setData(result);
+      setotherdata(otherdata);
     });
   }, []);
 
-  var yeararray = getDatesForCurrentYear();
-  //   console.log(yeararray);
+  console.log(otherdata);
 
-  var months = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  var yeararray = getDatesForCurrentYear();
 
   var mdate = [[], [], [], [], [], [], [], [], [], [], [], []];
 
@@ -55,17 +59,17 @@ function Reportcalendar() {
 
   const [selectedDate, setSelectedDate] = useState("");
 
-  const b = mdate.map((monthDates, index) => (
+  const b = mdate?.map((monthDates, index) => (
     <div key={index} className="twelveone">
-      <h2 style={{ fontSize: ".8em", marginBottom: ".5em" }}>
+      <h2 style={{ fontSize: ".8em", marginBottom: ".5em", fontWeight: "500" }}>
         {monthNames[index]}
       </h2>
       <div>
         {monthDates.map((date) => {
-          const foundData = data.find((d) => d._id.includes(date));
+          const foundData = data?.find((d) => d._id.includes(date));
 
           return (
-            <>
+            <React.Fragment key={uuid()}>
               <div
                 key={date}
                 className={`calendar-date ${
@@ -86,7 +90,7 @@ function Reportcalendar() {
                   }
                 }}
               ></div>
-            </>
+            </React.Fragment>
           );
         })}
       </div>
@@ -95,30 +99,92 @@ function Reportcalendar() {
 
   const shortDays = ["S", "M", "T", "W", "T", "F", "S"];
 
-  const days = shortDays.map((day, index) => <p>{day}</p>);
+  const days = shortDays.map((day) => <p key={uuid()}>{day}</p>);
 
   return (
     <>
       <Layout>
+        <Heading text="Calendar Report"></Heading>
         <div
-          style={{ display: "flex", gap: "10px", overflow: "auto" }}
+          style={{
+            display: "flex",
+            gap: "10px",
+            overflow: "auto",
+            marginBottom: 0,
+          }}
           className="thebox thepad"
         >
           <div className="days">{days}</div>
           <div className="kasngn">{b}</div>
         </div>
+        <p style={{ fontSize: "12px", textAlign: "right" }}>
+          Showing data for current Year
+        </p>
 
         <br />
-        <p> {thefseleceted && thefseleceted._id}</p>
-        {thefseleceted?.trades?.map((item) => {
-          return (
-            <>
-              <p>
-                {item.symbol} ({item.profit}) ----- {item._id}
-              </p>
-            </>
-          );
-        })}
+
+        <div className="thebox thepad calendarmain">
+          <Calendardata text="Realized P&L">
+            <p
+              style={{
+                fontSize: "2em",
+                color: otherdata?.totalprofit > 0 ? "#1fbd06" : "red",
+              }}
+            >
+              {formatNumber(otherdata.totalprofit, 2)}
+            </p>
+          </Calendardata>
+          <Calendardata text="Fees or Charges Paid">
+            <p
+              style={{
+                fontSize: "2em",
+              }}
+            >
+              {formatNumber(otherdata?.totalfeespaid, 2)}
+            </p>
+          </Calendardata>
+          <Calendardata text="Net P&L">
+            <p
+              style={{
+                fontSize: "2em",
+                color: otherdata?.thenetpnl > 0 ? "#1fbd06" : "red",
+              }}
+            >
+              {formatNumber(otherdata?.thenetpnl, 2)}
+            </p>
+          </Calendardata>
+          <Calendardata text="Win/Loss Rate">
+            <Doughnutchart
+              chartdatas={[otherdata.winRate, otherdata.lossRate]}
+              chartlabels={["Win", "Loss"]}
+              thecutout="75%"
+              theclassName="forcalendar"
+              thefontsize="10"
+              // disabletext
+            />
+          </Calendardata>
+          <Calendardata text="Trade Count">
+            <p
+              style={{
+                fontSize: "2em",
+              }}
+            >
+              {otherdata.tradestaken}
+            </p>
+          </Calendardata>
+        </div>
+
+        <br />
+        {thefseleceted.length !== 0 ? (
+          <Tradecontent
+            data={thefseleceted?.trades ? thefseleceted?.trades : []}
+            disabledelete
+          />
+        ) : (
+          <Thenote>
+            <p>Select one to show trades data</p>
+          </Thenote>
+        )}
       </Layout>
     </>
   );

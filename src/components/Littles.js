@@ -5,6 +5,7 @@ import Theinput from "../components/inputs/Theinput";
 import Theselect from "../components/inputs/Select";
 import { getAccountUserDetails } from "../services/apiEndpoints";
 import {
+  formatNumber,
   getMonthNames,
   indianStates,
   momentsmall,
@@ -214,7 +215,7 @@ export const Outcome = ({ text }) => {
   );
 };
 
-export const Greenred = ({ number, append }) => {
+export const Greenred = ({ number, append, numberformat }) => {
   let className = "";
 
   if (number > 0) {
@@ -226,7 +227,10 @@ export const Greenred = ({ number, append }) => {
   }
   return (
     <>
-      <p className={className}>{`${number}${append}`}</p>
+      {/* <p className={className}>{`${number}${append}`}</p> */}
+      <p className={className}>
+        {numberformat ? formatNumber(number, 2) : `${number}${append}`}
+      </p>
     </>
   );
 };
@@ -785,6 +789,17 @@ export const Showotherdetails = ({ data, forheading, themonth }) => {
           </p>
         )}
       </div>{" "}
+    </>
+  );
+};
+
+export const Calendardata = ({ text, children }) => {
+  return (
+    <>
+      <div>
+        <p>{text}</p>
+        {children}
+      </div>
     </>
   );
 };

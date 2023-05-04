@@ -19,6 +19,7 @@
     --profitgreen-bg: rgb(43, 255, 0);
     --profitred-bg: red;
     --defaultnotcolored-bg: rgba(234, 234, 234, 0.328);
+    --calendar-selected-bg: rgba(234, 234, 234, 0.328);
 
 }
 
@@ -43,6 +44,7 @@
     --profitgreen-bg: #1fbd06;
     --profitred-bg: red;
     --defaultnotcolored-bg: rgb(218, 218, 218);
+    --calendar-selected-bg: rgba(220, 109, 109, 0.517);
 }
 
 
@@ -59,6 +61,10 @@
 
 .profitgreen {
     background-color: var(--profitgreen-bg) !important;
+}
+
+.calendar-date.selected {
+    box-shadow: 0 0 2px 2px var(--calendar-selected-bg);
 }
 
 /* calendar colors here  */

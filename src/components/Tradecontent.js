@@ -5,7 +5,7 @@ import { Action, Greenred, Outcome } from "./Littles";
 import "./Tradecontent.css";
 import { useParams } from "react-router-dom";
 
-const Tradecontent = ({ data, deletefunc }) => {
+const Tradecontent = ({ data, deletefunc, disabledelete }) => {
   const { trade } = useParams();
   // console.log(trade);
   // console.log(data);
@@ -44,17 +44,19 @@ const Tradecontent = ({ data, deletefunc }) => {
                 <p>{item.exitprice}</p>
                 <p>{item.timeframe}</p>
                 <Greenred number={item.returnpercent} append={"%"} />
-                <Greenred number={item.profit} append={" INR"} />
+                <Greenred number={item.profit} numberformat />
 
                 <div className="flex">
                   <Link to={`/edit/${item._id}`}>
                     <img src="/edit.svg" style={{ width: "25px" }} />
                   </Link>
-                  <img
-                    src="/delete.svg"
-                    onClick={(e) => deletefunc(item._id)}
-                    style={{ width: "25px" }}
-                  />
+                  {disabledelete ? null : (
+                    <img
+                      src="/delete.svg"
+                      onClick={(e) => deletefunc(item._id)}
+                      style={{ width: "25px" }}
+                    />
+                  )}
                 </div>
               </div>
             </React.Fragment>
