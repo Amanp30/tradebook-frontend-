@@ -8,31 +8,14 @@ import {
   Tooltip,
 } from "chart.js";
 import { colorchartjs } from "colorchartjs";
+import { formatNumber } from "../../helpers/functions";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
-const formatNumber = (num) => {
-  if (num < 0) {
-    return "-" + formatNumber(-num);
-  } else if (num >= 10000000) {
-    return (num / 10000000).toFixed(1) + " Cr";
-  } else if (num >= 100000) {
-    return (num / 100000).toFixed(1) + " L";
-  } else if (num >= 1000) {
-    return (num / 1000).toFixed(1) + " K";
-  } else if (num >= 10000000 * 100) {
-    return (num / (10000000 * 100)).toFixed(1) + " Arab";
-  } else if (num >= 10000000 * 100 * 100) {
-    return (num / (10000000 * 100 * 100)).toFixed(1) + " Kharab";
-  } else {
-    return num;
-  }
-};
 
 function Chart({
   charttitle,
   label,
   profitandloss,
-  color,
   tradecount,
   xtitle,
   ytitle,
