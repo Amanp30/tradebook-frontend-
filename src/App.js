@@ -27,6 +27,7 @@ import Reporthourly from "./pages/Reporthourly";
 import ScrollToTop from "./components/scrollToTop";
 import MyPreviousUrls from "./components/MyPreviousUrls";
 import Reportcalendar from "./pages/Reportcalendar";
+import Notfound from "./components/Notfound";
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
         <ScrollToTop />
         <MyPreviousUrls />
         <Routes>
+          <Route path="*" element={<Notfound />} />
+
           <Route path="/" element={<Dashboard />} />
           <Route path="/trades" element={<Trades />} />
           <Route path="/new-trade" element={<Newtrade />} />
