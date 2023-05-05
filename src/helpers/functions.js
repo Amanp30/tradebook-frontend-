@@ -15,20 +15,20 @@ function getDatesForCurrentYear() {
 
   return dates;
 }
+
 const formatNumber = (num, fixednumber) => {
-  console.log("fixednumber " + fixednumber);
   if (num < 0) {
-    return "-" + formatNumber(-num);
+    return "-" + formatNumber(-num, fixednumber);
+  } else if (num >= 10000000 * 100 * 100) {
+    return (num / (10000000 * 100 * 100))?.toFixed(fixednumber) + " Kharab";
+  } else if (num >= 10000000 * 100) {
+    return (num / (10000000 * 100))?.toFixed(fixednumber) + " Arab";
   } else if (num >= 10000000) {
     return (num / 10000000)?.toFixed(fixednumber) + " Cr";
   } else if (num >= 100000) {
-    return (num / 100000)?.toFixed(fixednumber) + " L";
+    return (num / 100000)?.toFixed(fixednumber) + " Lac";
   } else if (num >= 1000) {
     return (num / 1000)?.toFixed(fixednumber) + " K";
-  } else if (num >= 10000000 * 100) {
-    return (num / (10000000 * 100))?.toFixed(fixednumber) + " Arab";
-  } else if (num >= 10000000 * 100 * 100) {
-    return (num / (10000000 * 100 * 100))?.toFixed(fixednumber) + " Kharab";
   } else {
     return num?.toFixed(fixednumber);
   }
