@@ -11,8 +11,14 @@ import Tradecontent from "../components/Tradecontent";
 import { Calendardata, Heading, Thenote } from "../components/Littles";
 import { v4 as uuid } from "uuid";
 import { Doughnutchart } from "../components/charts/Dougnutchart";
+import hashlink from "../helpers/hashlink";
 
 function Reportcalendar() {
+  const hash = new hashlink();
+  const hellodear = hash.new("hello my dear");
+  const handleClick = hash.goto("hello my dear");
+  const handleClick2 = hash.goto("report");
+
   const [data, setData] = useState([]);
   const [otherdata, setotherdata] = useState([]);
   const [thefseleceted, setthefseleceted] = useState([]);
@@ -105,6 +111,11 @@ function Reportcalendar() {
     <>
       <Layout>
         <Heading text="Calendar Report"></Heading>
+
+        {/* <a href={hash.getHashLink()}>asfdsh</a> */}
+        <div onClick={handleClick}>asdgbkjaf</div>
+        <div onClick={handleClick2}>asdgbkjaf</div>
+
         <div
           style={{
             display: "flex",
@@ -190,6 +201,85 @@ function Reportcalendar() {
         <br />
         <br />
         <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <p id="report">report</p>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <p id={hellodear}>asdgjasbjgkhjk</p>
       </Layout>
     </>
   );
