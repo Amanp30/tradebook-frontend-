@@ -66,6 +66,7 @@
     height: 100%;
 }
 
+
 @media (max-width:600px) {
     .calendarmain {
         grid-template-columns: repeat(2, 1fr);
@@ -79,6 +80,15 @@
 
     .calendarmain div:last-child {
         margin-bottom: 0em;
+    }
+
+    .forcalendarwinrate {
+        grid-column: 1/-1;
+        display: flex;
+        width: 100%;
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: flex-start;
     }
 }
 

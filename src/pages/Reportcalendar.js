@@ -134,7 +134,7 @@ function Reportcalendar() {
               {formatNumber(otherdata.totalprofit, 2)}
             </p>
           </Calendardata>
-          <Calendardata text="Fees or Charges Paid">
+          <Calendardata text="Fees Paid">
             <p
               style={{
                 fontSize: "2em",
@@ -153,16 +153,6 @@ function Reportcalendar() {
               {formatNumber(otherdata?.thenetpnl, 2)}
             </p>
           </Calendardata>
-          <Calendardata text="Win/Loss Rate">
-            <Doughnutchart
-              chartdatas={[otherdata.winRate, otherdata.lossRate]}
-              chartlabels={["Win", "Loss"]}
-              thecutout="75%"
-              theclassName="forcalendar"
-              thefontsize="10"
-              // disabletext
-            />
-          </Calendardata>
           <Calendardata text="Trade Count">
             <p
               style={{
@@ -171,6 +161,16 @@ function Reportcalendar() {
             >
               {otherdata.tradestaken}
             </p>
+          </Calendardata>{" "}
+          <Calendardata text="Win/Loss Rate" theclassName="forcalendarwinrate">
+            <Doughnutchart
+              chartdatas={[otherdata.winRate, otherdata.lossRate]}
+              chartlabels={["Win", "Loss"]}
+              thecutout="75%"
+              theclassName="forcalendar"
+              thefontsize="10"
+              // disabletext
+            />
           </Calendardata>
         </div>
 
@@ -182,9 +182,14 @@ function Reportcalendar() {
           />
         ) : (
           <Thenote>
-            <p>Select one to show trades data</p>
+            <p>Select one from calendar to show trades data</p>
           </Thenote>
         )}
+
+        <br />
+        <br />
+        <br />
+        <br />
       </Layout>
     </>
   );

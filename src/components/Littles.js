@@ -793,11 +793,11 @@ export const Showotherdetails = ({ data, forheading, themonth }) => {
   );
 };
 
-export const Calendardata = ({ text, children }) => {
+export const Calendardata = ({ text, children, theclassName }) => {
   return (
     <>
-      <div>
-        <p>{text}</p>
+      <div className={theclassName}>
+        <p className="forcalendarp">{text}</p>
         {children}
       </div>
     </>

@@ -20,7 +20,7 @@
     --profitred-bg: red;
     --defaultnotcolored-bg: rgba(234, 234, 234, 0.328);
     --calendar-selected-bg: rgba(234, 234, 234, 0.328);
-
+    --forcalendarp: rgba(255, 255, 255, 0.603);
 }
 
 /* dark theme */
@@ -45,6 +45,7 @@
     --profitred-bg: red;
     --defaultnotcolored-bg: rgb(218, 218, 218);
     --calendar-selected-bg: rgba(220, 109, 109, 0.517);
+    --forcalendarp: #212A3E;
 }
 
 
@@ -65,6 +66,12 @@
 
 .calendar-date.selected {
     box-shadow: 0 0 2px 2px var(--calendar-selected-bg);
+}
+
+
+.forcalendarp {
+    color: var(--forcalendarp);
+    font-weight: 300;
 }
 
 /* calendar colors here  */
