@@ -1,13 +1,15 @@
+import slugify from "slugify";
+
 class HashLink {
   constructor() {}
 
   new(text) {
-    const link = text?.toLowerCase()?.split(" ")?.join("-");
+    const link = slugify(text, { lower: true, replacement: "-" });
     return link;
   }
 
   _destin(text) {
-    const link = "#" + text?.toLowerCase()?.split(" ")?.join("-");
+    const link = "#" + this.new(text);
     if (typeof window !== "undefined") window.location.hash = link;
   }
 

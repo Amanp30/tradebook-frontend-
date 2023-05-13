@@ -28,6 +28,7 @@ import ScrollToTop from "./components/scrollToTop";
 import MyPreviousUrls from "./components/MyPreviousUrls";
 import Reportcalendar from "./pages/Reportcalendar";
 import Notfound from "./components/Notfound";
+import Stretegy from "./pages/Stretegy";
 
 function App() {
   return (
@@ -53,6 +54,8 @@ function App() {
           <Route path="/report/volumes" element={<Reportvolume />} />
           <Route path="/report/hourly" element={<Reporthourly />} />
           <Route path="/report/calendar" element={<Reportcalendar />} />
+
+          <Route path="/stretegy" element={<Stretegy />} />
           {/* Signup routes */}
           <Route path="/account/login" element={<Login />} />
           <Route path="/account/signup" element={<Signup />} />

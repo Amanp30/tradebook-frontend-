@@ -203,6 +203,13 @@ function Navbar() {
           >
             Trades
           </NavLink>
+          <NavLink
+            to="/stretegy"
+            activeclassname="active-link"
+            onClick={setbodyscrollable}
+          >
+            Stretegy
+          </NavLink>
           <Dropdown
             heading="Reports"
             data={Reportsdata}

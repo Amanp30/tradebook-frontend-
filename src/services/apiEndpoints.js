@@ -226,3 +226,15 @@ export const getCalenderReport = async () => {
     apiErrorhandler(error);
   }
 };
+
+/* strategy endpoints */
+
+export const newStrategy = async (data) => {
+  try {
+    const response = await api.post(`/strategy/new/${theuser}`, data);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
