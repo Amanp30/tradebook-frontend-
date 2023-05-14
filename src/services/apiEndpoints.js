@@ -229,12 +229,58 @@ export const getCalenderReport = async () => {
 
 /* strategy endpoints */
 
-export const newStrategy = async (data) => {
+export const newTradingsystem = async (data) => {
   try {
-    const response = await api.post(`/strategy/new/${theuser}`, data);
+    const response = await api.post(`/tradingsystem/new/${theuser}`, data);
     return response?.data;
   } catch (error) {
     console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
+export const updateSystem = async (systemid, data) => {
+  try {
+    const response = await api.post(
+      `/tradingsystem/update/${systemid}/${theuser}`,
+      data
+    );
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
+export const getTradingsystems = async () => {
+  try {
+    const response = await api.get(`/tradingsystem/get/${theuser}`);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
+export const viewSystem = async (systemid) => {
+  try {
+    const response = await api.get(
+      `/tradingsystem/view/${systemid}/${theuser}`
+    );
+    return response?.data?.[0];
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
+export const deleteSystem = async (systemid) => {
+  try {
+    const response = await api.get(
+      `/tradingsystem/delete/${systemid}/${theuser}`
+    );
+    return response?.data;
+  } catch (error) {
     apiErrorhandler(error);
   }
 };

@@ -28,7 +28,10 @@ import ScrollToTop from "./components/scrollToTop";
 import MyPreviousUrls from "./components/MyPreviousUrls";
 import Reportcalendar from "./pages/Reportcalendar";
 import Notfound from "./components/Notfound";
-import Stretegy from "./pages/Stretegy";
+import Newtradingsystem from "./pages/Newtradingsystem";
+import Tradingsystem from "./pages/Tradingsystem";
+import Viewtradingsystem from "./pages/Viewtradingsystem";
+import Updatetradingsystem from "./pages/Updatetradingsystem";
 
 function App() {
   return (
@@ -55,7 +58,17 @@ function App() {
           <Route path="/report/hourly" element={<Reporthourly />} />
           <Route path="/report/calendar" element={<Reportcalendar />} />
 
-          <Route path="/stretegy" element={<Stretegy />} />
+          <Route path="/trading-system" element={<Tradingsystem />} />
+          <Route path="/trading-system/new" element={<Newtradingsystem />} />
+          <Route
+            path="/trading-system/view/:systemid"
+            element={<Viewtradingsystem />}
+          />
+          <Route
+            path="/trading-system/edit/:systemid"
+            element={<Updatetradingsystem />}
+          />
+
           {/* Signup routes */}
           <Route path="/account/login" element={<Login />} />
           <Route path="/account/signup" element={<Signup />} />

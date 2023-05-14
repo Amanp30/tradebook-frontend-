@@ -113,13 +113,13 @@ function Instruments() {
           </p>
         </Thenote>
         {data?.length !== 0 ? (
-          <div className="allSymbolsgrid">
+          <div className="thefivegrid">
             {data?.map((item) => {
               const uniqueId = uuidv4();
               return (
                 <React.Fragment key={uniqueId}>
                   {
-                    <div className="symboldiv thebox">
+                    <div className="theinnergrid thebox">
                       <p>{item}</p>{" "}
                       <img
                         src="/edit.svg"

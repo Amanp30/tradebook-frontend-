@@ -123,7 +123,9 @@ a {
     color: var(--logo-color);
 }
 
-.openmenubtn,
+/* .ql-formats:not(:first-child),
+:where(.ql-picker-label:first-child, .ql-color, .ql-snow .ql-icon-picker, .ql-expanded, .ql-background),
+.openmenubtn, */
 .menudropdown img,
 .backimg,
 .customreportdrop,

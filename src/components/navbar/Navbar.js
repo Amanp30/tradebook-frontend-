@@ -204,11 +204,11 @@ function Navbar() {
             Trades
           </NavLink>
           <NavLink
-            to="/stretegy"
+            to="/trading-system"
             activeclassname="active-link"
             onClick={setbodyscrollable}
           >
-            Stretegy
+            Trading system
           </NavLink>
           <Dropdown
             heading="Reports"

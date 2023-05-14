@@ -1,6 +1,12 @@
 import React from "react";
-import ReactQuill from "react-quill";
+import ReactQuill, { Quill } from "react-quill";
+import DOMPurify from "dompurify";
 import "react-quill/dist/quill.snow.css";
+import ImageResize from "quill-image-resize-module-react";
+import { ImageDrop } from "quill-image-drop-module";
+
+Quill.register("modules/imageDrop", ImageDrop);
+Quill.register("modules/imageResize", ImageResize);
 
 const modules = {
   toolbar: [
@@ -17,6 +23,13 @@ const modules = {
     [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
     ["clean"],
   ],
+  imageDrop: {}, // Make sure to add this!!!
+  imageResize: {
+    parchment: Quill.import("parchment"),
+    displaySize: true,
+    // maxSize: [500, 500],
+    // height: 400, // add this line to set the height of the image resize module
+  },
 };
 
 const formats = [
@@ -43,16 +56,19 @@ function Editor({ value, setValue }) {
     // console.log(JSON.stringify(editor.getContents())); // delta 사용시
     setValue(editor.getHTML());
   };
-  console.log(value);
+
+  //   const sanitizedValue = DOMPurify.sanitize(value).replace(/&nbsp;/g, " ");
+  const sanitizedValue = DOMPurify.sanitize(value);
 
   return (
     <ReactQuill
-      style={{ height: "300px" }}
+      //   style={{ height: "300px" }}
       theme="snow"
       modules={modules}
       formats={formats}
-      value={value}
+      value={sanitizedValue}
       onChange={handleChange}
+      dangerouslySetInnerHTML={{ __html: sanitizedValue }}
     />
   );
 }
