@@ -258,9 +258,25 @@ a {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom: 1em;
+    margin-bottom: 2.2em;
+    row-gap: 1em;
 }
+
+
 
 h1.heading {
     font-size: 1.6em;
+    line-height: 1;
+}
+
+.ql-align-right {
+    text-align: right;
+}
+
+.ql-align-center {
+    text-align: center;
+}
+
+.ql-align-justify {
+    text-align: justify;
 }

@@ -21,6 +21,8 @@
     --defaultnotcolored-bg: rgba(234, 234, 234, 0.328);
     --calendar-selected-bg: rgba(234, 234, 234, 0.328);
     --forcalendarp: rgba(255, 255, 255, 0.603);
+    --quilltextcolor: rgb(255, 255, 255);
+    --quilloptionscolor: rgb(25, 25, 25);
 }
 
 /* dark theme */
@@ -46,8 +48,16 @@
     --defaultnotcolored-bg: rgb(218, 218, 218);
     --calendar-selected-bg: rgba(220, 109, 109, 0.517);
     --forcalendarp: #212A3E;
+    --quilltextcolor: #212A3E;
+    --quilloptionscolor: #212A3E;
 }
 
+
+ol,
+ul,
+li {
+    color: var(--input-text-color);
+}
 
 
 /* calendar colors here  */
@@ -123,9 +133,9 @@ a {
     color: var(--logo-color);
 }
 
-/* .ql-formats:not(:first-child),
-:where(.ql-picker-label:first-child, .ql-color, .ql-snow .ql-icon-picker, .ql-expanded, .ql-background),
-.openmenubtn, */
+/* .ql-formats,
+:where(.ql-picker-label:first-child, .ql-color, .ql-snow .ql-icon-picker, .ql-expanded, .ql-background), */
+.openmenubtn,
 .menudropdown img,
 .backimg,
 .customreportdrop,
@@ -134,6 +144,22 @@ input[type="time"]::-webkit-calendar-picker-indicator,
 input[type="week"]::-webkit-calendar-picker-indicator,
 input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     filter: var(--image-filter);
+}
+
+.ql-snow .ql-picker {
+    color: var(--quilltextcolor) !important;
+}
+
+.ql-picker-options {
+    color: var(--quilloptionscolor) !important;
+}
+
+.ql-formats svg {
+    filter: var(--image-filter);
+}
+
+.ql-active svg {
+    filter: invert(8%) sepia(100%) saturate(6693%) hue-rotate(247deg) brightness(108%) contrast(144%) !important;
 }
 
 .navbar,

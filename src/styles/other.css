@@ -227,6 +227,10 @@ p.selected.thecustomoption {
     min-height: 500px;
 }
 
+.ql-toolbar .ql-icon {
+    color: red;
+}
+
 
 @media (max-width:600px) {
 
