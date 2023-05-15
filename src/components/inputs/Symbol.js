@@ -39,7 +39,7 @@ function Symbolinput({
   };
 
   const handleBlur = (e) => {
-    if (!inputRef.current.contains(e.target)) {
+    if (!inputRef?.current?.contains(e.target)) {
       if (isitemhovering) {
         setfocused(true);
       } else {

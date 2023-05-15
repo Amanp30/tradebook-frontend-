@@ -10,10 +10,11 @@ function Select({
   className,
   children,
   options,
+  ids,
 }) {
   const inputRef = useRef(null);
 
-  const htmlId = label.replace(/\s+/g, "").toLowerCase();
+  const htmlId = label?.replace(/\s+/g, "")?.toLowerCase();
 
   useEffect(() => {
     const divElement = inputRef.current.parentElement;
@@ -31,8 +32,8 @@ function Select({
   }, []);
 
   function renderOptions() {
-    return options.map((option, index) => (
-      <option key={index} value={option}>
+    return options?.map((option, index) => (
+      <option key={index} value={ids?.length > 0 ? ids?.[index] : option}>
         {option}
       </option>
     ));

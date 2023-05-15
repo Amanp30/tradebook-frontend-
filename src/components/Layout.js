@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./navbar/Navbar";
 import Notification from "./notification/Notification";
+import { Waiting, Servererror } from "./Littles";
 
 function Layout({ children, message, error, seterror, success, setsuccess }) {
   return (

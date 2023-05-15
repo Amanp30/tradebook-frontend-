@@ -39,7 +39,7 @@ export const saveAccountUserDetails = async (data) => {
 export const getDistinctTrades = async () => {
   try {
     const response = await api.get(`/trade/distinctsymbol/${theuser}`);
-    return response?.data?.symbols;
+    return response?.data;
   } catch (error) {
     console.log(error);
     apiErrorhandler(error);
@@ -118,6 +118,16 @@ export const getTrades = async () => {
 export const editTradeapi = async (tradeid) => {
   try {
     const response = await api.get(`/trade/edit/${tradeid}/${theuser}`);
+    return response?.data[0];
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
+export const oneTradeview = async (tradeid) => {
+  try {
+    const response = await api.get(`/trade/onetradeview/${tradeid}/${theuser}`);
     return response?.data[0];
   } catch (error) {
     console.log(error);

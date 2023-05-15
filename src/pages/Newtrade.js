@@ -22,6 +22,7 @@ function Newtrade() {
   const navigate = useNavigate();
 
   const [instrument, setinstrument] = useState("");
+  const [tradingsystem, settradingsystem] = useState("");
   const [quantity, setquantity] = useState("");
   const [entryprice, setentryprice] = useState("");
   const [exitprice, setexitprice] = useState("");
@@ -52,6 +53,8 @@ function Newtrade() {
   useEffect(() => setentrydate(theentrydate), []);
   useEffect(() => setexitdate(theexitdate), []);
 
+  console.log(tradingsystem);
+
   const {
     clearnotification,
     notifysuccess,
@@ -62,7 +65,7 @@ function Newtrade() {
     setnotifyerror,
   } = useNotify();
 
-  const { symboldata } = useTrade();
+  const { symboldata } = useTrade(true, settradingsystem);
 
   // useEffect(() => {
   //   validateSymbol(instrument, setinstrument);
@@ -71,7 +74,7 @@ function Newtrade() {
   // console.log(typeof chart);
 
   const broker = getBroker();
-  const brokerInfo = brokerdata[broker.toLowerCase().replace(/\s/g, "")]; // Get the brokerage and stt based on the broker name
+  const brokerInfo = brokerdata?.[broker?.toLowerCase()?.replace(/\s/g, "")]; // Get the brokerage and stt based on the broker name
 
   const mystock = new Stock({
     action: action,
@@ -146,6 +149,7 @@ function Newtrade() {
     data.append("user", getUserId());
 
     // data.append("symbol", instrument);
+    data.append("tradingsystem", tradingsystem);
     data.append("quantity", quantity);
     data.append("emotions", emotions);
     data.append("stoploss", stoploss);
@@ -224,7 +228,7 @@ function Newtrade() {
                 showlabel
                 state={instrument}
                 setstate={(value) => setinstrument(value)}
-                data={symboldata}
+                data={symboldata?.symbols}
                 limit={10}
                 placeholder="Ex. INDUSINDBK"
                 uppercase
@@ -258,6 +262,13 @@ function Newtrade() {
                 type="datetime-local"
                 state={entrydate}
                 setstate={setentrydate}
+              />
+              <Theselect
+                label="System"
+                state={tradingsystem}
+                setState={settradingsystem}
+                options={symboldata?.systemNames}
+                ids={symboldata?.systemIds}
               />
               <Theinput
                 type="number"

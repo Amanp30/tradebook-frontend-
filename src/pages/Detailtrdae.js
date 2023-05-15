@@ -20,6 +20,7 @@ import {
   deleteoneNote,
   deleteTrade,
   editTradeapi,
+  oneTradeview,
   updateoneNote,
 } from "../services/apiEndpoints";
 
@@ -169,7 +170,7 @@ function Detailtrdae() {
   }
 
   useEffect(() => {
-    editTradeapi(trade)
+    oneTradeview(trade)
       .then((response) => {
         const { chart } = response;
         response.chart =
@@ -202,7 +203,7 @@ function Detailtrdae() {
     );
   }
 
-  // console.log(values);
+  console.log(values);
   if (showContent)
     return (
       <>
@@ -277,6 +278,16 @@ function Detailtrdae() {
               <div className="flex onedetail">
                 <p className="boldtext">Entry Date</p>
                 <p>{values.entrydate ? momentdate(values.entrydate) : "-"}</p>
+              </div>
+
+              <div className="flex onedetail">
+                <p className="boldtext">Trading System</p>
+                <Link
+                  to={`/trading-system/view/${values.tradingsystem._id}`}
+                  style={{ textDecoration: "underline" }}
+                >
+                  {values.tradingsystem.systemname}
+                </Link>
               </div>
 
               <div className="flex onedetail">

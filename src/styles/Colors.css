@@ -52,13 +52,12 @@
     --quilloptionscolor: #212A3E;
 }
 
-
-ol,
-ul,
-li {
+.systemview ol,
+.systemview ul,
+.systemview li {
     color: var(--input-text-color);
+    margin: 1em 0 1em 1em;
 }
-
 
 /* calendar colors here  */
 

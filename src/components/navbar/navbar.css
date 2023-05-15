@@ -72,6 +72,7 @@
     align-items: center;
     justify-content: space-between;
     width: calc(100% - 2em);
+    cursor: default;
 }
 
 .menudropdown img {

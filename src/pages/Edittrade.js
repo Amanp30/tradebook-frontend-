@@ -39,14 +39,15 @@ function Edittrade() {
     setnotifyerror,
   } = useNotify();
 
-  const { symboldata } = useTrade();
-
   const [values, setvalues] = useState([]);
-  const [shouldMountChart, setShouldMountChart] = useState(false);
+  const [showContent, setshowContent] = useState(false);
+
+  const { symboldata } = useTrade(false);
 
   useEffect(() => {
     editTradeapi(tradeid)
       .then((response) => {
+        console.log(response);
         const { chart } = response;
         response.chart =
           chart === ""
@@ -54,11 +55,11 @@ function Edittrade() {
             : `${process.env.REACT_APP_DOMAIN}/uploads/${chart}`;
         setvalues(response);
         setTimeout(() => {
-          setShouldMountChart(true); // update shouldMount to true after 3 seconds
+          setshowContent(true); // update shouldMount to true after 3 seconds
         }, 500);
       })
       .catch((error) => {
-        setShouldMountChart("servererror");
+        setshowContent("servererror");
         errorhandler(error, setmessage).then(() => {
           setnotifyerror(true);
         });
@@ -176,6 +177,7 @@ function Edittrade() {
     }
 
     // data.append("user", getUserId());
+    data.append("tradingsystem", values.tradingsystem);
     data.append("quantity", values.quantity);
     data.append("emotions", values.emotions);
     data.append("stoploss", values.stoploss);
@@ -228,7 +230,7 @@ function Edittrade() {
     // console.table(formDataObj);
   };
 
-  if (shouldMountChart === false) {
+  if (showContent === false) {
     return (
       <>
         <Layout>
@@ -238,7 +240,7 @@ function Edittrade() {
     );
   }
 
-  if (shouldMountChart === "servererror") {
+  if (showContent === "servererror") {
     return (
       <>
         <Layout>
@@ -248,7 +250,7 @@ function Edittrade() {
     );
   }
 
-  if (shouldMountChart)
+  if (showContent)
     return (
       <>
         <Layout
@@ -276,14 +278,13 @@ function Edittrade() {
                   label="Symbol"
                   name="symbol"
                   showlabel
-                  state={values.symbol}
+                  state={values?.symbol}
                   setstate={(value) => setvalues({ ...values, symbol: value })}
-                  data={symboldata}
+                  data={symboldata?.symbols}
                   limit={10}
                   placeholder="Ex. PNB"
                   uppercase
                 />
-
                 <Theselect
                   label="Action"
                   options={["Buy", "Sell"]}
@@ -317,6 +318,15 @@ function Edittrade() {
                   setstate={(value) =>
                     setvalues({ ...values, entrydate: value })
                   }
+                />
+                <Theselect
+                  label="System"
+                  state={values.tradingsystem}
+                  setState={(value) =>
+                    setvalues({ ...values, tradingsystem: value })
+                  }
+                  options={symboldata?.systemNames}
+                  ids={symboldata?.systemIds}
                 />
                 <Theinput
                   type="number"
@@ -418,16 +428,12 @@ function Edittrade() {
                 />
               </Formdiv>
               <Formdiv text="Chart">
-                {shouldMountChart ? (
-                  <Chartexplain
-                    chart={values.chart}
-                    setchart={(value) => setvalues({ ...values, chart: value })}
-                    setmessage={setmessage}
-                    seterror={setnotifyerror}
-                  />
-                ) : (
-                  "loading"
-                )}
+                <Chartexplain
+                  chart={values.chart}
+                  setchart={(value) => setvalues({ ...values, chart: value })}
+                  setmessage={setmessage}
+                  seterror={setnotifyerror}
+                />
               </Formdiv>
             </div>
           </form>

@@ -15,7 +15,7 @@ const modules = {
       //   { indent: "+1" },
     ],
     [/* "link", */ "image"],
-    [{ align: [] }, { color: [] } /* { background: [] } */], // dropdown with defaults from theme
+    [/* { align: [] }, */ { color: [] } /* { background: [] } */], // dropdown with defaults from theme
     ["clean"],
   ],
   //   imageDrop: {}, // Make sure to add this!!!
