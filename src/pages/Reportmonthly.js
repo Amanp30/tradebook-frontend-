@@ -5,6 +5,7 @@ import useNotify from "../hooks/useNotify";
 import { getReportmonthly } from "../services/apiEndpoints";
 import {
   Heading,
+  Pleaseaddsomedata,
   Pnltable,
   Reportselectorformonthly,
   Servererror,
@@ -54,6 +55,14 @@ function Reportmonthly() {
   });
 
   var thelabeledmontharray = getMonthNames(values.labels);
+
+  if (showContent && !values.data.length > 0) {
+    return (
+      <>
+        <Pleaseaddsomedata />
+      </>
+    );
+  }
 
   if (showContent === false) {
     return (

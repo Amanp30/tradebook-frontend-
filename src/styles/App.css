@@ -258,7 +258,8 @@ a {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom: 2.2em;
+    margin-bottom: 1.8em;
+    margin-top: .5em;
     row-gap: 1em;
 }
 

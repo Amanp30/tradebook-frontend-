@@ -12,6 +12,7 @@ import {
   monthNames,
 } from "../helpers/functions";
 import { v4 as uuidv4 } from "uuid";
+import Layout from "./Layout";
 
 export const Heading = ({ text, children, theclass }) => {
   var wrapperclasses = theclass ? theclass + " heading_comp " : "heading_comp ";
@@ -319,9 +320,10 @@ export const Imagezoom = ({ theimage }) => {
 export const Notradefound = () => {
   return (
     <Thenote className="notfound">
-      <h2>
-        Hey! no trade found <br /> first add one
-      </h2>
+      <h2>Hey! no trade found first add one</h2>
+      <Link to="/new-trade" className="primarybtn">
+        Add New Trade
+      </Link>
     </Thenote>
   );
 };
@@ -463,6 +465,7 @@ export const Notesviewer = ({
   deleteFunction,
   tradeid,
   setnote,
+  clearnotification,
 }) => {
   return (
     <>
@@ -479,8 +482,12 @@ export const Notesviewer = ({
               <React.Fragment key={uniqueId}>
                 {
                   <div
-                    className="symboldiv thebox"
-                    style={{ padding: "1em 0" }}
+                    className=" thebox"
+                    style={{
+                      padding: "1em 0",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
                   >
                     <p>{item}</p>{" "}
                     <div className="flexend">
@@ -488,6 +495,7 @@ export const Notesviewer = ({
                         src="/edit.svg"
                         style={{ width: "20px" }}
                         onClick={(e) => {
+                          clearnotification();
                           setnote({ index: index, note: item });
                         }}
                       />
@@ -800,6 +808,16 @@ export const Calendardata = ({ text, children, theclassName }) => {
         <p className="forcalendarp">{text}</p>
         {children}
       </div>
+    </>
+  );
+};
+
+export const Pleaseaddsomedata = () => {
+  return (
+    <>
+      <Layout>
+        <Notradefound />
+      </Layout>
     </>
   );
 };

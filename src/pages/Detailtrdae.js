@@ -105,6 +105,7 @@ function Detailtrdae() {
   }
 
   function newNote(tradeid, data) {
+    clearnotification();
     addNewNote(tradeid, { note: data })
       .then((response) => {
         // console.log(response);
@@ -120,6 +121,7 @@ function Detailtrdae() {
       });
   }
   function updateNote(tradeid, data) {
+    clearnotification();
     updateoneNote(tradeid, data)
       .then((response) => {
         console.log(response);
@@ -137,6 +139,7 @@ function Detailtrdae() {
   }
 
   function deleteNote(tradeid, data) {
+    clearnotification();
     deleteoneNote(tradeid, { index: data })
       .then((response) => {
         // console.log(response);
@@ -283,10 +286,10 @@ function Detailtrdae() {
               <div className="flex onedetail">
                 <p className="boldtext">Trading System</p>
                 <Link
-                  to={`/trading-system/view/${values.tradingsystem._id}`}
+                  to={`/trading-system/view/${values?.tradingsystem?._id}`}
                   style={{ textDecoration: "underline" }}
                 >
-                  {values.tradingsystem.systemname}
+                  {values?.tradingsystem?.systemname}
                 </Link>
               </div>
 
@@ -382,6 +385,7 @@ function Detailtrdae() {
                 tradeid={values._id}
                 deleteFunction={deleteNote}
                 setnote={setnote}
+                clearnotification={clearnotification}
               />
               <textarea
                 className="detailtext"

@@ -10,6 +10,7 @@ import {
   Showotherdetails,
   Waiting,
   Servererror,
+  Pleaseaddsomedata,
 } from "../components/Littles";
 
 function Reportsymbol() {
@@ -51,6 +52,14 @@ function Reportsymbol() {
       return theindex;
     }
   });
+
+  if (showContent && !values.data.length > 0) {
+    return (
+      <>
+        <Pleaseaddsomedata />
+      </>
+    );
+  }
 
   if (showContent === false) {
     return (

@@ -5,6 +5,7 @@ import useNotify from "../hooks/useNotify";
 import { getReportweekday } from "../services/apiEndpoints";
 import {
   Heading,
+  Pleaseaddsomedata,
   Pnltable,
   Reportselectorformonthly,
   Servererror,
@@ -55,6 +56,14 @@ function Reportweekday() {
 
   var thedayslabelarray = getWeekDay(values.labels);
 
+  if (showContent && !values.data.length > 0) {
+    return (
+      <>
+        <Pleaseaddsomedata />
+      </>
+    );
+  }
+
   if (showContent === false) {
     return (
       <Layout>
@@ -62,6 +71,7 @@ function Reportweekday() {
       </Layout>
     );
   }
+
   if (showContent === "servererror") {
     return (
       <>

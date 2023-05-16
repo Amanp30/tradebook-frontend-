@@ -5,6 +5,7 @@ import useNotify from "../hooks/useNotify";
 import { getReportyearly } from "../services/apiEndpoints";
 import {
   Heading,
+  Pleaseaddsomedata,
   Pnltable,
   Reportselector,
   Servererror,
@@ -49,6 +50,14 @@ function Reportyearly() {
       return theindex;
     }
   });
+
+  if (showContent && !values.data.length > 0) {
+    return (
+      <>
+        <Pleaseaddsomedata />
+      </>
+    );
+  }
 
   if (showContent === false) {
     return (
