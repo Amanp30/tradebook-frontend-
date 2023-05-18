@@ -23,6 +23,7 @@
     --forcalendarp: rgba(255, 255, 255, 0.603);
     --quilltextcolor: rgb(255, 255, 255);
     --quilloptionscolor: rgb(25, 25, 25);
+    --pagination-bg: #505050;
 }
 
 /* dark theme */
@@ -50,7 +51,16 @@
     --forcalendarp: #212A3E;
     --quilltextcolor: #212A3E;
     --quilloptionscolor: #212A3E;
+    --pagination-bg: #efefef;
 }
+
+/* pagination start */
+.page {
+    background-color: var(--pagination-bg);
+}
+
+
+/* pagination end */
 
 .systemview ol,
 .systemview ul,

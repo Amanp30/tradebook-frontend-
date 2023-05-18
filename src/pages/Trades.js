@@ -25,6 +25,7 @@ function Trades() {
   } = useNotify();
 
   const [data, setdata] = useState();
+  const [paginationdata, setpaginationdata] = useState([]);
   const [showContent, setshowContent] = useState(false);
 
   function deleteOne(id) {
@@ -42,12 +43,17 @@ function Trades() {
         });
       });
   }
+  console.log(data);
+  console.log(paginationdata);
 
-  function getData() {
-    getTrades()
+  function getData(cpage) {
+    getTrades(cpage)
       .then((response) => {
         // console.log(response);
-        setdata(response);
+        const { trades, ...paginationData } = response;
+        setdata(trades);
+        setpaginationdata(paginationData);
+        setpaginationdata(paginationData);
         setshowContent(true);
       })
       .catch((error) => {
@@ -58,8 +64,24 @@ function Trades() {
       });
   }
 
+  const Paginatecomp = ({ pageCount, currentPage, pageChange }) => {
+    const pages = [];
+    for (let index = 1; index <= pageCount; index++) {
+      pages.push(
+        <p
+          className={index === currentPage ? "selectedpage page" : "page"}
+          onClick={() => pageChange(index)}
+          key={index}
+        >
+          {index}
+        </p>
+      );
+    }
+    return <div className="pagination">{pages}</div>;
+  };
+
   useEffect(() => {
-    getData();
+    getData(1);
   }, []);
 
   if (showContent === false) {
@@ -95,7 +117,14 @@ function Trades() {
             </Link>
           </Heading>{" "}
           {data?.length !== 0 ? (
-            <Tradecontent data={data} deletefunc={(e) => deleteOne(e)} />
+            <>
+              <Tradecontent data={data} deletefunc={(e) => deleteOne(e)} />
+              <Paginatecomp
+                pageCount={paginationdata?.totalPageCount}
+                currentPage={paginationdata?.currentPage}
+                pageChange={getData}
+              />
+            </>
           ) : (
             <Notradefound />
           )}

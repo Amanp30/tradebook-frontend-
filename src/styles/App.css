@@ -281,3 +281,27 @@ h1.heading {
 .ql-align-justify {
     text-align: justify;
 }
+
+/* pagination */
+
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
+    margin: 1.6em 0 4em 0;
+}
+
+.page {
+    padding: 8px 16px;
+    background: #c1c1c1;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.396);
+    box-shadow: 0 0 10px 6px #0000001a;
+    cursor: default;
+}
+
+.selectedpage.page {
+    background: white;
+    color: black;
+}

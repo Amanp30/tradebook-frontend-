@@ -105,10 +105,12 @@ export const updateoneNote = async (tradeid, data) => {
   }
 };
 
-export const getTrades = async () => {
+export const getTrades = async (currentPage) => {
   try {
-    const response = await api.get(`/trade/showtrades/${theuser}`);
-    return response?.data?.trades;
+    const response = await api.get(
+      `/trade/paginate/${theuser}?page=${currentPage}&per_page=10`
+    );
+    return response?.data;
   } catch (error) {
     console.log(error);
     apiErrorhandler(error);

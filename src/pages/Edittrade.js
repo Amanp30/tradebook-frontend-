@@ -41,6 +41,7 @@ function Edittrade() {
 
   const [values, setvalues] = useState([]);
   const [showContent, setshowContent] = useState(false);
+  const [contentChange, setcontentChange] = useState(false);
 
   const { symboldata } = useTrade(false);
 
@@ -229,6 +230,14 @@ function Edittrade() {
 
     // console.table(formDataObj);
   };
+  // useEffect(() => {
+  //   window.addEventListener("popstate", function (event) {
+  //     if (contentChange) {
+  //       var answer = window.confirm("Are you sure you want to go back?");
+  //       answer && event.preventDefault();
+  //     }
+  //   });
+  // }, []);
 
   if (showContent === false) {
     return (

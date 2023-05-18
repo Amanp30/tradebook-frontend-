@@ -35,7 +35,7 @@ function Reportcalendar() {
       .catch((error) => setshowContent("servererror"));
   }, []);
 
-  console.log(data);
+  // console.log(data);
 
   var yeararray = getDatesForCurrentYear();
 
@@ -97,7 +97,7 @@ function Reportcalendar() {
                     setSelectedDate(date);
                     setthefseleceted(foundData);
                   } else {
-                    console.log("No data found");
+                    // console.log("No data found");
                   }
                 }}
               ></div>
