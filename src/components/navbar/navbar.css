@@ -34,17 +34,17 @@
 }
 
 .menuhead {
-    height: 4em;
+    height: 6em;
     display: flex;
-    align-items: center;
+    padding-top: 2em;
+    align-items: flex-start;
     justify-content: space-between;
 }
 
 .links_container {
     display: flex;
     flex-direction: column;
-    /* height: calc(100vh - 6em); */
-    height: calc(100vh - 4em);
+    height: calc(100vh - 6em);
     overflow: auto;
     gap: 1.5em;
 }

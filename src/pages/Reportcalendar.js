@@ -218,6 +218,7 @@ function Reportcalendar() {
           <br />
           {thefseleceted.length !== 0 ? (
             <Tradecontent
+              theclassName="calendarhere"
               data={thefseleceted?.trades ? thefseleceted?.trades : []}
               disabledelete
             />

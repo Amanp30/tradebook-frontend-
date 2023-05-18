@@ -25,7 +25,7 @@
 }
 
 .alltradescontainer {
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: overlay;
 }
 
@@ -34,16 +34,23 @@
     overflow-wrap: anywhere;
 }
 
+
+.thetrade.tradeitems p:first-child {
+    overflow-wrap: inherit;
+}
+
 .thetrade {
     display: grid;
     /* grid-template: auto / 1fr 1fr 2fr 1fr 1fr 1fr 3fr 2fr 2fr 1fr 1fr 1fr 1fr; */
-    grid-template: auto / min(50px) min(80px) min(170px) min(190px) min(50px) min(100px) min(100px) min(80px) min(90px) min(90px) min(100px) minmax(70px, auto);
-    padding: 1em;
+    grid-template: auto / min(50px) min(80px) min(170px) min(150px) min(100px) min(100px) min(100px) min(80px) min(90px) min(90px) min(100px) min(55px);
+    padding: 6px 10px;
+    /* padding: 1em; */
     margin-bottom: .4em;
-    column-gap: 10px;
+    column-gap: 10.2px;
     align-items: center;
     /* border-radius: 5px; */
     /* border-bottom: 2px solid darkblue; */
+    width: -webkit-fill-available;
 }
 
 .thetrade:first-child {
@@ -51,7 +58,7 @@
     padding-bottom: .5em;
     padding-top: .2em;
     /* padding-right: 0; */
-    width: max-content;
+    /* width: max-content; */
 }
 
 .hoverbg {

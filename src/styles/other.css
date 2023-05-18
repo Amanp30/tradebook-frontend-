@@ -240,3 +240,7 @@ p.selected.thecustomoption {
 
     }
 }
+
+.calendarhere {
+    grid-template: auto / min(50px) min(80px) min(170px) min(150px) min(100px) min(100px) min(100px) min(80px) min(90px) min(90px) min(100px) minmax(68px, auto) !important;
+}

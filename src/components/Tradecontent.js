@@ -3,17 +3,15 @@ import { momentdate, onlytime } from "../helpers/functions";
 import { Link } from "react-router-dom";
 import { Action, Greenred, Outcome } from "./Littles";
 import "./Tradecontent.css";
-import { useParams } from "react-router-dom";
 
-const Tradecontent = ({ data, deletefunc, disabledelete }) => {
-  const { trade } = useParams();
+const Tradecontent = ({ data, deletefunc, disabledelete, theclassName }) => {
   // console.log(trade);
   // console.log(data);
 
   return (
     <>
       <div className="thebox alltradescontainer">
-        <div className="thetrade tradeitems">
+        <div className={`thetrade tradeitems ${theclassName}`}>
           <p>Action</p> <p>Outcome</p> <p>Symbol</p> <p>Entry Date</p>{" "}
           <p>Unit</p>
           <p>Open Price</p> <p>Exit Time</p> <p>Exit Price</p> <p>Timeframe</p>{" "}
@@ -24,7 +22,7 @@ const Tradecontent = ({ data, deletefunc, disabledelete }) => {
         {data.map((item) => {
           return (
             <React.Fragment key={item._id}>
-              <div className="thetrade hoverbg">
+              <div className={`thetrade hoverbg ${theclassName}`}>
                 <Action action={item.action} />
                 <Outcome text={item.outcome} />
                 <Link
@@ -46,7 +44,7 @@ const Tradecontent = ({ data, deletefunc, disabledelete }) => {
                 <Greenred number={item.returnpercent} append={"%"} />
                 <Greenred number={item.profit} numberformat />
 
-                <div className="flex">
+                <div className="flex" style={{ gap: "10px" }}>
                   <Link to={`/edit/${item._id}`}>
                     <img src="/edit.svg" style={{ width: "25px" }} />
                   </Link>

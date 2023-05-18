@@ -560,7 +560,7 @@ export const Reportselector = ({ data, hoveredIndex, setHoveredIndex }) => {
         }
         // style={{ display: reportselector ? "block" : "none" }}
       >
-        {data?.map((item) => {
+        {data?.map((item, index) => {
           const uniqueId = uuidv4();
           return (
             <React.Fragment key={uniqueId}>
@@ -571,7 +571,7 @@ export const Reportselector = ({ data, hoveredIndex, setHoveredIndex }) => {
                     : "thecustomoption"
                 }
                 onClick={(e) => {
-                  setHoveredIndex(item.sortOrderIndex);
+                  setHoveredIndex(index);
                   setreportselector(false);
                 }}
               >

@@ -70,7 +70,7 @@ function momentcalendar(date) {
 function momentdate(date) {
   const timezone = "Asia/Kolkata";
 
-  const formattedDate = moment(date).tz(timezone).format("D MMM, YYYY h:mm A");
+  const formattedDate = moment(date).tz(timezone).format("D MMM, YY h:mm A");
 
   return formattedDate;
 }
