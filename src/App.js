@@ -32,6 +32,7 @@ import Newtradingsystem from "./pages/Newtradingsystem";
 import Tradingsystem from "./pages/Tradingsystem";
 import Viewtradingsystem from "./pages/Viewtradingsystem";
 import Updatetradingsystem from "./pages/Updatetradingsystem";
+import Reportholdingtime from "./pages/Reportholdingtime";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
           <Route path="/report/weekday" element={<Reportweekday />} />
           <Route path="/report/volumes" element={<Reportvolume />} />
           <Route path="/report/hourly" element={<Reporthourly />} />
+          <Route path="/report/holding-time" element={<Reportholdingtime />} />
           <Route path="/report/calendar" element={<Reportcalendar />} />
 
           <Route path="/trading-system" element={<Tradingsystem />} />

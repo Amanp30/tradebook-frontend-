@@ -179,6 +179,13 @@ const indianStates = [
   "West Bengal",
 ];
 
+function getHourMin(number) {
+  const hours = Math.floor(number / 60);
+  const minutes = number % 60;
+  const jk = hours ? `${hours} Hour, ${minutes} Min` : `${minutes} Min`;
+  return jk;
+}
+
 export {
   getDatesForCurrentYear,
   formatNumber,
@@ -191,4 +198,5 @@ export {
   getMonthNames,
   monthNames,
   getWeekDay,
+  getHourMin,
 };

@@ -13,7 +13,7 @@ import {
   Waiting,
 } from "../components/Littles";
 import { errorhandler } from "../helpers/codehandlers";
-import { momentdate } from "../helpers/functions";
+import { getHourMin, momentdate } from "../helpers/functions";
 import useNotify from "../hooks/useNotify";
 import {
   addNewNote,
@@ -369,7 +369,11 @@ function Detailtrdae() {
 
               <div className="flex onedetail">
                 <p className="boldtext">Duration</p>
-                <p>{values.holdingperiod ? `${values.holdingperiod}` : "-"}</p>
+                <p>
+                  {values.holdingperiod
+                    ? `${getHourMin(values.holdingperiod)}`
+                    : "-"}
+                </p>
               </div>
             </div>
             <div className="detailtwo thebox thepad">

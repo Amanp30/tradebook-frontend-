@@ -169,6 +169,16 @@ export const getReport = async () => {
   }
 };
 
+export const getReportholdingtime = async () => {
+  try {
+    const response = await api.get(`/report/byholdingtime/${theuser}`);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
+
 export const getReportSymbol = async () => {
   try {
     const response = await api.get(`/report/bysymbol/${theuser}`);

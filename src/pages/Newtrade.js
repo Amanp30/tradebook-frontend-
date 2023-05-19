@@ -168,7 +168,7 @@ function Newtrade() {
     data.append("netpnl", mystock.netpnl);
     data.append("returnpercent", mystock.gainpercent);
     data.append("outcome", mystock.outcome);
-    data.append("holdingperiod", mystock.holdingPeriodhour);
+    data.append("holdingperiod", mystock.holdingPeriodminute);
     data.append("rmultiple", mystock.rmultiple);
     data.append("rrrplanned", mystock.rrrplanned);
     data.append("rmultipledifference", mystock.rmultipledifference);

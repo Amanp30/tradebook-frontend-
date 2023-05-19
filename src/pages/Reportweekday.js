@@ -1,7 +1,6 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import Chart from "../components/charts/chart";
 import Layout from "../components/Layout";
-import useNotify from "../hooks/useNotify";
 import { getReportweekday } from "../services/apiEndpoints";
 import {
   Heading,
@@ -15,16 +14,6 @@ import {
 import { getWeekDay } from "../helpers/functions";
 
 function Reportweekday() {
-  const {
-    clearnotification,
-    notifysuccess,
-    notifyerror,
-    message,
-    setnotifysuccess,
-    setmessage,
-    setnotifyerror,
-  } = useNotify();
-
   const [values, setvalues] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [showContent, setshowContent] = useState(false);
@@ -54,9 +43,9 @@ function Reportweekday() {
     }
   });
 
-  var thedayslabelarray = getWeekDay(values.labels);
+  var thedayslabelarray = getWeekDay(values?.labels);
 
-  if (showContent && !values.data.length > 0) {
+  if (showContent && !values?.data?.length > 0) {
     return (
       <>
         <Pleaseaddsomedata />
@@ -85,13 +74,7 @@ function Reportweekday() {
   if (showContent)
     return (
       <>
-        <Layout
-          message={message}
-          success={notifysuccess}
-          setsuccess={setnotifysuccess}
-          error={notifyerror}
-          seterror={setnotifyerror}
-        >
+        <Layout>
           <Heading text="Weekday Report">
             <Reportselectorformonthly
               data={values?.labels}

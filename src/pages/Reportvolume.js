@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
 import Chart from "../components/charts/chart";
 import Layout from "../components/Layout";
-import useNotify from "../hooks/useNotify";
 import { getReportvolume } from "../services/apiEndpoints";
 import {
   Heading,
@@ -14,16 +13,6 @@ import {
 } from "../components/Littles";
 
 function Reportvolume() {
-  const {
-    clearnotification,
-    notifysuccess,
-    notifyerror,
-    message,
-    setnotifysuccess,
-    setmessage,
-    setnotifyerror,
-  } = useNotify();
-
   const [values, setvalues] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [showContent, setshowContent] = useState(false);
@@ -53,7 +42,7 @@ function Reportvolume() {
     }
   });
 
-  if (showContent && !values.data.length > 0) {
+  if (showContent && !values?.data?.length > 0) {
     return (
       <>
         <Pleaseaddsomedata />
@@ -81,13 +70,7 @@ function Reportvolume() {
   if (showContent)
     return (
       <>
-        <Layout
-          message={message}
-          success={notifysuccess}
-          setsuccess={setnotifysuccess}
-          error={notifyerror}
-          seterror={setnotifyerror}
-        >
+        <Layout>
           <Heading text="Volume Report">
             <Reportselector
               data={values?.data}

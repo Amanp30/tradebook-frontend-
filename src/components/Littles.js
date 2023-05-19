@@ -566,7 +566,7 @@ export const Reportselector = ({ data, hoveredIndex, setHoveredIndex }) => {
             <React.Fragment key={uniqueId}>
               <p
                 className={
-                  hoveredIndex === item.sortOrderIndex
+                  hoveredIndex === index
                     ? "selected thecustomoption"
                     : "thecustomoption"
                 }
