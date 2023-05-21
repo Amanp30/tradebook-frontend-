@@ -1,25 +1,24 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
-import Chart from "../components/charts/chart";
-import Layout from "../components/Layout";
-import { getReportweekday } from "../services/apiEndpoints";
+import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
+import Chart from "../../components/charts/chart";
+import Layout from "../../components/Layout";
+import { getReport } from "../../services/apiEndpoints";
 import {
   Heading,
-  Pleaseaddsomedata,
   Pnltable,
-  Reportselectorformonthly,
-  Servererror,
+  Reportselector,
   Showotherdetails,
   Waiting,
-} from "../components/Littles";
-import { getWeekDay } from "../helpers/functions";
+  Servererror,
+  Pleaseaddsomedata,
+} from "../../components/Littles";
 
-function Reportweekday() {
+function Reporttimeframe() {
   const [values, setvalues] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [showContent, setshowContent] = useState(false);
 
   useEffect(() => {
-    getReportweekday()
+    getReport()
       .then((res) => {
         setvalues(res);
         console.log("from server");
@@ -31,19 +30,17 @@ function Reportweekday() {
       });
   }, []);
 
-  const timeframe = values.data?.[hoveredIndex]?.sortOrderIndex;
-  const filteredBestTrades = values?.bestTrades?.filter((theindex) => {
+  const timeframe = values?.data?.[hoveredIndex]?.sortOrderIndex;
+  const filteredBestTrades = values?.bestTrades?.filter((theindex, index) => {
     if (theindex.sortOrderIndex === timeframe) {
       return theindex;
     }
   });
-  const filteredWorstTrades = values?.worstTrades?.filter((theindex) => {
+  const filteredWorstTrades = values?.worstTrades?.filter((theindex, index) => {
     if (theindex.sortOrderIndex === timeframe) {
       return theindex;
     }
   });
-
-  var thedayslabelarray = getWeekDay(values?.labels);
 
   if (showContent && !values?.data?.length > 0) {
     return (
@@ -60,7 +57,6 @@ function Reportweekday() {
       </Layout>
     );
   }
-
   if (showContent === "servererror") {
     return (
       <>
@@ -75,34 +71,31 @@ function Reportweekday() {
     return (
       <>
         <Layout>
-          <Heading text="Weekday Report">
-            <Reportselectorformonthly
-              data={values?.labels}
+          <Heading text="Timeframe">
+            <Reportselector
+              data={values?.data}
               hoveredIndex={hoveredIndex}
               setHoveredIndex={setHoveredIndex}
-              dataof={getWeekDay}
             />
           </Heading>
           <div className="thebox thepad">
+            {" "}
             <Chart
               ytitle="PNL In RS"
               xtitle="Timeframe"
-              label={thedayslabelarray}
+              label={values.labels}
               profitandloss={values.pnlArray}
               percentarray={values.averageReturnPercent}
               color={values.color}
               tradecount={values.tradecount}
               hoveredIndex={hoveredIndex}
               setHoveredIndex={setHoveredIndex}
-              // showoptions={false}
             />
-          </div>
-
+          </div>{" "}
           <div className="thepad">
             <Showotherdetails
-              forheading="Day"
+              forheading="Timeframe"
               data={values?.data?.[hoveredIndex]}
-              themonth={thedayslabelarray?.[hoveredIndex]}
             />
             <Pnltable
               data={filteredBestTrades}
@@ -112,7 +105,7 @@ function Reportweekday() {
             />
             <Pnltable
               data={filteredWorstTrades}
-              type="Loss"
+              type="loss"
               whichone={"worstTrades"}
               headtext="Worst Trades"
             />
@@ -122,4 +115,4 @@ function Reportweekday() {
     );
 }
 
-export default Reportweekday;
+export default Reporttimeframe;

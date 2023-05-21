@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Theinput from "../components/inputs/Theinput";
+import Theinput from "../../components/inputs/Theinput";
 import axios from "axios";
-import { errorhandler } from "../helpers/codehandlers";
-import "../styles/auth.css";
-import Notification from "../components/notification/Notification";
+import { errorhandler } from "../../helpers/codehandlers";
+import "../../styles/auth.css";
+import Notification from "../../components/notification/Notification";
 import { Link } from "react-router-dom";
-import { setCookie, setLocalStorage } from "../helpers/Auth";
+import { setCookie, setLocalStorage } from "../../helpers/Auth";
 
 function Login() {
   const [email, setEmail] = useState("");

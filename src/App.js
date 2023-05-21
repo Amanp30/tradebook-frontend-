@@ -5,34 +5,38 @@ import "./styles/App.css";
 import "./styles/other.css";
 import "./styles/Colors.css";
 
+// auth
+import Login from "./pages/auth/Login";
+import Signup from "./pages/auth/Signup";
+import Resetpassword from "./pages/auth/Resetpassword";
+import Forgotpassword from "./pages/auth/Forgotpassword";
+
 import Dashboard from "./pages/Dashboard";
 import Detailtrdae from "./pages/Detailtrdae";
 import Edittrade from "./pages/Edittrade";
-import Forgotpassword from "./pages/Forgotpassword";
-import Login from "./pages/Login";
 import Newtrade from "./pages/Newtrade";
-import Resetpassword from "./pages/Resetpassword";
-import Signup from "./pages/Signup";
 import Trades from "./pages/Trades";
 import Accountdetails from "./pages/Accountdetails";
 import Instruments from "./pages/Instruments";
-import Reporttimeframe from "./pages/Reporttimeframe";
-import Reportsymbol from "./pages/Reportsymbol";
-import Reportyearly from "./pages/Reportyearly";
-import Reportmonthly from "./pages/Reportmonthly";
-import Reportweekday from "./pages/Reportweekday";
-import Reportvolume from "./pages/Reportvolume";
-import Reporthourly from "./pages/Reporthourly";
+
+// reports
+import Reporttimeframe from "./pages/report/Reporttimeframe";
+import Reportsymbol from "./pages/report/Reportsymbol";
+import Reportyearly from "./pages/report/Reportyearly";
+import Reportmonthly from "./pages/report/Reportmonthly";
+import Reportweekday from "./pages/report/Reportweekday";
+import Reportvolume from "./pages/report/Reportvolume";
+import Reporthourly from "./pages/report/Reporthourly";
+import Reportcalendar from "./pages/report/Reportcalendar";
+import Reportholdingtime from "./pages/report/Reportholdingtime";
 
 import ScrollToTop from "./components/scrollToTop";
 import MyPreviousUrls from "./components/MyPreviousUrls";
-import Reportcalendar from "./pages/Reportcalendar";
 import Notfound from "./components/Notfound";
 import Newtradingsystem from "./pages/Newtradingsystem";
 import Tradingsystem from "./pages/Tradingsystem";
 import Viewtradingsystem from "./pages/Viewtradingsystem";
 import Updatetradingsystem from "./pages/Updatetradingsystem";
-import Reportholdingtime from "./pages/Reportholdingtime";
 
 function App() {
   return (

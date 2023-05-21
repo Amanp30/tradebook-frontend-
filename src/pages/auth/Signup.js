@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import Theinput from "../components/inputs/Theinput";
+import Theinput from "../../components/inputs/Theinput";
 import axios from "axios";
-import { errorhandler } from "../helpers/codehandlers";
-import "../styles/auth.css";
-import Notification from "../components/notification/Notification";
-import { Link, useParams } from "react-router-dom";
+import { errorhandler } from "../../helpers/codehandlers";
+import "../../styles/auth.css";
+import Notification from "../../components/notification/Notification";
+import { Link } from "react-router-dom";
 
-function Resetpassword() {
-  const [password, setpassword] = useState("");
+function Signup() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [notifysuccess, setnotifysuccess] = useState(false);
   const [notifyerror, setnotifyerror] = useState(false);
   const [message, setmessage] = useState("");
-
-  const { link } = useParams();
 
   useEffect(() => {
     const html = document.querySelector("html");
@@ -31,10 +31,19 @@ function Resetpassword() {
     setmessage("");
     setLoading(true);
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
     const passwordRegex = /^.{6,}$/;
 
+    if (!emailRegex.test(email)) {
+      setmessage("Invalid email address");
+      setnotifyerror(true);
+      setLoading(false);
+      return;
+    }
+
     if (!passwordRegex.test(password)) {
-      setmessage("Password must be atleast 6 characters");
+      setmessage("Password should contain at least 6 characters");
       setnotifyerror(true);
       setLoading(false);
       return;
@@ -43,14 +52,14 @@ function Resetpassword() {
     const formData = new FormData(event.target);
 
     axios
-      .post(`${process.env.REACT_APP_API}/user/reset/${link}`, formData, {
+      .post(`${process.env.REACT_APP_API}/user/signup`, formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
-        // console.log(response.data);
+        // console.log(response);
         setnotifysuccess(true);
         setmessage(response?.data?.success);
       })
@@ -66,21 +75,29 @@ function Resetpassword() {
   return (
     <>
       <p className="logo forauth">TradeBook</p>
-      <form onSubmit={handleFormSubmit} className="thesignupform forgotpass">
-        <h2 style={{ marginBottom: ".8em" }}>Reset Password</h2>
+      <form onSubmit={handleFormSubmit} className="thesignupform">
+        <h2 style={{ marginBottom: ".8em" }}>SIGNUP</h2>
+        <Theinput
+          label="Email"
+          name="email"
+          type="text"
+          state={email}
+          setstate={setEmail}
+          className="authemail"
+        />
         <Theinput
           label="Password"
           name="password"
           type="password"
           state={password}
-          setstate={setpassword}
-          className="authemail"
-        />
+          setstate={setPassword}
+          className="authpassword"
+        ></Theinput>
         <button type="submit" className="authbtn" disabled={loading}>
-          {loading ? "Sending Email..." : "Send Email"}
+          {loading ? "Registering..." : "Register"}
         </button>
         <p className="otherp">
-          Click here to{" "}
+          Already have account{" "}
           <Link to={"/account/login"} style={{ textDecoration: "underline" }}>
             Login
           </Link>{" "}
@@ -107,8 +124,15 @@ function Resetpassword() {
         // stripe
         // mobile
       />
+      {/* <Notification
+        state={true}
+        text="Saving data"
+        saving="topleft"
+        icon
+        stripe
+      /> */}
     </>
   );
 }
 
-export default Resetpassword;
+export default Signup;

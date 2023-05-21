@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
-import Chart from "../components/charts/chart";
-import Layout from "../components/Layout";
-import { getReportholdingtime } from "../services/apiEndpoints";
+import Chart from "../../components/charts/chart";
+import Layout from "../../components/Layout";
+import { getReportvolume } from "../../services/apiEndpoints";
 import {
   Heading,
   Pnltable,
@@ -10,15 +10,15 @@ import {
   Waiting,
   Servererror,
   Pleaseaddsomedata,
-} from "../components/Littles";
+} from "../../components/Littles";
 
-function Reportholdingtime() {
+function Reportvolume() {
   const [values, setvalues] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [showContent, setshowContent] = useState(false);
 
   useEffect(() => {
-    getReportholdingtime()
+    getReportvolume()
       .then((res) => {
         setvalues(res);
         console.log("from server");
@@ -71,7 +71,7 @@ function Reportholdingtime() {
     return (
       <>
         <Layout>
-          <Heading text="Timeframe">
+          <Heading text="Volume Report">
             <Reportselector
               data={values?.data}
               hoveredIndex={hoveredIndex}
@@ -94,7 +94,7 @@ function Reportholdingtime() {
           </div>{" "}
           <div className="thepad">
             <Showotherdetails
-              forheading="Timeframe"
+              forheading="Volumes"
               data={values?.data?.[hoveredIndex]}
             />
             <Pnltable
@@ -115,4 +115,4 @@ function Reportholdingtime() {
     );
 }
 
-export default Reportholdingtime;
+export default Reportvolume;

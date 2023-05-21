@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../components/Layout";
-import { getCalenderReport } from "../services/apiEndpoints";
+import Layout from "../../components/Layout";
+import { getCalenderReport } from "../../services/apiEndpoints";
 import moment from "moment";
 import {
   formatNumber,
   getDatesForCurrentYear,
   monthNames,
-} from "../helpers/functions";
-import Tradecontent from "../components/Tradecontent";
+} from "../../helpers/functions";
+import Tradecontent from "../../components/Tradecontent";
 import {
   Calendardata,
   Heading,
@@ -15,9 +15,9 @@ import {
   Servererror,
   Thenote,
   Waiting,
-} from "../components/Littles";
+} from "../../components/Littles";
 import { v4 as uuid } from "uuid";
-import { Doughnutchart } from "../components/charts/Dougnutchart";
+import { Doughnutchart } from "../../components/charts/Dougnutchart";
 
 function Reportcalendar() {
   const [data, setData] = useState([]);
@@ -76,7 +76,7 @@ function Reportcalendar() {
         {monthNames[index]}
       </h2>
       <div>
-        {monthDates.map((date) => {
+        {monthDates?.map((date) => {
           const foundData = data?.find((d) => d._id.includes(date));
 
           return (
@@ -110,9 +110,9 @@ function Reportcalendar() {
 
   const shortDays = ["S", "M", "T", "W", "T", "F", "S"];
 
-  const days = shortDays.map((day) => <p key={uuid()}>{day}</p>);
+  const days = shortDays?.map((day) => <p key={uuid()}>{day}</p>);
 
-  if (showContent && !data.length > 0) {
+  if (showContent && !data?.length > 0) {
     return (
       <>
         <Pleaseaddsomedata />
@@ -169,7 +169,7 @@ function Reportcalendar() {
                   color: otherdata?.totalprofit > 0 ? "#1fbd06" : "red",
                 }}
               >
-                {formatNumber(otherdata.totalprofit, 2)}
+                {formatNumber(otherdata?.totalprofit, 2)}
               </p>
             </Calendardata>
             <Calendardata text="Fees Paid">
@@ -197,7 +197,7 @@ function Reportcalendar() {
                   fontSize: "2em",
                 }}
               >
-                {otherdata.tradestaken}
+                {otherdata?.tradestaken}
               </p>
             </Calendardata>{" "}
             <Calendardata
@@ -205,7 +205,7 @@ function Reportcalendar() {
               theclassName="forcalendarwinrate"
             >
               <Doughnutchart
-                chartdatas={[otherdata.winRate, otherdata.lossRate]}
+                chartdatas={[otherdata?.winRate, otherdata?.lossRate]}
                 chartlabels={["Win", "Loss"]}
                 thecutout="75%"
                 theclassName="forcalendar"
@@ -216,7 +216,7 @@ function Reportcalendar() {
           </div>
 
           <br />
-          {thefseleceted.length !== 0 ? (
+          {thefseleceted?.length !== 0 ? (
             <Tradecontent
               theclassName="calendarhere"
               data={thefseleceted?.trades ? thefseleceted?.trades : []}

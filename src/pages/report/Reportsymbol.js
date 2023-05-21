@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
-import Chart from "../components/charts/chart";
-import Layout from "../components/Layout";
-import { getReport } from "../services/apiEndpoints";
+import Chart from "../../components/charts/chart";
+import Layout from "../../components/Layout";
+import { getReportSymbol } from "../../services/apiEndpoints";
 import {
   Heading,
   Pnltable,
@@ -10,15 +10,15 @@ import {
   Waiting,
   Servererror,
   Pleaseaddsomedata,
-} from "../components/Littles";
+} from "../../components/Littles";
 
-function Reporttimeframe() {
+function Reportsymbol() {
   const [values, setvalues] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [showContent, setshowContent] = useState(false);
 
   useEffect(() => {
-    getReport()
+    getReportSymbol()
       .then((res) => {
         setvalues(res);
         console.log("from server");
@@ -31,12 +31,12 @@ function Reporttimeframe() {
   }, []);
 
   const timeframe = values.data?.[hoveredIndex]?.sortOrderIndex;
-  const filteredBestTrades = values?.bestTrades?.filter((theindex, index) => {
+  const filteredBestTrades = values?.bestTrades?.filter((theindex) => {
     if (theindex.sortOrderIndex === timeframe) {
       return theindex;
     }
   });
-  const filteredWorstTrades = values?.worstTrades?.filter((theindex, index) => {
+  const filteredWorstTrades = values?.worstTrades?.filter((theindex) => {
     if (theindex.sortOrderIndex === timeframe) {
       return theindex;
     }
@@ -71,7 +71,7 @@ function Reporttimeframe() {
     return (
       <>
         <Layout>
-          <Heading text="Timeframe">
+          <Heading text="Symbol">
             <Reportselector
               data={values?.data}
               hoveredIndex={hoveredIndex}
@@ -79,7 +79,6 @@ function Reporttimeframe() {
             />
           </Heading>
           <div className="thebox thepad">
-            {" "}
             <Chart
               ytitle="PNL In RS"
               xtitle="Timeframe"
@@ -90,11 +89,13 @@ function Reporttimeframe() {
               tradecount={values.tradecount}
               hoveredIndex={hoveredIndex}
               setHoveredIndex={setHoveredIndex}
+              // showoptions={false}
             />
-          </div>{" "}
+          </div>
+
           <div className="thepad">
             <Showotherdetails
-              forheading="Timeframe"
+              forheading="Symbol"
               data={values?.data?.[hoveredIndex]}
             />
             <Pnltable
@@ -105,7 +106,7 @@ function Reporttimeframe() {
             />
             <Pnltable
               data={filteredWorstTrades}
-              type="loss"
+              type="Loss"
               whichone={"worstTrades"}
               headtext="Worst Trades"
             />
@@ -115,4 +116,4 @@ function Reporttimeframe() {
     );
 }
 
-export default Reporttimeframe;
+export default Reportsymbol;

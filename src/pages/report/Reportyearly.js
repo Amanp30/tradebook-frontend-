@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
-import Chart from "../components/charts/chart";
-import Layout from "../components/Layout";
-import { getReportyearly } from "../services/apiEndpoints";
+import Chart from "../../components/charts/chart";
+import Layout from "../../components/Layout";
+import { getReportyearly } from "../../services/apiEndpoints";
 import {
   Heading,
   Pleaseaddsomedata,
@@ -10,7 +10,7 @@ import {
   Servererror,
   Showotherdetails,
   Waiting,
-} from "../components/Littles";
+} from "../../components/Littles";
 
 function Reportyearly() {
   const [values, setvalues] = useState(0);

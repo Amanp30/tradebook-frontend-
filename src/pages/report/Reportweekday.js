@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
-import Chart from "../components/charts/chart";
-import Layout from "../components/Layout";
-import { getReportmonthly } from "../services/apiEndpoints";
+import React, { useState, useEffect, lazy, Suspense } from "react";
+import Chart from "../../components/charts/chart";
+import Layout from "../../components/Layout";
+import { getReportweekday } from "../../services/apiEndpoints";
 import {
   Heading,
   Pleaseaddsomedata,
@@ -10,16 +10,16 @@ import {
   Servererror,
   Showotherdetails,
   Waiting,
-} from "../components/Littles";
-import { getMonthNames, getWeekDay, monthNames } from "../helpers/functions";
+} from "../../components/Littles";
+import { getWeekDay } from "../../helpers/functions";
 
-function Reportmonthly() {
+function Reportweekday() {
   const [values, setvalues] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [showContent, setshowContent] = useState(false);
 
   useEffect(() => {
-    getReportmonthly()
+    getReportweekday()
       .then((res) => {
         setvalues(res);
         console.log("from server");
@@ -43,7 +43,7 @@ function Reportmonthly() {
     }
   });
 
-  var thelabeledmontharray = getMonthNames(values?.labels);
+  var thedayslabelarray = getWeekDay(values?.labels);
 
   if (showContent && !values?.data?.length > 0) {
     return (
@@ -60,6 +60,7 @@ function Reportmonthly() {
       </Layout>
     );
   }
+
   if (showContent === "servererror") {
     return (
       <>
@@ -74,19 +75,19 @@ function Reportmonthly() {
     return (
       <>
         <Layout>
-          <Heading text="Monthly">
+          <Heading text="Weekday Report">
             <Reportselectorformonthly
               data={values?.labels}
               hoveredIndex={hoveredIndex}
               setHoveredIndex={setHoveredIndex}
-              dataof={getMonthNames}
+              dataof={getWeekDay}
             />
           </Heading>
           <div className="thebox thepad">
             <Chart
               ytitle="PNL In RS"
               xtitle="Timeframe"
-              label={thelabeledmontharray}
+              label={thedayslabelarray}
               profitandloss={values.pnlArray}
               percentarray={values.averageReturnPercent}
               color={values.color}
@@ -99,9 +100,9 @@ function Reportmonthly() {
 
           <div className="thepad">
             <Showotherdetails
-              forheading="Month"
+              forheading="Day"
               data={values?.data?.[hoveredIndex]}
-              themonth={thelabeledmontharray?.[hoveredIndex]}
+              themonth={thedayslabelarray?.[hoveredIndex]}
             />
             <Pnltable
               data={filteredBestTrades}
@@ -121,4 +122,4 @@ function Reportmonthly() {
     );
 }
 
-export default Reportmonthly;
+export default Reportweekday;

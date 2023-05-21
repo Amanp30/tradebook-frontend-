@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
-import Chart from "../components/charts/chart";
-import Layout from "../components/Layout";
-import { getReportvolume } from "../services/apiEndpoints";
+import Chart from "../../components/charts/chart";
+import Layout from "../../components/Layout";
+import { getReportholdingtime } from "../../services/apiEndpoints";
 import {
   Heading,
   Pnltable,
@@ -10,15 +10,15 @@ import {
   Waiting,
   Servererror,
   Pleaseaddsomedata,
-} from "../components/Littles";
+} from "../../components/Littles";
 
-function Reportvolume() {
+function Reportholdingtime() {
   const [values, setvalues] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [showContent, setshowContent] = useState(false);
 
   useEffect(() => {
-    getReportvolume()
+    getReportholdingtime()
       .then((res) => {
         setvalues(res);
         console.log("from server");
@@ -30,7 +30,7 @@ function Reportvolume() {
       });
   }, []);
 
-  const timeframe = values.data?.[hoveredIndex]?.sortOrderIndex;
+  const timeframe = values?.data?.[hoveredIndex]?.sortOrderIndex;
   const filteredBestTrades = values?.bestTrades?.filter((theindex, index) => {
     if (theindex.sortOrderIndex === timeframe) {
       return theindex;
@@ -71,7 +71,7 @@ function Reportvolume() {
     return (
       <>
         <Layout>
-          <Heading text="Volume Report">
+          <Heading text="Holding Time Report">
             <Reportselector
               data={values?.data}
               hoveredIndex={hoveredIndex}
@@ -94,7 +94,7 @@ function Reportvolume() {
           </div>{" "}
           <div className="thepad">
             <Showotherdetails
-              forheading="Timeframe"
+              forheading="Holding Time"
               data={values?.data?.[hoveredIndex]}
             />
             <Pnltable
@@ -115,4 +115,4 @@ function Reportvolume() {
     );
 }
 
-export default Reportvolume;
+export default Reportholdingtime;

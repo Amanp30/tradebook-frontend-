@@ -1,24 +1,25 @@
 import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
-import Chart from "../components/charts/chart";
-import Layout from "../components/Layout";
-import { getReportSymbol } from "../services/apiEndpoints";
+import Chart from "../../components/charts/chart";
+import Layout from "../../components/Layout";
+import { getReportmonthly } from "../../services/apiEndpoints";
 import {
   Heading,
+  Pleaseaddsomedata,
   Pnltable,
-  Reportselector,
+  Reportselectorformonthly,
+  Servererror,
   Showotherdetails,
   Waiting,
-  Servererror,
-  Pleaseaddsomedata,
-} from "../components/Littles";
+} from "../../components/Littles";
+import { getMonthNames, getWeekDay, monthNames } from "../../helpers/functions";
 
-function Reportsymbol() {
+function Reportmonthly() {
   const [values, setvalues] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [showContent, setshowContent] = useState(false);
 
   useEffect(() => {
-    getReportSymbol()
+    getReportmonthly()
       .then((res) => {
         setvalues(res);
         console.log("from server");
@@ -41,6 +42,8 @@ function Reportsymbol() {
       return theindex;
     }
   });
+
+  var thelabeledmontharray = getMonthNames(values?.labels);
 
   if (showContent && !values?.data?.length > 0) {
     return (
@@ -71,18 +74,19 @@ function Reportsymbol() {
     return (
       <>
         <Layout>
-          <Heading text="Symbol">
-            <Reportselector
-              data={values?.data}
+          <Heading text="Monthly">
+            <Reportselectorformonthly
+              data={values?.labels}
               hoveredIndex={hoveredIndex}
               setHoveredIndex={setHoveredIndex}
+              dataof={getMonthNames}
             />
           </Heading>
           <div className="thebox thepad">
             <Chart
               ytitle="PNL In RS"
               xtitle="Timeframe"
-              label={values.labels}
+              label={thelabeledmontharray}
               profitandloss={values.pnlArray}
               percentarray={values.averageReturnPercent}
               color={values.color}
@@ -95,8 +99,9 @@ function Reportsymbol() {
 
           <div className="thepad">
             <Showotherdetails
-              forheading="Symbol"
+              forheading="Month"
               data={values?.data?.[hoveredIndex]}
+              themonth={thelabeledmontharray?.[hoveredIndex]}
             />
             <Pnltable
               data={filteredBestTrades}
@@ -116,4 +121,4 @@ function Reportsymbol() {
     );
 }
 
-export default Reportsymbol;
+export default Reportmonthly;

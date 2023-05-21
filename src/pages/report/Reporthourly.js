@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
-import Chart from "../components/charts/chart";
-import Layout from "../components/Layout";
-import { getReporthourly } from "../services/apiEndpoints";
+import React, { useState, useEffect } from "react";
+import Chart from "../../components/charts/chart";
+import Layout from "../../components/Layout";
+import { getReporthourly } from "../../services/apiEndpoints";
 import {
   Heading,
   Pnltable,
@@ -10,7 +10,7 @@ import {
   Waiting,
   Servererror,
   Pleaseaddsomedata,
-} from "../components/Littles";
+} from "../../components/Littles";
 
 function Reporthourly() {
   const [values, setvalues] = useState(0);
