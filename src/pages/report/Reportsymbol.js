@@ -30,7 +30,7 @@ function Reportsymbol() {
       });
   }, []);
 
-  const timeframe = values.data?.[hoveredIndex]?.sortOrderIndex;
+  const timeframe = values?.data?.[hoveredIndex]?.sortOrderIndex;
   const filteredBestTrades = values?.bestTrades?.filter((theindex) => {
     if (theindex.sortOrderIndex === timeframe) {
       return theindex;

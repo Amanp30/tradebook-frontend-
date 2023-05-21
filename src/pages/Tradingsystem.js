@@ -3,15 +3,17 @@ import Layout from "../components/Layout";
 import { getTradingsystems } from "../services/apiEndpoints";
 import { Waiting, Servererror, Heading } from "../components/Littles";
 import { Link, useNavigate } from "react-router-dom";
+import { errorhandler } from "../helpers/codehandlers";
 function Tradingsystem() {
   const Navigate = useNavigate();
   const [data, setData] = useState([]);
   const [showContent, setshowContent] = useState(false);
+  const [message, setmessage] = useState(false);
 
   useEffect(() => {
     getTradingsystems()
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setData(res);
         setshowContent(true);
       })
@@ -47,7 +49,7 @@ function Tradingsystem() {
             </Link>
           </Heading>{" "}
           <div className="thefivegrid">
-            {data.map((item) => {
+            {data?.map((item) => {
               return (
                 <React.Fragment key={item._id}>
                   <div className="thebox  theinnergrid">

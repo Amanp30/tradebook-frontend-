@@ -355,11 +355,11 @@ export const Accountsettings = ({ saveFunc, btnclass }) => {
     event.preventDefault();
 
     const formDataObj = {
-      firstname: data.firstname,
-      lastname: data.lastname,
-      mobileno: data.mobileno,
-      state: data.state,
-      broker: data.broker,
+      firstname: data?.firstname,
+      lastname: data?.lastname,
+      mobileno: data?.mobileno,
+      state: data?.state,
+      broker: data?.broker,
     };
 
     saveFunc(data);
@@ -391,35 +391,35 @@ export const Accountsettings = ({ saveFunc, btnclass }) => {
               type="text"
               label="First Name"
               placeholder=""
-              state={data.firstname}
+              state={data?.firstname}
               setstate={(value) => setdata({ ...data, firstname: value })}
             />
             <Theinput
               type="text"
               label="Last Name"
               placeholder=""
-              state={data.lastname}
+              state={data?.lastname}
               setstate={(value) => setdata({ ...data, lastname: value })}
             />{" "}
             <Theinput
               type="number"
               label="Mobile"
               placeholder="8741xxx986"
-              state={data.mobileno}
+              state={data?.mobileno}
               className="holeone"
               setstate={(value) => setdata({ ...data, mobileno: value })}
             />
             <Theselect
               label="State"
               options={indianStates}
-              state={data.state}
+              state={data?.state}
               className="holeone"
               setState={(value) => setdata({ ...data, state: value })}
             />
             <Theselect
               label="Broker"
               options={["", "Upstox", "Zerodha", "Angel one"]}
-              state={data.broker}
+              state={data?.broker}
               className="holeone"
               setState={(value) => setdata({ ...data, broker: value })}
             />

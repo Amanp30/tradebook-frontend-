@@ -1,8 +1,12 @@
 const errorhandler = (error, setstate) => {
+  console.log(error);
+  alert(error);
   if (error.code === "ERR_NETWORK") {
     setstate("Network Error");
   } else if ([401, 403, 404, 405, 409, 500].includes(error?.response?.status)) {
     setstate(error?.response?.data?.message);
+  } else if (error?.response?.status == "401") {
+    setstate ? alert("asdg") : alert(56);
   } else {
     setstate(error?.message);
   }

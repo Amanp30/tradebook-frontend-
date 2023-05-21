@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import Chart from "../../components/charts/chart";
 import Layout from "../../components/Layout";
 import { getReportyearly } from "../../services/apiEndpoints";
@@ -28,7 +28,7 @@ function Reportyearly() {
       .catch((error) => setshowContent("servererror"));
   }, []);
 
-  const timeframe = values.data?.[hoveredIndex]?.sortOrderIndex;
+  const timeframe = values?.data?.[hoveredIndex]?.sortOrderIndex;
   const filteredBestTrades = values?.bestTrades?.filter((theindex) => {
     if (theindex.sortOrderIndex === timeframe) {
       return theindex;
