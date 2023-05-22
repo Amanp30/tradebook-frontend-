@@ -1,4 +1,4 @@
-import { getUserId } from "../helpers/Auth";
+import { doLogout, getUserId } from "../helpers/Auth";
 import api from "./api";
 
 const theuser = getUserId();
@@ -11,6 +11,12 @@ function apiErrorhandler(error) {
     throw new Error(error?.response?.data?.message);
   } else if (error.code === "ERR_NETWORK") {
     throw new Error("Network Error");
+  } else if (
+    error?.response?.status === 401 &&
+    error?.response?.statusText === "Unauthorized"
+  ) {
+    alert("You have to login again. We made some updates.");
+    doLogout();
   } else {
     return error;
   }

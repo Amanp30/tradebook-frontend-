@@ -22,7 +22,6 @@ function Reporthourly() {
       .then((res) => {
         setvalues(res);
         console.log("from server");
-        console.table(res);
         setshowContent(true);
       })
       .catch((error) => {

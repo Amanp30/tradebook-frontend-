@@ -1,14 +1,11 @@
-form.thesignupform {
-    min-width: 250px;
-    width: 100%;
-    max-width: 350px;
-    margin: auto;
-    position: fixed;
-    left: 50%;
-    transform: translate(-50%, 30%);
-    background: white;
-    padding: 2.6em;
+.thesignupform {
+    background: #fff;
     border-radius: 1em;
+    margin: auto;
+    max-width: 350px;
+    min-width: 250px;
+    padding: 2.6em;
+    width: 100%;
 }
 
 @media (min-width:600px) {
@@ -22,15 +19,11 @@ form.thesignupform {
     margin-bottom: 1em;
 }
 
-.thesignupform.forgotpass {
-    transform: translate(-50%, 40%);
-}
 
 .forauth {
     text-align: center;
-    margin: 0;
-    font-size: 2em;
-    transform: translateY(220%);
+    font-size: 2em !important;
+    margin: 1em 0 !important;
 }
 
 .authlinks {
