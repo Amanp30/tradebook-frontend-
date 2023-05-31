@@ -71,10 +71,6 @@ function Navbar() {
     {
       links: [
         {
-          text: "Overview",
-          link: "/overview",
-        },
-        {
           text: "Hourly",
           link: "/report/hourly",
         },

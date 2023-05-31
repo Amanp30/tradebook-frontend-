@@ -12,6 +12,7 @@ export function Doughnutchart({
   thecutout,
   theclassName,
   thefontsize,
+  thecolor = ["green", "red"],
 }) {
   const htmltheme = document.querySelector("html").classList;
   const themebtn = document.querySelector(".themebtn");
@@ -116,7 +117,7 @@ export function Doughnutchart({
     datasets: [
       {
         data: chartdatas,
-        backgroundColor: ["green", "red"],
+        backgroundColor: thecolor,
         borderColor: "transparent",
         // hoverBorderColor: ["green", "red"],
         borderWidth: 5,

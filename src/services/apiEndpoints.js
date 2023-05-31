@@ -22,6 +22,15 @@ function apiErrorhandler(error) {
   }
 }
 
+export const dashboardReport = async () => {
+  try {
+    const response = await api.get(`/trade/dashboardreports/${theuser}`);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    apiErrorhandler(error);
+  }
+};
 export const getAccountUserDetails = async () => {
   try {
     const response = await api.get(`/account/${theuser}`);
@@ -114,7 +123,7 @@ export const updateoneNote = async (tradeid, data) => {
 export const getTrades = async (currentPage) => {
   try {
     const response = await api.get(
-      `/trade/paginate/${theuser}?page=${currentPage}&per_page=5`
+      `/trade/paginate/${theuser}?page=${currentPage}&per_page=6`
     );
     return response?.data;
   } catch (error) {

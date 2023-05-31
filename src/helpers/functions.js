@@ -132,6 +132,16 @@ function getWeekDay(days) {
   return result;
 }
 
+const daysOfWeek = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
 const monthNames = [
   "January",
   "February",
@@ -197,6 +207,7 @@ export {
   momentsmall,
   getMonthNames,
   monthNames,
+  daysOfWeek,
   getWeekDay,
   getHourMin,
 };

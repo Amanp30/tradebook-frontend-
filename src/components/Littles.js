@@ -13,6 +13,7 @@ import {
 } from "../helpers/functions";
 import { v4 as uuidv4 } from "uuid";
 import Layout from "./Layout";
+import { Doughnutchart } from "./charts/Dougnutchart";
 
 export const Heading = ({ text, children, theclass }) => {
   var wrapperclasses = theclass ? theclass + " heading_comp " : "heading_comp ";
@@ -777,10 +778,10 @@ export const Showotherdetails = ({ data, forheading, themonth }) => {
           Min Return, % <span>{data?.minReturnPercent.toFixed(2)}%</span>
         </p>
         <p>
-          Win Rate <span>{data?.winRate.toFixed(2)}%</span>
+          Win Rate <span>{(data?.winRate * 100).toFixed(1)}%</span>
         </p>
         <p>
-          Loss Rate <span>{data?.lossRate.toFixed(2)}%</span>
+          Loss Rate <span>{(data?.lossRate * 100).toFixed(1)}%</span>
         </p>
         <p>
           Total PNL <span>{data?.totalPnL.toFixed(2)}</span>
@@ -818,6 +819,76 @@ export const Pleaseaddsomedata = () => {
       <Layout>
         <Notradefound />
       </Layout>
+    </>
+  );
+};
+
+export const Thegrid = ({
+  theclassname,
+  gap = "1em",
+  count,
+  size = "1fr",
+  children,
+}) => {
+  return (
+    <>
+      <div
+        className={theclassname}
+        style={{
+          display: "grid",
+          gap: "1em",
+          gridTemplateColumns: count ? `repeat(${count} , ${size})` : size,
+        }}
+      >
+        {children}
+      </div>
+    </>
+  );
+};
+
+export const Top5data = ({ theclassname, text, data, dataarray, children }) => {
+  console.log(dataarray);
+  return (
+    <>
+      <div
+        className={
+          theclassname ? theclassname + ` thebox somepad` : ` thebox somepad`
+        }
+      >
+        <h2 className="toph2" style={{ fontSize: "1em", marginBottom: "1em" }}>
+          {text}
+        </h2>
+        {data?.map((item, index) => {
+          return (
+            <div key={item?._id} className=" top5comp">
+              <div className="leftsidetop">
+                <h5>
+                  {dataarray ? dataarray?.[item?._id - 1] : item?._id} (
+                  {item?.tradecount})
+                </h5>
+                {/* <p>Trade Count {item?.tradecount}</p> */}
+                <p>Net Pnl {item?.totalnetpnl.toFixed(1)} ₹</p>
+                <p>AVG RP {item?.avgreturnpercent.toFixed(1)}%</p>
+              </div>
+              <p className="winratecss ">
+                {item?.winRate.toFixed(1)}%<span>Win Rate</span>
+              </p>
+              <Doughnutchart
+                chartdatas={[
+                  item?.winRate.toFixed(1),
+                  item?.lossRate.toFixed(1),
+                ]}
+                chartlabels={["Win", "Loss"]}
+                // thecolor={["#11009E", "#D61355"]}
+                thecutout="75%"
+                theclassName="top5doughnut"
+                thefontsize="10"
+                disabletext
+              />
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };

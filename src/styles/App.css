@@ -305,3 +305,54 @@ h1.heading {
     background: white;
     color: black;
 }
+
+
+@media (max-width:600px) {
+    .top5repogrid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1em;
+    }
+}
+
+.winratecss {
+    color: green;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4em;
+    flex-direction: column;
+}
+
+.winratecss span {
+    color: grey;
+    margin: 0;
+    margin-top: -10px;
+    font-weight: 300;
+    font-size: 10px;
+}
+
+
+.top5doughnut.dougnutresponsive {
+    width: 40px;
+}
+
+.top5comp {
+    align-items: center;
+    margin-bottom: 0.8em;
+    display: grid;
+    grid-template-columns: 2fr 1fr .4fr;
+}
+
+.leftsidetop p {
+    font-size: 12px;
+    margin: 0;
+    color: grey;
+}
+
+.somepad {
+    padding: .8em;
+    border-radius: 5px;
+}

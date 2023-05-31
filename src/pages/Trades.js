@@ -65,8 +65,22 @@ function Trades() {
   }
 
   const Paginatecomp = ({ pageCount, currentPage, pageChange }) => {
+    const maxDisplayedPages = 5; // Maximum number of pages to display
+    let startPage = currentPage - Math.floor(maxDisplayedPages / 2);
+    let endPage = currentPage + Math.floor(maxDisplayedPages / 2);
+
+    // Adjust startPage and endPage if they go beyond the valid range
+    if (startPage < 1) {
+      startPage = 1;
+      endPage = Math.min(pageCount, maxDisplayedPages);
+    }
+    if (endPage > pageCount) {
+      endPage = pageCount;
+      startPage = Math.max(1, pageCount - maxDisplayedPages + 1);
+    }
+
     const pages = [];
-    for (let index = 1; index <= pageCount; index++) {
+    for (let index = startPage; index <= endPage; index++) {
       pages.push(
         <p
           className={index === currentPage ? "selectedpage page" : "page"}
@@ -77,6 +91,7 @@ function Trades() {
         </p>
       );
     }
+
     return <div className="pagination">{pages}</div>;
   };
 

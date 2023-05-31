@@ -112,6 +112,11 @@ h4 {
     color: var(--p-color);
 }
 
+.toph2 {
+    color: var(--p-color) !important;
+
+}
+
 .profittrue,
 .percenttrue {
     background: var(--performance-bg);
