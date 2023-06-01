@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { deleteSystem, viewSystem } from "../services/apiEndpoints";
-import { Waiting, Servererror, Heading } from "../components/Littles";
 import { useNavigate, useParams } from "react-router-dom";
 import useNotify from "../hooks/useNotify";
 import { errorhandler } from "../helpers/codehandlers";
+import Errorui from "../components/Errorui";
+import { Heading } from "../components/Littles";
 function Viewtradingsystem() {
   const Navigate = useNavigate();
   const { systemid } = useParams();
@@ -53,34 +54,16 @@ function Viewtradingsystem() {
       });
   }, []);
 
-  if (showContent === false) {
-    return (
-      <Layout>
-        <Waiting />
-      </Layout>
-    );
-  }
-  if (showContent === "servererror") {
-    return (
-      <>
-        <Layout>
-          <Servererror />
-        </Layout>
-      </>
-    );
-  }
-
-  if (showContent)
-    return (
-      <>
-        <Layout
-          message={message}
-          success={notifysuccess}
-          setsuccess={setnotifysuccess}
-          error={notifyerror}
-          seterror={setnotifyerror}
-        >
-          {" "}
+  return (
+    <>
+      <Layout
+        message={message}
+        success={notifysuccess}
+        setsuccess={setnotifysuccess}
+        error={notifyerror}
+        seterror={setnotifyerror}
+      >
+        <Errorui showContent={showContent}>
           <Heading text={data?.systemname}>
             <div className="editdelgrp">
               <button
@@ -102,9 +85,10 @@ function Viewtradingsystem() {
             className="thebox thepad systemview"
             dangerouslySetInnerHTML={{ __html: data?.tradingsystem }}
           ></div>
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Viewtradingsystem;

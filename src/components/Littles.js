@@ -14,6 +14,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import Layout from "./Layout";
 import { Doughnutchart } from "./charts/Dougnutchart";
+import Errorui from "./Errorui";
 
 export const Heading = ({ text, children, theclass }) => {
   var wrapperclasses = theclass ? theclass + " heading_comp " : "heading_comp ";
@@ -130,71 +131,6 @@ export const Chartexplain = ({
           <input type="file" accept="image/*" onChange={handleimage} />
         </div>
       )}
-    </>
-  );
-};
-
-export const Waiting = () => {
-  return (
-    <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          flexDirection: "column",
-        }}
-      >
-        <Oval
-          height={80}
-          width={80}
-          color="#4fa94d"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-          ariaLabel="oval-loading"
-          secondaryColor="#4fa94d"
-          strokeWidth={10}
-          strokeWidthSecondary={4}
-        />
-        <h2>Loading...</h2>
-      </div>
-    </>
-  );
-};
-
-export const Servererror = () => {
-  return (
-    <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          flexDirection: "column",
-        }}
-      >
-        <Radio
-          visible={true}
-          height="80"
-          width="80"
-          ariaLabel="radio-loading"
-          wrapperStyle={{}}
-          wrapperClass="radio-wrapper"
-        />
-        <h2>Server Error</h2>
-        <p style={{ marginTop: "2em" }}>
-          Go to{" ->      "}
-          <Link
-            to="/"
-            style={{ textDecoration: "underline", fontWeight: "bolder" }}
-          >
-            Dashboard
-          </Link>
-        </p>
-      </div>
     </>
   );
 };
@@ -331,14 +267,14 @@ export const Notradefound = () => {
 
 export const Accountsettings = ({ saveFunc, btnclass }) => {
   const [data, setdata] = useState([]);
-  const [showcontent, setshowcontent] = useState(false);
+  const [showContent, setshowContent] = useState(false);
 
   function getData() {
     getAccountUserDetails()
       .then((response) => {
         console.log(response);
         setdata(response);
-        setshowcontent(true);
+        setshowContent(true);
       })
       .catch((error) => {
         // errorhandler(error, setmessage).then(() => {
@@ -366,20 +302,9 @@ export const Accountsettings = ({ saveFunc, btnclass }) => {
     saveFunc(data);
   };
 
-  if (showcontent === false) {
-    return <Waiting />;
-  }
-  if (showcontent === "servererror") {
-    return (
-      <>
-        <Servererror />
-      </>
-    );
-  }
-
-  if (showcontent)
-    return (
-      <>
+  return (
+    <>
+      <Errorui showContent={showContent}>
         <div className="thebox defaultpad defaultbr">
           <form
             onSubmit={handlesubmit}
@@ -432,8 +357,9 @@ export const Accountsettings = ({ saveFunc, btnclass }) => {
             </button>
           </form>
         </div>
-      </>
-    );
+      </Errorui>
+    </>
+  );
 };
 
 export const Fullwindowbackground = ({ children, className }) => {
@@ -855,14 +781,17 @@ export const Top5data = ({ theclassname, text, data, dataarray, children }) => {
           theclassname ? theclassname + ` thebox somepad` : ` thebox somepad`
         }
       >
-        <h2 className="toph2" style={{ fontSize: "1em", marginBottom: "1em" }}>
+        <h2
+          className="topheadtwo"
+          style={{ fontSize: "1em", marginBottom: "1em" }}
+        >
           {text}
         </h2>
         {data?.map((item, index) => {
           return (
             <div key={item?._id} className=" top5comp">
               <div className="leftsidetop">
-                <h5>
+                <h5 className="topheadtwo">
                   {dataarray ? dataarray?.[item?._id - 1] : item?._id} (
                   {item?.tradecount})
                 </h5>

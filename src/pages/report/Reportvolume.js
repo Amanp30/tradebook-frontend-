@@ -7,10 +7,9 @@ import {
   Pnltable,
   Reportselector,
   Showotherdetails,
-  Waiting,
-  Servererror,
   Pleaseaddsomedata,
 } from "../../components/Littles";
+import Errorui from "../../components/Errorui";
 
 function Reportvolume() {
   const [values, setvalues] = useState(0);
@@ -50,27 +49,11 @@ function Reportvolume() {
     );
   }
 
-  if (showContent === false) {
-    return (
+  return (
+    <>
       <Layout>
-        <Waiting />
-      </Layout>
-    );
-  }
-  if (showContent === "servererror") {
-    return (
-      <>
-        <Layout>
-          <Servererror />
-        </Layout>
-      </>
-    );
-  }
-
-  if (showContent)
-    return (
-      <>
-        <Layout>
+        <Errorui showContent={showContent}>
+          {" "}
           <Heading text="Volume Report">
             <Reportselector
               data={values?.data}
@@ -110,9 +93,10 @@ function Reportvolume() {
               headtext="Worst Trades"
             />
           </div>
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Reportvolume;

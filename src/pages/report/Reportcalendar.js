@@ -12,12 +12,11 @@ import {
   Calendardata,
   Heading,
   Pleaseaddsomedata,
-  Servererror,
   Thenote,
-  Waiting,
 } from "../../components/Littles";
 import { v4 as uuid } from "uuid";
 import { Doughnutchart } from "../../components/charts/Dougnutchart";
+import Errorui from "../../components/Errorui";
 
 function Reportcalendar() {
   const [data, setData] = useState([]);
@@ -120,29 +119,11 @@ function Reportcalendar() {
     );
   }
 
-  if (showContent === false) {
-    return (
+  return (
+    <>
       <Layout>
-        <Waiting />
-      </Layout>
-    );
-  }
-  if (showContent === "servererror") {
-    return (
-      <>
-        <Layout>
-          <Servererror />
-        </Layout>
-      </>
-    );
-  }
-
-  if (showContent)
-    return (
-      <>
-        <Layout>
-          <Heading text="Calendar Report"></Heading>
-
+        <Heading text="Calendar Report"></Heading>
+        <Errorui showContent={showContent}>
           <div
             style={{
               display: "flex",
@@ -227,9 +208,10 @@ function Reportcalendar() {
               <p>Select one from calendar to show trades data</p>
             </Thenote>
           )}
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Reportcalendar;

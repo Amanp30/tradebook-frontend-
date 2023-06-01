@@ -12,18 +12,13 @@ import Thedate from "../components/inputs/Date";
 import { getBroker } from "../helpers/Auth";
 import useNotify from "../hooks/useNotify";
 import { errorhandler, validateOrder } from "../helpers/codehandlers";
-import {
-  Chartexplain,
-  Formdiv,
-  Servererror,
-  Waiting,
-  Heading,
-} from "../components/Littles";
+import { Chartexplain, Formdiv, Heading } from "../components/Littles";
 import { validateSymbol } from "../helpers/functions";
 import useTrade from "../hooks/useTrade";
 import { editTradeapi, updateTradeapi } from "../services/apiEndpoints";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/exports";
+import Errorui from "../components/Errorui";
 
 function Edittrade() {
   const { tradeid } = useParams();
@@ -239,37 +234,17 @@ function Edittrade() {
   //   });
   // }, []);
 
-  if (showContent === false) {
-    return (
-      <>
-        <Layout>
-          <Waiting />
-        </Layout>
-      </>
-    );
-  }
-
-  if (showContent === "servererror") {
-    return (
-      <>
-        <Layout>
-          <Servererror />
-        </Layout>
-      </>
-    );
-  }
-
-  if (showContent)
-    return (
-      <>
-        <Layout
-          message={message}
-          success={notifysuccess}
-          setsuccess={setnotifysuccess}
-          error={notifyerror}
-          seterror={setnotifyerror}
-        >
-          {" "}
+  return (
+    <>
+      <Layout
+        message={message}
+        success={notifysuccess}
+        setsuccess={setnotifysuccess}
+        error={notifyerror}
+        seterror={setnotifyerror}
+      >
+        {" "}
+        <Errorui showContent={showContent}>
           <form
             onSubmit={handleform}
             id="theform"
@@ -446,9 +421,10 @@ function Edittrade() {
               </Formdiv>
             </div>
           </form>
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Edittrade;

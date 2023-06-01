@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux/es/exports";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import Errorui from "../components/Errorui";
 import Layout from "../components/Layout";
 import {
   Editdeleteset,
@@ -9,8 +10,6 @@ import {
   Imagezoom,
   Notesviewer,
   Outcome,
-  Servererror,
-  Waiting,
 } from "../components/Littles";
 import { errorhandler } from "../helpers/codehandlers";
 import { getHourMin, momentdate } from "../helpers/functions";
@@ -189,34 +188,16 @@ function Detailtrdae() {
       });
   }, []);
 
-  if (showContent === false) {
-    return (
-      <Layout>
-        <Waiting />
-      </Layout>
-    );
-  }
-  if (showContent === "servererror") {
-    return (
-      <>
-        <Layout>
-          <Servererror />
-        </Layout>
-      </>
-    );
-  }
-
-  console.log(values);
-  if (showContent)
-    return (
-      <>
-        <Layout
-          message={message}
-          success={notifysuccess}
-          setsuccess={setnotifysuccess}
-          error={notifyerror}
-          seterror={setnotifyerror}
-        >
+  return (
+    <>
+      <Layout
+        message={message}
+        success={notifysuccess}
+        setsuccess={setnotifysuccess}
+        error={notifyerror}
+        seterror={setnotifyerror}
+      >
+        <Errorui showContent={showContent}>
           <div
             style={{
               display: "flex",
@@ -414,9 +395,10 @@ function Detailtrdae() {
               )}
             </div>
           </div>
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Detailtrdae;

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Errorui from "../components/Errorui";
 import Theinput from "../components/inputs/Theinput";
 import Layout from "../components/Layout";
-import { Heading, Servererror, Waiting } from "../components/Littles";
+import { Heading } from "../components/Littles";
 import Texteditor from "../components/Texteditor";
 import { errorhandler } from "../helpers/codehandlers";
 import useNotify from "../hooks/useNotify";
@@ -71,34 +72,16 @@ function Updatetradingsystem() {
       });
   }, []);
 
-  if (showContent === false) {
-    return (
-      <Layout>
-        <Waiting />
-      </Layout>
-    );
-  }
-  if (showContent === "servererror") {
-    return (
-      <>
-        <Layout>
-          <Servererror />
-        </Layout>
-      </>
-    );
-  }
-
-  if (showContent)
-    return (
-      <>
-        <Layout
-          message={message}
-          success={notifysuccess}
-          setsuccess={setnotifysuccess}
-          error={notifyerror}
-          seterror={setnotifyerror}
-        >
-          {" "}
+  return (
+    <>
+      <Layout
+        message={message}
+        success={notifysuccess}
+        setsuccess={setnotifysuccess}
+        error={notifyerror}
+        seterror={setnotifyerror}
+      >
+        <Errorui showContent={showContent}>
           <Heading text="Edit System">
             <button className="primarybtn" onClick={saveTradingsystem}>
               Update
@@ -119,9 +102,10 @@ function Updatetradingsystem() {
             <br />
             <br />
           </div>
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Updatetradingsystem;

@@ -10,6 +10,7 @@ import Theinput from "../components/inputs/Theinput";
 import useNotify from "../hooks/useNotify";
 import { errorhandler } from "../helpers/codehandlers";
 import { Notradefound } from "../components/Littles";
+import Errorui from "../components/Errorui";
 
 function Popupinput({ symbol, setsymbol, saveFunction }) {
   const [newSymbol, setNewSymbol] = useState(symbol);
@@ -49,6 +50,7 @@ function Popupinput({ symbol, setsymbol, saveFunction }) {
 function Instruments() {
   const [data, setData] = useState([]);
   const [symbol, setsymbol] = useState(null);
+  const [showContent, setshowContent] = useState(false);
 
   const {
     clearnotification,
@@ -83,8 +85,11 @@ function Instruments() {
       .then((response) => {
         console.log(response);
         setData(response);
+        setshowContent(true);
       })
       .catch((error) => {
+        setshowContent("servererror");
+
         alert("Some Error occured");
       });
   }
@@ -92,8 +97,6 @@ function Instruments() {
   useEffect(() => {
     getData();
   }, []);
-
-  // const memoizedSymbol = useMemo(() => symbol, []);
 
   return (
     <div>
@@ -106,44 +109,46 @@ function Instruments() {
       >
         {" "}
         <Heading text="Symbols" />{" "}
-        <Thenote>
-          <p>
-            Do things with care. Here you can update SYMBOLS. All Symbols will
-            be updated with new name
-          </p>
-        </Thenote>
-        {data?.length !== 0 ? (
-          <div className="thefivegrid">
-            {data?.map((item) => {
-              const uniqueId = uuidv4();
-              return (
-                <React.Fragment key={uniqueId}>
-                  {
-                    <div className="theinnergrid thebox">
-                      <p>{item}</p>{" "}
-                      <img
-                        src="/edit.svg"
-                        style={{ width: "20px" }}
-                        onClick={(e) => {
-                          setsymbol(item);
-                        }}
-                      />
-                    </div>
-                  }
-                </React.Fragment>
-              );
-            })}
-          </div>
-        ) : (
-          <Notradefound />
-        )}
-        {typeof symbol === "string" && (
-          <Popupinput
-            symbol={symbol}
-            setsymbol={setsymbol}
-            saveFunction={saveData}
-          />
-        )}
+        <Errorui showContent={showContent}>
+          <Thenote>
+            <p>
+              Do things with care. Here you can update SYMBOLS. All Symbols will
+              be updated with new name
+            </p>
+          </Thenote>
+          {data?.length !== 0 ? (
+            <div className="thefivegrid">
+              {data?.map((item) => {
+                const uniqueId = uuidv4();
+                return (
+                  <React.Fragment key={uniqueId}>
+                    {
+                      <div className="theinnergrid thebox">
+                        <p>{item}</p>{" "}
+                        <img
+                          src="/edit.svg"
+                          style={{ width: "20px" }}
+                          onClick={(e) => {
+                            setsymbol(item);
+                          }}
+                        />
+                      </div>
+                    }
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          ) : (
+            <Notradefound />
+          )}
+          {typeof symbol === "string" && (
+            <Popupinput
+              symbol={symbol}
+              setsymbol={setsymbol}
+              saveFunction={saveData}
+            />
+          )}
+        </Errorui>
       </Layout>
     </div>
   );

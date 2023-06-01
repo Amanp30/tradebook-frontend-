@@ -5,13 +5,9 @@ import { deleteTrade, getTrades } from "../services/apiEndpoints";
 import useNotify from "../hooks/useNotify";
 import { errorhandler } from "../helpers/codehandlers";
 // import Notification from "../components/notification/Notification";
-import {
-  Waiting,
-  Heading,
-  Servererror,
-  Notradefound,
-} from "../components/Littles";
+import { Heading, Notradefound } from "../components/Littles";
 import Tradecontent from "../components/Tradecontent";
+import Errorui from "../components/Errorui";
 
 function Trades() {
   const {
@@ -99,38 +95,21 @@ function Trades() {
     getData(1);
   }, []);
 
-  if (showContent === false) {
-    return (
-      <Layout>
-        <Waiting />
-      </Layout>
-    );
-  }
-  if (showContent === "servererror") {
-    return (
-      <>
-        <Layout>
-          <Servererror />
-        </Layout>
-      </>
-    );
-  }
-
-  if (showContent)
-    return (
-      <>
-        <Layout
-          message={message}
-          success={notifysuccess}
-          setsuccess={setnotifysuccess}
-          error={notifyerror}
-          seterror={setnotifyerror}
-        >
-          <Heading text="Trades">
-            <Link to="/new-trade" className="primarybtn">
-              + Add Trade
-            </Link>
-          </Heading>{" "}
+  return (
+    <>
+      <Layout
+        message={message}
+        success={notifysuccess}
+        setsuccess={setnotifysuccess}
+        error={notifyerror}
+        seterror={setnotifyerror}
+      >
+        <Heading text="Trades">
+          <Link to="/new-trade" className="primarybtn">
+            + Add Trade
+          </Link>
+        </Heading>{" "}
+        <Errorui showContent={showContent}>
           {data?.length !== 0 ? (
             <>
               <Tradecontent data={data} deletefunc={(e) => deleteOne(e)} />
@@ -143,9 +122,10 @@ function Trades() {
           ) : (
             <Notradefound />
           )}
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Trades;

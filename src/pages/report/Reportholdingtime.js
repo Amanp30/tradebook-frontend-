@@ -7,10 +7,9 @@ import {
   Pnltable,
   Reportselector,
   Showotherdetails,
-  Waiting,
-  Servererror,
   Pleaseaddsomedata,
 } from "../../components/Littles";
+import Errorui from "../../components/Errorui";
 
 function Reportholdingtime() {
   const [values, setvalues] = useState(0);
@@ -50,27 +49,10 @@ function Reportholdingtime() {
     );
   }
 
-  if (showContent === false) {
-    return (
+  return (
+    <>
       <Layout>
-        <Waiting />
-      </Layout>
-    );
-  }
-  if (showContent === "servererror") {
-    return (
-      <>
-        <Layout>
-          <Servererror />
-        </Layout>
-      </>
-    );
-  }
-
-  if (showContent)
-    return (
-      <>
-        <Layout>
+        <Errorui showContent={showContent}>
           <Heading text="Holding Time Report">
             <Reportselector
               data={values?.data}
@@ -79,7 +61,6 @@ function Reportholdingtime() {
             />
           </Heading>
           <div className="thebox thepad">
-            {" "}
             <Chart
               ytitle="PNL In RS"
               xtitle="Timeframe"
@@ -110,9 +91,10 @@ function Reportholdingtime() {
               headtext="Worst Trades"
             />
           </div>
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Reportholdingtime;

@@ -7,11 +7,10 @@ import {
   Pleaseaddsomedata,
   Pnltable,
   Reportselectorformonthly,
-  Servererror,
   Showotherdetails,
-  Waiting,
 } from "../../components/Littles";
 import { getMonthNames, getWeekDay, monthNames } from "../../helpers/functions";
+import Errorui from "../../components/Errorui";
 
 function Reportmonthly() {
   const [values, setvalues] = useState(0);
@@ -53,27 +52,10 @@ function Reportmonthly() {
     );
   }
 
-  if (showContent === false) {
-    return (
+  return (
+    <>
       <Layout>
-        <Waiting />
-      </Layout>
-    );
-  }
-  if (showContent === "servererror") {
-    return (
-      <>
-        <Layout>
-          <Servererror />
-        </Layout>
-      </>
-    );
-  }
-
-  if (showContent)
-    return (
-      <>
-        <Layout>
+        <Errorui showContent={showContent}>
           <Heading text="Monthly">
             <Reportselectorformonthly
               data={values?.labels}
@@ -116,9 +98,10 @@ function Reportmonthly() {
               headtext="Worst Trades"
             />
           </div>
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Reportmonthly;

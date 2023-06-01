@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { Heading, Thegrid, Top5data } from "../components/Littles";
-import { daysOfWeek, getMonthNames, monthNames } from "../helpers/functions";
+import { daysOfWeek, monthNames } from "../helpers/functions";
 import { dashboardReport } from "../services/apiEndpoints";
+import Errorui from "../components/Errorui";
 
 function Dashboard() {
   const [data, setData] = useState([]);
@@ -16,16 +17,16 @@ function Dashboard() {
         setshowContent(true);
       })
       .catch((error) => {
-        // setshowContent("servererror");
+        setshowContent("servererror");
       });
   }, []);
-  if (showContent)
-    return (
-      <>
-        <Layout>
-          <Heading text="Dashboard" />
-          {/* {JSON.stringify(data)} */}
 
+  return (
+    <>
+      <Layout>
+        <Heading text="Dashboard" />
+        {/* {JSON.stringify(data)} */}
+        <Errorui showContent={showContent}>
           <Thegrid count="4" theclassname="top5repogrid">
             <Top5data data={data?.topsymbol} text={"Top Symbols"} />
             <Top5data
@@ -40,9 +41,10 @@ function Dashboard() {
             />
             <Top5data data={data?.topyear} text={"Top Year"} />
           </Thegrid>
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Dashboard;

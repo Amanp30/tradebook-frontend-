@@ -7,10 +7,9 @@ import {
   Pnltable,
   Reportselector,
   Showotherdetails,
-  Waiting,
-  Servererror,
   Pleaseaddsomedata,
 } from "../../components/Littles";
+import Errorui from "../../components/Errorui";
 
 function Reporttimeframe() {
   const [values, setvalues] = useState(0);
@@ -50,27 +49,10 @@ function Reporttimeframe() {
     );
   }
 
-  if (showContent === false) {
-    return (
+  return (
+    <>
       <Layout>
-        <Waiting />
-      </Layout>
-    );
-  }
-  if (showContent === "servererror") {
-    return (
-      <>
-        <Layout>
-          <Servererror />
-        </Layout>
-      </>
-    );
-  }
-
-  if (showContent)
-    return (
-      <>
-        <Layout>
+        <Errorui showContent={showContent}>
           <Heading text="Timeframe">
             <Reportselector
               data={values?.data}
@@ -110,9 +92,10 @@ function Reporttimeframe() {
               headtext="Worst Trades"
             />
           </div>
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Reporttimeframe;

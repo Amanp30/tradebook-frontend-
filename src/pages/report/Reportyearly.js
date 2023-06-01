@@ -7,10 +7,9 @@ import {
   Pleaseaddsomedata,
   Pnltable,
   Reportselector,
-  Servererror,
   Showotherdetails,
-  Waiting,
 } from "../../components/Littles";
+import Errorui from "../../components/Errorui";
 
 function Reportyearly() {
   const [values, setvalues] = useState(0);
@@ -48,27 +47,10 @@ function Reportyearly() {
     );
   }
 
-  if (showContent === false) {
-    return (
+  return (
+    <>
       <Layout>
-        <Waiting />
-      </Layout>
-    );
-  }
-  if (showContent === "servererror") {
-    return (
-      <>
-        <Layout>
-          <Servererror />
-        </Layout>
-      </>
-    );
-  }
-
-  if (showContent)
-    return (
-      <>
-        <Layout>
+        <Errorui showContent={showContent}>
           <Heading text="Yearly">
             <Reportselector
               data={values?.data}
@@ -109,9 +91,10 @@ function Reportyearly() {
               headtext="Worst Trades"
             />
           </div>
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Reportyearly;

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { getTradingsystems } from "../services/apiEndpoints";
-import { Waiting, Servererror, Heading } from "../components/Littles";
+import { Heading } from "../components/Littles";
 import { Link, useNavigate } from "react-router-dom";
 import { errorhandler } from "../helpers/codehandlers";
+import Errorui from "../components/Errorui";
 function Tradingsystem() {
   const Navigate = useNavigate();
   const [data, setData] = useState([]);
@@ -22,32 +23,15 @@ function Tradingsystem() {
       });
   }, []);
 
-  if (showContent === false) {
-    return (
+  return (
+    <>
       <Layout>
-        <Waiting />
-      </Layout>
-    );
-  }
-  if (showContent === "servererror") {
-    return (
-      <>
-        <Layout>
-          <Servererror />
-        </Layout>
-      </>
-    );
-  }
-
-  if (showContent)
-    return (
-      <>
-        <Layout>
-          <Heading text="Trading Systems">
-            <Link to="/trading-system/new" className="primarybtn">
-              + New System
-            </Link>
-          </Heading>{" "}
+        <Heading text="Trading Systems">
+          <Link to="/trading-system/new" className="primarybtn">
+            + New System
+          </Link>
+        </Heading>{" "}
+        <Errorui showContent={showContent}>
           <div className="thefivegrid">
             {data?.map((item) => {
               return (
@@ -66,9 +50,10 @@ function Tradingsystem() {
               );
             })}
           </div>
-        </Layout>
-      </>
-    );
+        </Errorui>
+      </Layout>
+    </>
+  );
 }
 
 export default Tradingsystem;
