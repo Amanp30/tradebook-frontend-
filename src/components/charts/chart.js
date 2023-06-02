@@ -137,23 +137,21 @@ function Chart({
       tooltip: {
         displayColors: false,
         enabled: true,
+        labelTextColors: ["red"],
+        title: ["oasdg"],
         callbacks: {
           label: (tooltipItem) => {
-            const trades = tradecount[tooltipItem.index];
-            return `Trades: ${tradecount[hoveredIndex]}`;
+            console.log(tooltipItem);
+            return [
+              `-- Trades: ${tradecount[tooltipItem.dataIndex]}`,
+              `-- Profit: ${profitandloss[tooltipItem.dataIndex].toFixed(2)}`,
+              `-- Avg %: ${percentarray[tooltipItem?.dataIndex]}`,
+            ];
           },
         },
       },
     },
-    // onHover: (event, chartElement) => {
-    //   //   console.log(chartElement);
-    //   if (chartElement?.length) {
-    //     const labelIndex = chartElement[0].index;
-    //     const label = labels[labelIndex];
-    //     const hoveredIndex = label ? labels.indexOf(label) : null;
-    //     setHoveredIndex(hoveredIndex);
-    //   }
-    // },
+
     onClick: (event, chartElement) => {
       if (chartElement?.length) {
         // console.log("Clicked bar data:", profitandloss[chartElement[0].index]);
