@@ -276,6 +276,8 @@ function Newtrade() {
                 placeholder="0"
                 state={quantity}
                 setstate={setquantity}
+                step={1}
+                min="1"
               />
               <Theinput
                 type="number"

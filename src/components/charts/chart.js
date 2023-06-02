@@ -138,6 +138,7 @@ function Chart({
         displayColors: false,
         enabled: true,
         labelTextColors: ["red"],
+        backgroundColor: "black",
         title: ["oasdg"],
         callbacks: {
           label: (tooltipItem) => {
@@ -145,7 +146,7 @@ function Chart({
             return [
               `-- Trades: ${tradecount[tooltipItem.dataIndex]}`,
               `-- Profit: ${profitandloss[tooltipItem.dataIndex].toFixed(2)}`,
-              `-- Avg %: ${percentarray[tooltipItem?.dataIndex]}`,
+              `-- Avg %: ${percentarray[tooltipItem?.dataIndex].toFixed(2)}`,
             ];
           },
         },

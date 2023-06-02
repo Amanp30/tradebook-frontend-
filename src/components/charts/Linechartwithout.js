@@ -92,13 +92,19 @@ function Linechartwithout({ chartdata, labelsdata }) {
       },
       tooltip: {
         enabled: true,
-        backgroundColor: "orange",
-        color: "red",
+        backgroundColor: "#000000",
+        titleColor: "white",
+        bodyColor: "white",
+        titleFont: {
+          weight: "bold",
+          textDecoration: "underline",
+        },
         callbacks: {
           label: (ctx) => {
             console.log(ctx);
-            const trades = ctx[0]?.index;
-            return "Profit " + trades;
+            var yValue = ctx?.parsed?.y;
+            const trades = ctx?.formattedValue;
+            return yValue > 0 ? " Profit: " + trades : " Loss: " + trades;
           },
         },
       },

@@ -796,8 +796,8 @@ export const Top5data = ({ theclassname, text, data, dataarray, children }) => {
                   {item?.tradecount})
                 </h5>
                 {/* <p>Trade Count {item?.tradecount}</p> */}
-                <p>Net Pnl {item?.totalnetpnl.toFixed(1)} ₹</p>
-                <p>AVG RP {item?.avgreturnpercent.toFixed(1)}%</p>
+                <p>Net Pnl {item?.totalnetpnl.toFixed(2)} ₹</p>
+                <p>AVG RP {item?.avgreturnpercent.toFixed(2)}%</p>
               </div>
               <p className="winratecss ">
                 {item?.winRate.toFixed(1)}%<span>Win Rate</span>

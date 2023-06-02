@@ -320,6 +320,7 @@ function Edittrade() {
                   setstate={(value) =>
                     setvalues({ ...values, quantity: value })
                   }
+                  step={1}
                 />
                 <Theinput
                   type="number"

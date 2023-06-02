@@ -48,11 +48,11 @@ class Stock {
   get stt() {
     /* const buyStt = (Number(this.buyamount) * 0.0025) / 100; */
     const sellStt = (Number(this.sellamount) * 0.025) / 100;
-    return Math.min(sellStt).toFixed(2);
+    return Math.floor(sellStt).toFixed(2);
   }
 
   get stampduty() {
-    const buyStampDuty = Math.min(
+    const buyStampDuty = Math.floor(
       (Number(this.buyamount) * 0.003) / 100,
       Number(this.buyamount) * (300 / 10000000)
     );
@@ -64,7 +64,7 @@ class Stock {
       ((Number(this.buyamount) + Number(this.sellamount)) *
         this.thetransactioncharges) /
       100;
-    const roundedCharges = Math.floor(charges * 100) / 100; // round down to 2 decimal places
+    const roundedCharges = Math.abs(charges * 100) / 100; // round down to 2 decimal places
     return roundedCharges.toFixed(2);
   }
 
@@ -117,7 +117,7 @@ class Stock {
   }
 
   get breakeven() {
-    return Math.min(this.totaltaxes / this._quantity).toFixed(2);
+    return Math.floor(this.totaltaxes / this._quantity).toFixed(2);
   }
 
   get othercharges() {

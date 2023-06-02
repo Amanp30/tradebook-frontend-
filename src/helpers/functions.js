@@ -70,24 +70,21 @@ function momentcalendar(date) {
 function momentdate(date) {
   const timezone = "Asia/Kolkata";
 
-  const formattedDate = moment(date).tz.guess().format("D MMM, YY h:mm A");
-  // const formattedDate = moment(date).tz(timezone).format("D MMM, YY h:mm A");
+  const formattedDate = moment(date).tz(timezone).format("D MMM, YY h:mm A");
 
   return formattedDate;
 }
 
 function momentsmall(date) {
   const timezone = "Asia/Kolkata";
-  const formattedDate = moment(date).tz.guess().format("D MMM - YY");
-  // const formattedDate = moment(date).tz(timezone).format("D MMM - YY");
+  const formattedDate = moment(date).tz(timezone).format("D MMM - YY");
   return formattedDate;
 }
 
 function onlytime(date) {
   const timezone = "Asia/Kolkata";
 
-  const formattedtime = moment(date).tz.guess().format("h:mm A");
-  // const formattedtime = moment(date).tz(timezone).format("h:mm A");
+  const formattedtime = moment(date).tz(timezone).format("h:mm A");
   // .format("D MMMM YYYY h:mm A z");
 
   return formattedtime;
