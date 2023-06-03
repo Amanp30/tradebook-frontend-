@@ -19,7 +19,7 @@ const Tradecontent = ({ data, deletefunc, disabledelete, theclassName }) => {
           <p>Return, ₹</p>
           <p></p>
         </div>
-        {data.map((item) => {
+        {data?.map((item) => {
           return (
             <React.Fragment key={item._id}>
               <div className={`thetrade hoverbg ${theclassName}`}>

@@ -26,15 +26,17 @@ function Reportcalendar() {
 
   useEffect(() => {
     getCalenderReport()
-      .then(({ result, ...otherdata }) => {
-        setData(result);
-        setotherdata(otherdata);
+      .then((response) => {
+        console.log(response);
+        setData(response.result[0].trades);
+        setotherdata(response.result[0].summary[0]);
         setshowContent(true);
       })
       .catch((error) => setshowContent("servererror"));
   }, []);
 
-  // console.log(data);
+  console.log(data);
+  console.log(otherdata);
 
   var yeararray = getDatesForCurrentYear();
 
@@ -76,7 +78,7 @@ function Reportcalendar() {
       </h2>
       <div>
         {monthDates?.map((date) => {
-          const foundData = data?.find((d) => d._id.includes(date));
+          const foundData = data?.find((d) => d?._id?.includes(date));
 
           return (
             <React.Fragment key={uuid()}>
@@ -147,10 +149,10 @@ function Reportcalendar() {
               <p
                 style={{
                   fontSize: "2em",
-                  color: otherdata?.totalprofit > 0 ? "#1fbd06" : "red",
+                  color: otherdata?.totalProfit > 0 ? "#1fbd06" : "red",
                 }}
               >
-                {formatNumber(otherdata?.totalprofit, 2)}
+                {formatNumber(otherdata?.totalProfit, 2)}
               </p>
             </Calendardata>
             <Calendardata text="Fees Paid">
@@ -159,17 +161,17 @@ function Reportcalendar() {
                   fontSize: "2em",
                 }}
               >
-                {formatNumber(otherdata?.totalfeespaid, 2)}
+                {formatNumber(otherdata?.totalFees, 2)}
               </p>
             </Calendardata>
             <Calendardata text="Net P&L">
               <p
                 style={{
                   fontSize: "2em",
-                  color: otherdata?.thenetpnl > 0 ? "#1fbd06" : "red",
+                  color: otherdata?.totalNetPnl > 0 ? "#1fbd06" : "red",
                 }}
               >
-                {formatNumber(otherdata?.thenetpnl, 2)}
+                {formatNumber(otherdata?.totalNetPnl, 2)}
               </p>
             </Calendardata>
             <Calendardata text="Trade Count">
@@ -178,7 +180,7 @@ function Reportcalendar() {
                   fontSize: "2em",
                 }}
               >
-                {otherdata?.tradestaken}
+                {otherdata?.totalTrades}
               </p>
             </Calendardata>{" "}
             <Calendardata
@@ -186,7 +188,10 @@ function Reportcalendar() {
               theclassName="forcalendarwinrate"
             >
               <Doughnutchart
-                chartdatas={[otherdata?.winRate, otherdata?.lossRate]}
+                chartdatas={[
+                  otherdata?.averageWinRate,
+                  otherdata?.averageLossRate,
+                ]}
                 chartlabels={["Win", "Loss"]}
                 thecutout="75%"
                 theclassName="forcalendar"

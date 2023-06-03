@@ -37,6 +37,7 @@ import Newtradingsystem from "./pages/Newtradingsystem";
 import Tradingsystem from "./pages/Tradingsystem";
 import Viewtradingsystem from "./pages/Viewtradingsystem";
 import Updatetradingsystem from "./pages/Updatetradingsystem";
+import Importtrades from "./pages/Importtrades";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route path="*" element={<Notfound />} />
 
           <Route path="/" element={<Dashboard />} />
+          <Route path="/import-trades" element={<Importtrades />} />
           <Route path="/trades" element={<Trades />} />
           <Route path="/new-trade" element={<Newtrade />} />
           <Route path="/edit/:tradeid" element={<Edittrade />} />

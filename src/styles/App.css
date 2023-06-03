@@ -363,3 +363,39 @@ h1.heading {
         grid-template-columns: 1fr 1fr !important;
     }
 }
+
+@media (min-width:0px) and (max-width:600px) {
+
+
+    .otheractions:has(.thereportselector) {
+        width: 100%;
+        margin: auto;
+    }
+
+    .shoprofitontop {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .shoprofitontop .thepad {
+        margin-bottom: 0;
+    }
+
+    .shoprofitontop .thepad:last-child {
+        margin-bottom: 1em;
+    }
+}
+
+.shoprofitontop {
+    display: flex;
+    gap: 1em;
+}
+
+.shoprofitontop div p:nth-child(2) {
+    font-size: 2em;
+}
+
+.shoprofitontop div p:nth-child(1) {
+    /* font-size: 2em; */
+    color: green;
+}

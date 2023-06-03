@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { Heading, Thegrid, Top5data } from "../components/Littles";
-import { daysOfWeek, monthNames } from "../helpers/functions";
+import { daysOfWeek, formatNumber, monthNames } from "../helpers/functions";
 import { dashboardReport } from "../services/apiEndpoints";
 import Errorui from "../components/Errorui";
 import Linechart from "../components/charts/Linechart";
@@ -32,9 +32,23 @@ function Dashboard() {
 
         {/* {JSON.stringify(data)} */}
         <Errorui showContent={showContent}>
+          <div className=" shoprofitontop">
+            <div className="thebox thepad">
+              <p> Profit</p>{" "}
+              <p>{formatNumber(data?.chartdata?.[0]?.totalprofit, 2)}</p>
+            </div>
+            <div className="thebox thepad">
+              <p>Fees Paid </p>
+              <p>{formatNumber(data?.chartdata?.[0]?.totalfeespaid, 2)}</p>
+            </div>
+            <div className="thebox thepad">
+              <p> Net Pnl</p>{" "}
+              <p> {formatNumber(data?.chartdata?.[0]?.totalnetpnl, 2)}</p>
+            </div>
+          </div>
           <div className="thebox thepad">
             <Linechartwithout
-              chartdata={data?.chartdata?.[0]?.netpnlarray}
+              chartdata={data?.chartdata?.[0]?.profitarray}
               labelsdata={data?.chartdata?.[0]?.symbols}
             />
           </div>

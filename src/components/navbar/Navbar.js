@@ -123,7 +123,7 @@ function Navbar() {
         },
         {
           text: "Import Trades",
-          link: "/",
+          link: "/import-trades",
         },
       ],
     },

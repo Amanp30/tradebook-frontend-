@@ -142,10 +142,15 @@ function Chart({
         title: ["oasdg"],
         callbacks: {
           label: (tooltipItem) => {
+            var tooltipY = tooltipItem?.parsed?.y;
+            var plvalue = profitandloss[tooltipItem.dataIndex].toFixed(2);
             console.log(tooltipItem);
+
             return [
               `-- Trades: ${tradecount[tooltipItem.dataIndex]}`,
-              `-- Profit: ${profitandloss[tooltipItem.dataIndex].toFixed(2)}`,
+              `${
+                tooltipY >= 0 ? "-- Profit: " + plvalue : "-- Loss: " + plvalue
+              }`,
               `-- Avg %: ${percentarray[tooltipItem?.dataIndex].toFixed(2)}`,
             ];
           },

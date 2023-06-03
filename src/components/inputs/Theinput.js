@@ -12,6 +12,8 @@ function Theinput({
   placeholder,
   className,
   children,
+  min,
+  mindate,
   step = ".05",
 }) {
   const inputRef = useRef(null);
@@ -75,6 +77,8 @@ function Theinput({
           placeholder={placeholder}
           className={`text-input theinput`}
           ref={inputRef}
+          {...(type === "number" ? { min: min ? min : "" } : {})}
+          {...(type === "date" ? { min: mindate ? mindate : "" } : {})}
           {...(type === "number" ? { step: step ? step : "" } : {})}
           disabled={disabled ? true : false}
         />
