@@ -59,38 +59,25 @@ function validateSymbol(instrument, setinstrument) {
   return false;
 }
 
-// const moment = require("moment-timezone");
+function formatWithUtcOffset(date, formatString, utcOffset) {
+  return moment(date).utcOffset(utcOffset).format(formatString);
+}
 
 function momentcalendar(date) {
-  const timezone = "Asia/Kolkata"; // +5:30 UTC offset
-  const formattedDate = moment(date).tz(timezone).format("YYYY-MM-DD");
-  return formattedDate;
+  return formatWithUtcOffset(date, "YYYY-MM-DD", 330); // +330 minutes for Asia/Kolkata
 }
 
 function momentdate(date) {
-  const timezone = "Asia/Kolkata"; // +5:30 UTC offset
-  const formattedDate = moment(date).tz(timezone).format("D MMM, YY h:mm A");
-  return formattedDate;
+  return formatWithUtcOffset(date, "D MMM, YY h:mm A", 330); // +330 minutes for Asia/Kolkata
 }
 
 function momentsmall(date) {
-  const timezone = "Asia/Kolkata"; // +5:30 UTC offset
-  const formattedDate = moment(date).tz(timezone).format("D MMM - YY");
-  return formattedDate;
+  return formatWithUtcOffset(date, "D MMM - YY", 330); // +330 minutes for Asia/Kolkata
 }
 
 function onlytime(date) {
-  const timezone = "Asia/Kolkata"; // +5:30 UTC offset
-  const formattedTime = moment(date).tz(timezone).format("h:mm A");
-  return formattedTime;
+  return formatWithUtcOffset(date, "h:mm A", 330); // +330 minutes for Asia/Kolkata
 }
-
-// Example usage:
-const now = new Date();
-console.log(momentcalendar(now));
-console.log(momentdate(now));
-console.log(momentsmall(now));
-console.log(onlytime(now));
 
 function getMonthNames(labels) {
   const monthNames = [
