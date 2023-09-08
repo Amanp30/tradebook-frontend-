@@ -64,19 +64,19 @@ function formatWithUtcOffset(date, formatString, utcOffset) {
 }
 
 function momentcalendar(date) {
-  return formatWithUtcOffset(date, "YYYY-MM-DD", 330); // +330 minutes for Asia/Kolkata
+  return formatWithUtcOffset(date, "YYYY-MM-DD", "+05:30"); // +"+05:30" minutes for Asia/Kolkata
 }
 
 function momentdate(date) {
-  return formatWithUtcOffset(date, "D MMM, YY h:mm A", 330); // +330 minutes for Asia/Kolkata
+  return formatWithUtcOffset(date, "D MMM, YY h:mm A", "+05:30"); // +"+05:30" minutes for Asia/Kolkata
 }
 
 function momentsmall(date) {
-  return formatWithUtcOffset(date, "D MMM - YY", 330); // +330 minutes for Asia/Kolkata
+  return formatWithUtcOffset(date, "D MMM - YY", "+05:30"); // +"+05:30" minutes for Asia/Kolkata
 }
 
 function onlytime(date) {
-  return formatWithUtcOffset(date, "h:mm A", 330); // +330 minutes for Asia/Kolkata
+  return formatWithUtcOffset(date, "h:mm A", "+05:30"); // +"+05:30" minutes for Asia/Kolkata
 }
 
 function getMonthNames(labels) {
