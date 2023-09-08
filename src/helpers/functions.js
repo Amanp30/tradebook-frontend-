@@ -1,4 +1,4 @@
-import moment from "moment-timezone";
+import moment from "moment";
 import { format } from "date-fns-tz";
 
 function getDatesForCurrentYear() {
