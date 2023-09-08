@@ -59,24 +59,24 @@ function validateSymbol(instrument, setinstrument) {
   return false;
 }
 
+function formatWithUtcOffset(date, formatString, utcOffset) {
+  return moment(date).utcOffset(utcOffset).format(formatString);
+}
+
 function momentcalendar(date) {
-  const formattedDate = moment(date).format("YYYY-MM-DD");
-  return formattedDate;
+  return formatWithUtcOffset(date, "YYYY-MM-DD", 330); // +330 minutes for Asia/Kolkata
 }
 
 function momentdate(date) {
-  const formattedDate = moment(date).format("D MMM, YY h:mm A");
-  return formattedDate;
+  return formatWithUtcOffset(date, "D MMM, YY h:mm A", 330); // +330 minutes for Asia/Kolkata
 }
 
 function momentsmall(date) {
-  const formattedDate = moment(date).format("D MMM - YY");
-  return formattedDate;
+  return formatWithUtcOffset(date, "D MMM - YY", 330); // +330 minutes for Asia/Kolkata
 }
 
 function onlytime(date) {
-  const formattedTime = moment(date).format("h:mm A");
-  return formattedTime;
+  return formatWithUtcOffset(date, "h:mm A", 330); // +330 minutes for Asia/Kolkata
 }
 
 function getMonthNames(labels) {
