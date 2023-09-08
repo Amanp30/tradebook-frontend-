@@ -1,4 +1,5 @@
 import moment from "moment-timezone";
+import { format } from "date-fns-tz";
 
 function getDatesForCurrentYear() {
   const year = new Date().getFullYear(); // get the current year
@@ -59,35 +60,23 @@ function validateSymbol(instrument, setinstrument) {
 }
 
 function momentcalendar(date) {
-  const timezone = "Asia/Kolkata";
-
-  const formattedDate = moment(date).tz(timezone).format("YYYY-MM-DD");
-  // .format("D MMMM YYYY h:mm A z");
-
+  const formattedDate = moment(date).format("YYYY-MM-DD");
   return formattedDate;
 }
 
 function momentdate(date) {
-  const timezone = "Asia/Kolkata";
-
-  const formattedDate = moment(date).tz(timezone).format("D MMM, YY h:mm A");
-
+  const formattedDate = moment(date).format("D MMM, YY h:mm A");
   return formattedDate;
 }
 
 function momentsmall(date) {
-  const timezone = "Asia/Kolkata";
-  const formattedDate = moment(date).tz(timezone).format("D MMM - YY");
+  const formattedDate = moment(date).format("D MMM - YY");
   return formattedDate;
 }
 
 function onlytime(date) {
-  const timezone = "Asia/Kolkata";
-
-  const formattedtime = moment(date).tz(timezone).format("h:mm A");
-  // .format("D MMMM YYYY h:mm A z");
-
-  return formattedtime;
+  const formattedTime = moment(date).format("h:mm A");
+  return formattedTime;
 }
 
 function getMonthNames(labels) {
